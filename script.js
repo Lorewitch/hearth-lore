@@ -48,53 +48,56 @@ if (quizOptions.length && quizResult && quizReset) {
 
 
 
-// === v6: чистое увеличение чертежей и циклическая карусель ===
-const planModalV6 = document.querySelector("#plan-modal");
-const planModalImageV6 = document.querySelector("#plan-modal-image");
-const planModalCloseV6 = document.querySelector(".plan-modal-close");
-const planButtonsV6 = document.querySelectorAll("[data-plan]");
 
-function closePlanModalV6() {
-  if (!planModalV6 || !planModalImageV6) return;
-  planModalV6.hidden = true;
-  planModalImageV6.src = "";
-  planModalImageV6.alt = "";
+// === v7: чертежи и карусель ===
+const planModalV7 = document.querySelector("#plan-modal");
+const planModalImageV7 = document.querySelector("#plan-modal-image");
+const planModalCloseV7 = document.querySelector(".plan-modal-close");
+const planButtonsV7 = document.querySelectorAll("[data-plan]");
+
+function closePlanModalV7() {
+  if (!planModalV7 || !planModalImageV7) return;
+  planModalV7.hidden = true;
+  planModalImageV7.src = "";
+  planModalImageV7.alt = "";
 }
 
-planButtonsV6.forEach((button) => {
+planButtonsV7.forEach((button) => {
   button.addEventListener("click", () => {
-    if (!planModalV6 || !planModalImageV6) return;
-    const planSrc = button.dataset.plan;
-    const planTitle = button.dataset.title || "Чертёж";
-    planModalImageV6.src = planSrc;
-    planModalImageV6.alt = planTitle;
-    planModalV6.hidden = false;
+    if (!planModalV7 || !planModalImageV7) return;
+    planModalImageV7.src = button.dataset.plan;
+    planModalImageV7.alt = button.dataset.title || "Чертёж этажа";
+    planModalV7.hidden = false;
   });
 });
 
-if (planModalV6) {
-  planModalV6.addEventListener("click", (event) => {
-    if (event.target === planModalV6) {
-      closePlanModalV6();
+if (planModalV7) {
+  planModalV7.addEventListener("click", (event) => {
+    // Закрывает только клик по пустому фону, не по самой картинке и не по кнопке.
+    if (event.target === planModalV7) {
+      closePlanModalV7();
     }
   });
 }
 
-if (planModalCloseV6) {
-  planModalCloseV6.addEventListener("click", closePlanModalV6);
+if (planModalCloseV7) {
+  planModalCloseV7.addEventListener("click", (event) => {
+    event.stopPropagation();
+    closePlanModalV7();
+  });
 }
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
-    closePlanModalV6();
+    closePlanModalV7();
   }
 });
 
-const residentCarouselV6 = document.querySelector("[data-resident-carousel]");
-if (residentCarouselV6) {
-  const track = residentCarouselV6.querySelector(".resident-track");
-  const dots = Array.from(residentCarouselV6.querySelectorAll(".carousel-dot"));
-  const cards = Array.from(residentCarouselV6.querySelectorAll(".resident-card"));
+const residentCarouselV7 = document.querySelector("[data-resident-carousel]");
+if (residentCarouselV7) {
+  const track = residentCarouselV7.querySelector(".resident-track");
+  const dots = Array.from(residentCarouselV7.querySelectorAll(".carousel-dot"));
+  const cards = Array.from(residentCarouselV7.querySelectorAll(".resident-card"));
   const cardsPerSlide = 3;
   const slideCount = Math.max(1, Math.ceil(cards.length / cardsPerSlide));
   let currentSlide = 0;
@@ -134,10 +137,10 @@ if (residentCarouselV6) {
     });
   });
 
-  residentCarouselV6.addEventListener("mouseenter", stopAutoCarousel);
-  residentCarouselV6.addEventListener("mouseleave", startAutoCarousel);
-  residentCarouselV6.addEventListener("focusin", stopAutoCarousel);
-  residentCarouselV6.addEventListener("focusout", startAutoCarousel);
+  residentCarouselV7.addEventListener("mouseenter", stopAutoCarousel);
+  residentCarouselV7.addEventListener("mouseleave", startAutoCarousel);
+  residentCarouselV7.addEventListener("focusin", stopAutoCarousel);
+  residentCarouselV7.addEventListener("focusout", startAutoCarousel);
 
   goToSlide(0);
   startAutoCarousel();
