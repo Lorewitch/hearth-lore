@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Маленький тест Очага: какая у вас угольность и какой котик живёт у края вашего пледа." />
   <title>Стать частью Очага</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -17,12 +18,12 @@
     </span>
   </a>
   <nav class="nav" aria-label="Основная навигация">
-      <a class="" href="index.html">Главная</a>
-      <a class="" href="index.html#floors">Чертежи</a>
-      <a class="" href="index.html#residents">Обитатели</a>
+      <a href="index.html">Главная</a>
+      <a href="index.html#floors">Чертежи</a>
+      <a href="index.html#residents">Обитатели</a>
       <a class="active" href="test.html">Стать частью Очага</a>
-      <a class="" href="crosswords.html">Игровая комната</a>
-      <a class="" href="https://lorewitch.github.io/archive/">Архив</a>
+      <a href="crosswords.html">Игровая комната</a>
+      <a href="https://lorewitch.github.io/archive/">Архив</a>
   </nav>
 </header>
 <main>
@@ -31,19 +32,27 @@
     <p class="eyebrow">ритуал принятия</p>
     <h1 class="page-title">Стать частью Очага</h1>
     <p class="lead">
-      Здесь будет твой основной тест на определение угольности котов.
-      Можно вставить ссылку на готовый тест или перенести его внутрь этой страницы.
+      Выберите, как вы входите в тёплую комнату с камином. Очаг мягко диагностирует
+      вашу угольность и выдаст первый маленький результат без внешних сервисов и iframe.
     </p>
+
     <div class="notice">
-      <h2>Место для твоего теста</h2>
-      <p>Замени эту карточку на ссылку, iframe или полноценный код теста.</p>
+      <h2>Мини-тест угольности</h2>
+      <p>Что вы сделаете первым делом, если увидите, что у камина собрались угольные котики?</p>
+      <div class="quiz-grid" aria-label="Варианты мини-теста">
+        <button class="button secondary quiz-option" type="button" data-points="1">Тихонько сяду рядом, накрою кого-нибудь пледом и буду греться.</button>
+        <button class="button secondary quiz-option" type="button" data-points="2">Проверю чайник, свечи, уют и наличие безопасного места для всех.</button>
+        <button class="button secondary quiz-option" type="button" data-points="3">Составлю протокол аномалий, назначу виновных и сохраню документ.</button>
+      </div>
+      <p class="result-card" id="quiz-result" hidden></p>
       <div class="actions">
-        <a class="button primary" href="#">Вставить ссылку на тест</a>
-        <a class="button secondary" href="index.html#residents">Посмотреть обитателей дома</a>
+        <button class="button secondary" id="quiz-reset" type="button" hidden>Пройти ещё раз</button>
+        <a class="button archive-link" href="crosswords.html">Перейти в игровую комнату</a>
       </div>
     </div>
   </section>
 </main>
 <footer class="site-footer"><p>© Тайная библиотека Лунны.</p><a href="index.html">На главную</a></footer>
+<script src="script.js"></script>
 </body>
 </html>
