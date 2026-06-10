@@ -1765,3 +1765,74 @@ h1 {
     min-width: 100% !important;
   }
 }
+
+
+/* === v10: модалка поверх шапки и блокировка прокрутки === */
+
+body.plan-modal-open {
+  overflow: hidden;
+}
+
+body.plan-modal-open .site-header {
+  filter: brightness(.45) blur(1px);
+  pointer-events: none;
+}
+
+body.plan-modal-open main,
+body.plan-modal-open footer {
+  filter: brightness(.45);
+}
+
+.plan-modal[hidden] {
+  display: none !important;
+}
+
+.plan-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: grid;
+  place-items: center;
+  padding: 2.5rem;
+  background: rgba(5, 3, 7, .84);
+  backdrop-filter: blur(10px);
+  cursor: zoom-out;
+  overscroll-behavior: contain;
+  touch-action: none;
+}
+
+.plan-modal > img {
+  width: min(96vw, 1500px);
+  height: min(90vh, 1050px);
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 24px 52px rgba(0, 0, 0, .66));
+  cursor: zoom-out;
+}
+
+.plan-modal-close {
+  position: fixed;
+  top: 1.1rem;
+  right: 1.1rem;
+  z-index: 100000;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid rgba(242, 200, 120, .34);
+  border-radius: 999px;
+  color: var(--text);
+  background: rgba(18, 11, 18, .72);
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+@media (max-width: 620px) {
+  .plan-modal {
+    padding: .75rem;
+  }
+
+  .plan-modal > img {
+    width: 98vw;
+    height: 92vh;
+  }
+}
