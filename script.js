@@ -59,23 +59,21 @@
   let savedScrollY = 0;
 
   function lockPageScroll() {
-    savedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+    const leafScroll = document.querySelector('[data-leaf-scroll]');
+    savedScrollY = leafScroll ? leafScroll.scrollTop : (window.scrollY || document.documentElement.scrollTop || 0);
     document.body.classList.add('plan-modal-open');
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${savedScrollY}px`;
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    document.body.style.width = '100%';
   }
 
   function unlockPageScroll() {
+    const leafScroll = document.querySelector('[data-leaf-scroll]');
     document.body.classList.remove('plan-modal-open');
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.left = '';
-    document.body.style.right = '';
-    document.body.style.width = '';
-    window.scrollTo(0, savedScrollY);
+    requestAnimationFrame(() => {
+      if (leafScroll) {
+        leafScroll.scrollTo({ top: savedScrollY, behavior: 'instant' });
+      } else {
+        window.scrollTo({ top: savedScrollY, behavior: 'instant' });
+      }
+    });
   }
 
   function closePlanModal() {
@@ -113,6 +111,63 @@
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closePlanModal();
   });
+
+
+  const leafScroller = document.querySelector('[data-leaf-scroll]');
+  const leafLinks = Array.from(document.querySelectorAll('[data-leaf-link]'));
+  const leafSections = leafScroller ? Array.from(leafScroller.querySelectorAll('[data-leaf]')) : [];
+
+  if (leafScroller && leafSections.length && leafLinks.length) {
+    const activateLeaf = (id) => {
+      leafLinks.forEach((link) => {
+        link.classList.toggle('active', link.dataset.leafLink === id);
+      });
+    };
+
+    const currentLeaf = () => {
+      const midpoint = leafScroller.scrollTop + leafScroller.clientHeight / 2;
+      return leafSections.reduce((closest, section) => {
+        const center = section.offsetTop + section.offsetHeight / 2;
+        const distance = Math.abs(center - midpoint);
+        return distance < closest.distance ? { id: section.id, distance } : closest;
+      }, { id: leafSections[0].id, distance: Infinity }).id;
+    };
+
+    let ticking = false;
+    leafScroller.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const id = currentLeaf();
+        activateLeaf(id);
+        if (window.location.hash !== `#${id}`) {
+          history.replaceState(null, '', `#${id}`);
+        }
+        ticking = false;
+      });
+    }, { passive: true });
+
+    leafLinks.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        const target = document.getElementById(link.dataset.leafLink);
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', `#${target.id}`);
+        activateLeaf(target.id);
+      });
+    });
+
+    const initialTarget = window.location.hash ? document.querySelector(window.location.hash) : null;
+    requestAnimationFrame(() => {
+      if (initialTarget && leafScroller.contains(initialTarget)) {
+        initialTarget.scrollIntoView({ behavior: 'instant', block: 'start' });
+        activateLeaf(initialTarget.id);
+      } else {
+        activateLeaf(currentLeaf());
+      }
+    });
+  }
 
   const carousel = document.querySelector('[data-resident-carousel]');
   if (carousel) {
