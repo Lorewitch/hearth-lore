@@ -47,97 +47,98 @@ if (quizOptions.length && quizResult && quizReset) {
 }
 
 
-// === v5: модальное окно чертежей и карусель обитателей ===
-const planModal = document.querySelector("#plan-modal");
-const planModalImage = document.querySelector("#plan-modal-image");
-const planModalTitle = document.querySelector("#plan-modal-title");
-const planModalClose = document.querySelector(".plan-modal-close");
-const planButtons = document.querySelectorAll("[data-plan]");
 
-function closePlanModal() {
-  if (!planModal) return;
-  planModal.hidden = true;
-  if (planModalImage) {
-    planModalImage.src = "";
-    planModalImage.alt = "";
-  }
+// === v6: чистое увеличение чертежей и циклическая карусель ===
+const planModalV6 = document.querySelector("#plan-modal");
+const planModalImageV6 = document.querySelector("#plan-modal-image");
+const planModalCloseV6 = document.querySelector(".plan-modal-close");
+const planButtonsV6 = document.querySelectorAll("[data-plan]");
+
+function closePlanModalV6() {
+  if (!planModalV6 || !planModalImageV6) return;
+  planModalV6.hidden = true;
+  planModalImageV6.src = "";
+  planModalImageV6.alt = "";
 }
 
-planButtons.forEach((button) => {
+planButtonsV6.forEach((button) => {
   button.addEventListener("click", () => {
-    if (!planModal || !planModalImage || !planModalTitle) return;
+    if (!planModalV6 || !planModalImageV6) return;
     const planSrc = button.dataset.plan;
     const planTitle = button.dataset.title || "Чертёж";
-    planModalImage.src = planSrc;
-    planModalImage.alt = planTitle;
-    planModalTitle.textContent = planTitle;
-    planModal.hidden = false;
+    planModalImageV6.src = planSrc;
+    planModalImageV6.alt = planTitle;
+    planModalV6.hidden = false;
   });
 });
 
-if (planModal) {
-  planModal.addEventListener("click", (event) => {
-    if (event.target === planModal) {
-      closePlanModal();
+if (planModalV6) {
+  planModalV6.addEventListener("click", (event) => {
+    if (event.target === planModalV6) {
+      closePlanModalV6();
     }
   });
 }
 
-if (planModalClose) {
-  planModalClose.addEventListener("click", closePlanModal);
+if (planModalCloseV6) {
+  planModalCloseV6.addEventListener("click", closePlanModalV6);
 }
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
-    closePlanModal();
+    closePlanModalV6();
   }
 });
 
-const residentCarousel = document.querySelector("[data-resident-carousel]");
-if (residentCarousel) {
-  const viewport = residentCarousel.querySelector(".resident-viewport");
-  const prev = residentCarousel.querySelector(".carousel-prev");
-  const next = residentCarousel.querySelector(".carousel-next");
+const residentCarouselV6 = document.querySelector("[data-resident-carousel]");
+if (residentCarouselV6) {
+  const track = residentCarouselV6.querySelector(".resident-track");
+  const dots = Array.from(residentCarouselV6.querySelectorAll(".carousel-dot"));
+  const cards = Array.from(residentCarouselV6.querySelectorAll(".resident-card"));
+  const cardsPerSlide = 3;
+  const slideCount = Math.max(1, Math.ceil(cards.length / cardsPerSlide));
+  let currentSlide = 0;
+  let timer = null;
 
-  function getStep() {
-    const firstCard = viewport?.querySelector(".resident-card");
-    if (!viewport || !firstCard) return 300;
-    const gap = 14;
-    return firstCard.getBoundingClientRect().width + gap;
+  function updateDots() {
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("active", index === currentSlide);
+    });
   }
 
-  function scrollResidents(direction = 1) {
-    if (!viewport) return;
-    const maxScroll = viewport.scrollWidth - viewport.clientWidth;
-    const step = getStep() * direction;
+  function goToSlide(index) {
+    if (!track) return;
+    currentSlide = (index + slideCount) % slideCount;
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    updateDots();
+  }
 
-    if (direction > 0 && viewport.scrollLeft >= maxScroll - 8) {
-      viewport.scrollTo({ left: 0, behavior: "smooth" });
-    } else if (direction < 0 && viewport.scrollLeft <= 8) {
-      viewport.scrollTo({ left: maxScroll, behavior: "smooth" });
-    } else {
-      viewport.scrollBy({ left: step, behavior: "smooth" });
+  function stopAutoCarousel() {
+    if (timer) {
+      window.clearInterval(timer);
+      timer = null;
     }
   }
 
-  prev?.addEventListener("click", () => scrollResidents(-1));
-  next?.addEventListener("click", () => scrollResidents(1));
+  function startAutoCarousel() {
+    stopAutoCarousel();
+    timer = window.setInterval(() => {
+      goToSlide(currentSlide + 1);
+    }, 4600);
+  }
 
-  let carouselTimer = window.setInterval(() => scrollResidents(1), 4200);
-
-  residentCarousel.addEventListener("mouseenter", () => {
-    window.clearInterval(carouselTimer);
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      goToSlide(index);
+      startAutoCarousel();
+    });
   });
 
-  residentCarousel.addEventListener("mouseleave", () => {
-    carouselTimer = window.setInterval(() => scrollResidents(1), 4200);
-  });
+  residentCarouselV6.addEventListener("mouseenter", stopAutoCarousel);
+  residentCarouselV6.addEventListener("mouseleave", startAutoCarousel);
+  residentCarouselV6.addEventListener("focusin", stopAutoCarousel);
+  residentCarouselV6.addEventListener("focusout", startAutoCarousel);
 
-  residentCarousel.addEventListener("focusin", () => {
-    window.clearInterval(carouselTimer);
-  });
-
-  residentCarousel.addEventListener("focusout", () => {
-    carouselTimer = window.setInterval(() => scrollResidents(1), 4200);
-  });
+  goToSlide(0);
+  startAutoCarousel();
 }
