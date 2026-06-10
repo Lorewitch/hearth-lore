@@ -684,3 +684,114 @@ h3 { font-size: 1.22rem; }
     gap: .25rem;
   }
 }
+
+
+/* v4: compact welcome, floor plans, coal-cat portrait */
+h1 {
+  font-size: clamp(2.55rem, 4.8vw, 4.75rem);
+  line-height: .94;
+}
+
+.hero {
+  min-height: calc(100vh - 165px);
+  padding-top: clamp(1.8rem, 4vw, 3.5rem);
+  padding-bottom: clamp(1.8rem, 4vw, 3.5rem);
+}
+
+.nav a[href*="#plans"] {
+  display: inline-flex;
+}
+
+.floor-card {
+  display: grid;
+  grid-template-columns: minmax(260px, .55fr) minmax(0, 1fr);
+  gap: 1.1rem;
+  align-items: stretch;
+}
+
+.floor-number,
+.floor-people {
+  display: none;
+}
+
+.floor-plan {
+  min-height: 220px;
+  overflow: hidden;
+  border-radius: 1.2rem;
+  border: 1px solid rgba(242, 200, 120, .22);
+  background: rgba(255, 244, 218, .06);
+}
+
+.floor-plan img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.floor-body {
+  display: grid;
+  align-content: start;
+}
+
+.floor-kicker {
+  display: inline-flex;
+  width: max-content;
+  margin-bottom: .6rem;
+  padding: .34rem .58rem;
+  border: 1px solid rgba(242, 200, 120, .22);
+  border-radius: 999px;
+  color: var(--gold);
+  background: rgba(242, 200, 120, .08);
+  font-weight: 800;
+}
+
+.plan-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .9rem;
+}
+
+.plan-gallery-card {
+  overflow: hidden;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  border-radius: 1.65rem;
+  background: linear-gradient(145deg, rgba(255, 244, 218, .085), rgba(255, 244, 218, .032));
+  box-shadow: var(--shadow);
+}
+
+.plan-gallery-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid var(--line);
+}
+
+.plan-gallery-card div {
+  padding: .9rem;
+}
+
+.wiki-photo {
+  overflow: hidden;
+  border-radius: 1.35rem;
+  border: 1px solid rgba(242, 200, 120, .22);
+  margin: 1rem 0;
+  background: rgba(255, 244, 218, .04);
+}
+
+.wiki-photo img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+@media (max-width: 1120px) {
+  .floor-card { grid-template-columns: 1fr; }
+  .floor-plan { max-height: 420px; }
+  .plan-gallery { grid-template-columns: 1fr; }
+}

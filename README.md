@@ -15,3 +15,6 @@
 ## GitHub Pages
 
 `Settings → Pages → Deploy from branch → main → /root`
+
+- `assets/plans/` — планы этажей дома
+- `assets/portraits/coal-cats.webp` — портрет угольных котиков
