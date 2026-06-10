@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Тайная библиотека Лунны: лор Очага, Реми, угольных котиков и маленьких ритуалов." />
+  <title>Тайная библиотека Лунны</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-aura" aria-hidden="true"></div>
+  <div class="embers" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="На главную">
+      <span class="brand-mark">☾</span>
+      <span>
+        <strong>Тайная библиотека Лунны</strong>
+        <small>Дом Очага, Реми и угольных котиков</small>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Основная навигация">
+      <a href="#lunna">Лунна</a>
+      <a href="#remi">Реми</a>
+      <a href="#hearth">Очаг</a>
+      <a href="#room">Игровая комната</a>
+      <a href="#archive">Полки</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section">
+      <div class="hero-copy">
+        <p class="eyebrow">архив • чай • тайные полки • угольные следы</p>
+        <h1>Дом, который снаружи меньше, чем внутри.</h1>
+        <p class="lead">
+          Здесь собраны лор Лунны, Реми и Очага, заметки из скрытой библиотеки,
+          маленькие ритуалы, тесты, кроссворды и всё, что мягко потрескивает в камине.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#room">Войти в игровую комнату</a>
+          <a class="button ghost" href="#archive">Открыть полки</a>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="Карточка библиотеки">
+        <div class="window">
+          <div class="moon"></div>
+          <div class="shelf shelf-one"></div>
+          <div class="shelf shelf-two"></div>
+          <div class="cat">
+            <span class="ear left"></span>
+            <span class="ear right"></span>
+            <span class="face">•ᴗ•</span>
+          </div>
+        </div>
+        <p>
+          Медный колокольчик звенит по-разному для каждого гостя.
+          Если пришёл с добром — дверь уже открыта.
+        </p>
+      </aside>
+    </section>
+
+    <section class="section intro-grid">
+      <article class="spell-card" id="lunna">
+        <span class="card-icon">✦</span>
+        <h2>Лунна</h2>
+        <p>
+          Лороведьма, судебный медик и хранительница дома над моргом.
+          Собирает забытые истории, пьёт чай и делает вид, что библиотека не живая.
+        </p>
+        <a href="#" class="text-link">Страница Лунны появится позже</a>
+      </article>
+
+      <article class="spell-card" id="remi">
+        <span class="card-icon">❧</span>
+        <h2>Реми</h2>
+        <p>
+          Отдельная полка для Реми: связь с Очагом, роль в истории,
+          заметки, сцены и маленькие канонные детали.
+        </p>
+        <a href="#" class="text-link">Страница Реми появится позже</a>
+      </article>
+
+      <article class="spell-card" id="hearth">
+        <span class="card-icon">♨</span>
+        <h2>Очаг</h2>
+        <p>
+          Камин, внутренний мир сообщества и место, где угольные котики
+          охраняют тепло, память и границы дома.
+        </p>
+        <a href="#" class="text-link">Страница Очага появится позже</a>
+      </article>
+    </section>
+
+    <section class="section room" id="room">
+      <div class="section-heading">
+        <p class="eyebrow">интерактивная полка</p>
+        <h2>Игровая комната Очага</h2>
+        <p>
+          Тесты, кроссворды и маленькие лорные проверки. Пока здесь стоят заглушки:
+          ссылки можно заменить на настоящие, когда перенесёшь интерактивы.
+        </p>
+      </div>
+
+      <div class="room-layout">
+        <article class="quiz-panel">
+          <div class="quiz-topline">
+            <span>🐈‍⬛</span>
+            <small>мини-тест</small>
+          </div>
+          <h3>Какая у тебя угольность кота?</h3>
+          <p id="quiz-question">Выбери, что ты сделаешь, если в Очаге внезапно погас свет.</p>
+
+          <div class="quiz-options" id="quiz-options">
+            <button data-points="1">Принесу плед и буду ждать.</button>
+            <button data-points="2">Проверю камин, свечи и чайник.</button>
+            <button data-points="3">Зашиплю на аномалию и сяду на важные документы.</button>
+          </div>
+
+          <div class="quiz-result" id="quiz-result" hidden></div>
+          <button class="button ghost small" id="quiz-reset" hidden>Пройти ещё раз</button>
+        </article>
+
+        <article class="crossword-panel">
+          <div class="panel-header">
+            <span>🧩</span>
+            <div>
+              <h3>Кроссворды</h3>
+              <p>Ссылки на внешние кроссворды или будущие встроенные страницы.</p>
+            </div>
+          </div>
+
+          <ul class="crossword-list">
+            <li><a href="#">Фонтейнские улики</a><span>скоро</span></li>
+            <li><a href="#">Ведьмин шабаш</a><span>скоро</span></li>
+            <li><a href="#">Пыльные архивы</a><span>скоро</span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section archive" id="archive">
+      <div class="section-heading">
+        <p class="eyebrow">скрытые полки</p>
+        <h2>Что будет лежать в библиотеке</h2>
+      </div>
+
+      <div class="shelves">
+        <article><h3>Канон</h3><p>Страницы персонажей, хронология, важные формулировки и устойчивые детали.</p></article>
+        <article><h3>Сцены</h3><p>Фрагменты, зарисовки, диалоги и маленькие эпизоды из жизни дома.</p></article>
+        <article><h3>Интерактивы</h3><p>Тесты, кроссворды, загадки, угольные проверки и другие игрушки Очага.</p></article>
+        <article><h3>Ссылки</h3><p>Переходы на Telegram, YouTube, архив Геншина и другие важные двери.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© Тайная библиотека Лунны. Сделано для Очага и его угольных котиков.</p>
+    <a href="#top">Наверх ↑</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
