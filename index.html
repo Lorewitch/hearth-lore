@@ -19,8 +19,7 @@
   </a>
   <nav class="nav" aria-label="Основная навигация">
       <a class="active" href="index.html">Главная</a>
-      <a class="" href="index.html#floors">Этажи</a>
-      <a class="" href="index.html#plans">Планы</a>
+      <a class="" href="index.html#floors">Чертежи</a>
       <a class="" href="index.html#residents">Обитатели</a>
       <a class="" href="test.html">Стать частью Очага</a>
       <a class="" href="crosswords.html">Игровая комната</a>
@@ -32,7 +31,7 @@
   <section class="hero section">
     <div>
       <p class="eyebrow">вы вошли в дом над моргом</p>
-      <h1>Добро пожаловать в «Мягкий корешок».</h1>
+      <h1>Добро пожаловать в «Мягкий корешок»</h1>
       <p class="lead">
         Вы попали в публичную читальню дома Лунны Шейдшадэ — судебного медика
         Фонтейна, Лороведьмы и хранительницы Библиотеки Лороведьмы. Для города это
@@ -52,15 +51,8 @@
     </div>
 
     <aside class="library-window" aria-label="Окно Библиотеки Лороведьмы">
-      <div class="window-illustration">
-        <div class="moon"></div>
-        <div class="shelf one"></div>
-        <div class="shelf two"></div>
-        <div class="shelf three"></div>
-        <div class="hearth">
-          <div class="fire"></div>
-          <div class="coal-cat">•ᴗ•</div>
-        </div>
+      <div class="scene-illustration">
+        <img src="assets/scene/soft-spine.webp" alt="Дом Лунны и медный колокольчик Мягкого корешка" loading="lazy" />
       </div>
       <p class="window-caption">
         Медный колокольчик звенит легко для обычного читателя, тепло — для
@@ -72,93 +64,73 @@
   <section class="section" id="floors">
     <div class="section-heading">
       <p class="eyebrow">что скрывается за фасадом</p>
-      <h2>Этажи дома Лороведьмы</h2>
+      <h2>Дом Лороведьмы: чертежи этажей</h2>
       <p>
-        Дом кажется меньше снаружи, чем внутри. У каждого уровня своя роль:
-        публичная читальня прикрывает архив и Библиотеку Лороведьмы, а над всем
-        этим остаётся тихая жилая часть.
+        Дом кажется меньше снаружи, чем внутри: публичная читальня прикрывает архив,
+        морг и настоящую Библиотеку Лороведьмы.
       </p>
+      <p class="shelf-hint"><em>Эта полка для тех, кто хочет рассмотреть дом как карту. Нажмите на любой чертёж, чтобы открыть его крупнее; нажмите на пустую область вокруг — чтобы закрыть.</em></p>
     </div>
 
-    <div class="floors">
-      <article class="floor-card">
-        <a class="floor-plan" href="assets/plans/floor-1.webp">
+    <div class="blueprint-grid">
+      <article class="blueprint-card tilt-left">
+        <button class="blueprint-preview" type="button" data-plan="assets/plans/floor-1.webp" data-title="1 этаж — публичная библиотека и Библиотека Лороведьмы">
           <img src="assets/plans/floor-1.webp" alt="План первого этажа дома Лунны" loading="lazy" />
-        </a>
-        <div class="floor-body">
+        </button>
+        <div class="blueprint-body">
           <span class="floor-kicker">1 этаж</span>
           <h3>Публичная библиотека и скрытая Библиотека Лороведьмы</h3>
           <p>
-            С улицы это уютная фонтейнская читальня и книжная лавка: ресепшен
-            Элиан, витрина, детективы, чай, закладки, “дело месяца” и обычные книги.
-            За служебной дверью начинаются архив улик, тайные полки, рабочее место
-            Лунны, зона чаепитий и камин-Очаг с угольными котиками.
+            Ресепшен Элиан, книжная лавка, читальный зал, архив улик, рабочее место Лунны,
+            зона чаепитий и камин-Очаг с угольными котиками.
           </p>
           <div class="floor-tags">
-            <span>стойка Элиан</span><span>читальный зал</span><span>архив улик</span><span>Очаг</span><span>Альтер</span><span>магические книги</span>
+            <span>Элиан</span><span>Лунна</span><span>Очаг</span><span>Альтер</span><span>угольные котики</span>
           </div>
         </div>
       </article>
 
-      <article class="floor-card">
-        <a class="floor-plan" href="assets/plans/floor-2.webp">
+      <article class="blueprint-card tilt-right">
+        <button class="blueprint-preview" type="button" data-plan="assets/plans/floor-2.webp" data-title="2 этаж — жилая часть">
           <img src="assets/plans/floor-2.webp" alt="План второго этажа дома Лунны" loading="lazy" />
-        </a>
-        <div class="floor-body">
+        </button>
+        <div class="blueprint-body">
           <span class="floor-kicker">2 этаж</span>
           <h3>Жилая часть</h3>
           <p>
-            Тихий верхний уровень дома: комнаты Лунны и Ланы, лестничная площадка,
-            ванная и всё, что превращает странный дом над моргом в настоящее место покоя.
-            Здесь меньше магии напоказ и больше тёплой повседневности.
+            Комнаты Лунны и Ланы, лестничная площадка, ванная и тихая повседневность,
+            благодаря которой странный дом над моргом остаётся домом.
           </p>
           <div class="floor-tags">
-            <span>комната Лунны</span><span>комната Ланы</span><span>тишина</span><span>дом</span>
+            <span>Лунна</span><span>Лана</span><span>дом</span><span>тишина</span>
           </div>
         </div>
       </article>
 
-      <article class="floor-card">
-        <a class="floor-plan" href="assets/plans/floor-minus-1.webp">
+      <article class="blueprint-card tilt-left-small">
+        <button class="blueprint-preview" type="button" data-plan="assets/plans/floor-minus-1.webp" data-title="−1 этаж — морг">
           <img src="assets/plans/floor-minus-1.webp" alt="План минус первого этажа дома Лунны" loading="lazy" />
-        </a>
-        <div class="floor-body">
+        </button>
+        <div class="blueprint-body">
           <span class="floor-kicker">−1 этаж</span>
           <h3>Морг</h3>
           <p>
-            Нижний уровень связан с судебной работой: секционные столы, холодильные
-            камеры, рабочие шкафы, оборудование, служебный лифт и закрытая часть,
-            куда не попадают случайные посетители. Здесь мёртвые получают голос
-            через доказательства.
+            Секционные столы, холодильные камеры, служебный лифт, оборудование и закрытая
+            рабочая часть, где мёртвые получают голос через доказательства.
           </p>
           <div class="floor-tags">
-            <span>морг</span><span>секционные столы</span><span>холодильные камеры</span><span>улики</span><span>работа Ланы</span>
+            <span>Лунна</span><span>Лана</span><span>улики</span><span>судебная работа</span>
           </div>
         </div>
       </article>
     </div>
-  </section>
 
-  <section class="section" id="plans">
-    <div class="section-heading">
-      <p class="eyebrow">чертежи дома</p>
-      <h2>Планы этажей</h2>
-      <p>Нажмите на план, чтобы открыть его крупнее. Это отдельная полка для тех, кто хочет рассмотреть дом как карту.</p>
-    </div>
-
-    <div class="plan-gallery">
-      <a class="plan-gallery-card" href="assets/plans/floor-1.webp">
-        <img src="assets/plans/floor-1.webp" alt="Первый этаж" loading="lazy" />
-        <div><h3>1 этаж</h3><p>Публичная часть, Библиотека Лороведьмы, архив и служебный лифт.</p></div>
-      </a>
-      <a class="plan-gallery-card" href="assets/plans/floor-2.webp">
-        <img src="assets/plans/floor-2.webp" alt="Второй этаж" loading="lazy" />
-        <div><h3>2 этаж</h3><p>Жилая часть Лунны и Ланы.</p></div>
-      </a>
-      <a class="plan-gallery-card" href="assets/plans/floor-minus-1.webp">
-        <img src="assets/plans/floor-minus-1.webp" alt="Минус первый этаж" loading="lazy" />
-        <div><h3>−1 этаж</h3><p>Морг, холодильные камеры, служебный лифт и рабочие зоны.</p></div>
-      </a>
+    <div class="plan-modal" id="plan-modal" hidden>
+      <div class="plan-modal-dialog" role="dialog" aria-modal="true" aria-label="Крупный чертёж этажа">
+        <button class="plan-modal-close" type="button" aria-label="Закрыть чертёж">×</button>
+        <h3 id="plan-modal-title">Чертёж</h3>
+        <img id="plan-modal-image" src="" alt="" />
+      </div>
     </div>
   </section>
 
@@ -169,8 +141,11 @@
       <p>Здесь будут страницы в стиле вики: лор, факты, заметки, портреты и маленькие “фото” из жизни дома.</p>
     </div>
 
-    <div class="residents">
-      <a class="resident-card" href="pages/lunna.html">
+    <div class="resident-carousel" data-resident-carousel>
+      <button class="carousel-button carousel-prev" type="button" aria-label="Предыдущие обитатели">‹</button>
+      <div class="resident-viewport">
+        <div class="residents resident-track">
+          <a class="resident-card" href="pages/lunna.html">
         <div class="portrait"><img src="assets/portraits/lunna.webp" alt="Портрет Лунны Шейдшадэ" loading="lazy" /></div>
         <h3>Лунна</h3>
         <span class="role">хозяйка дома</span>
@@ -206,6 +181,9 @@
         <span class="role">библиотекарша “Мягкого корешка”</span>
         <p>Профессионал фасада, защитница нормальности и хранительница стойки.</p>
       </a>
+        </div>
+      </div>
+      <button class="carousel-button carousel-next" type="button" aria-label="Следующие обитатели">›</button>
     </div>
   </section>
 </main>

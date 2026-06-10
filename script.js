@@ -45,3 +45,99 @@ if (quizOptions.length && quizResult && quizReset) {
     });
   });
 }
+
+
+// === v5: модальное окно чертежей и карусель обитателей ===
+const planModal = document.querySelector("#plan-modal");
+const planModalImage = document.querySelector("#plan-modal-image");
+const planModalTitle = document.querySelector("#plan-modal-title");
+const planModalClose = document.querySelector(".plan-modal-close");
+const planButtons = document.querySelectorAll("[data-plan]");
+
+function closePlanModal() {
+  if (!planModal) return;
+  planModal.hidden = true;
+  if (planModalImage) {
+    planModalImage.src = "";
+    planModalImage.alt = "";
+  }
+}
+
+planButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    if (!planModal || !planModalImage || !planModalTitle) return;
+    const planSrc = button.dataset.plan;
+    const planTitle = button.dataset.title || "Чертёж";
+    planModalImage.src = planSrc;
+    planModalImage.alt = planTitle;
+    planModalTitle.textContent = planTitle;
+    planModal.hidden = false;
+  });
+});
+
+if (planModal) {
+  planModal.addEventListener("click", (event) => {
+    if (event.target === planModal) {
+      closePlanModal();
+    }
+  });
+}
+
+if (planModalClose) {
+  planModalClose.addEventListener("click", closePlanModal);
+}
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closePlanModal();
+  }
+});
+
+const residentCarousel = document.querySelector("[data-resident-carousel]");
+if (residentCarousel) {
+  const viewport = residentCarousel.querySelector(".resident-viewport");
+  const prev = residentCarousel.querySelector(".carousel-prev");
+  const next = residentCarousel.querySelector(".carousel-next");
+
+  function getStep() {
+    const firstCard = viewport?.querySelector(".resident-card");
+    if (!viewport || !firstCard) return 300;
+    const gap = 14;
+    return firstCard.getBoundingClientRect().width + gap;
+  }
+
+  function scrollResidents(direction = 1) {
+    if (!viewport) return;
+    const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+    const step = getStep() * direction;
+
+    if (direction > 0 && viewport.scrollLeft >= maxScroll - 8) {
+      viewport.scrollTo({ left: 0, behavior: "smooth" });
+    } else if (direction < 0 && viewport.scrollLeft <= 8) {
+      viewport.scrollTo({ left: maxScroll, behavior: "smooth" });
+    } else {
+      viewport.scrollBy({ left: step, behavior: "smooth" });
+    }
+  }
+
+  prev?.addEventListener("click", () => scrollResidents(-1));
+  next?.addEventListener("click", () => scrollResidents(1));
+
+  let carouselTimer = window.setInterval(() => scrollResidents(1), 4200);
+
+  residentCarousel.addEventListener("mouseenter", () => {
+    window.clearInterval(carouselTimer);
+  });
+
+  residentCarousel.addEventListener("mouseleave", () => {
+    carouselTimer = window.setInterval(() => scrollResidents(1), 4200);
+  });
+
+  residentCarousel.addEventListener("focusin", () => {
+    window.clearInterval(carouselTimer);
+  });
+
+  residentCarousel.addEventListener("focusout", () => {
+    carouselTimer = window.setInterval(() => scrollResidents(1), 4200);
+  });
+}
