@@ -56,16 +56,26 @@
   const planModalImage = document.querySelector('#plan-modal-image');
   const planModalClose = document.querySelector('.plan-modal-close');
   const planButtons = document.querySelectorAll('[data-plan]');
-  let lastFocusedElement = null;
+  let savedScrollY = 0;
 
-  function openPlanModal(button) {
-    if (!planModal || !planModalImage) return;
-    lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    planModalImage.src = button.dataset.plan;
-    planModalImage.alt = button.dataset.title || 'Чертёж этажа';
-    planModal.hidden = false;
+  function lockPageScroll() {
+    savedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
     document.body.classList.add('plan-modal-open');
-    planModalClose?.focus({ preventScroll: true });
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${savedScrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+  }
+
+  function unlockPageScroll() {
+    document.body.classList.remove('plan-modal-open');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    window.scrollTo(0, savedScrollY);
   }
 
   function closePlanModal() {
@@ -73,20 +83,27 @@
     planModal.hidden = true;
     planModalImage.removeAttribute('src');
     planModalImage.alt = '';
-    document.body.classList.remove('plan-modal-open');
-    lastFocusedElement?.focus({ preventScroll: true });
+    unlockPageScroll();
   }
 
   planButtons.forEach((button) => {
-    button.addEventListener('click', () => openPlanModal(button));
+    button.addEventListener('click', () => {
+      if (!planModal || !planModalImage) return;
+      planModalImage.src = button.dataset.plan;
+      planModalImage.alt = button.dataset.title || 'Чертёж этажа';
+      planModal.hidden = false;
+      lockPageScroll();
+    });
   });
 
   if (planModal) {
-    planModal.addEventListener('click', (event) => {
-      if (event.target === planModal) closePlanModal();
-    });
+    planModal.addEventListener('click', closePlanModal);
     planModal.addEventListener('wheel', (event) => event.preventDefault(), { passive: false });
     planModal.addEventListener('touchmove', (event) => event.preventDefault(), { passive: false });
+  }
+
+  if (planModalImage) {
+    planModalImage.addEventListener('click', closePlanModal);
   }
 
   if (planModalClose) {
@@ -96,50 +113,6 @@
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closePlanModal();
   });
-
-  const homeScroller = document.querySelector('.leaf-main');
-  const pageLinks = Array.from(document.querySelectorAll('[data-page-link]'));
-  const leafSections = Array.from(document.querySelectorAll('[data-page]'));
-
-  function setActivePage(pageId) {
-    pageLinks.forEach((link) => {
-      link.classList.toggle('active', link.dataset.pageLink === pageId);
-    });
-  }
-
-  if (homeScroller && leafSections.length && pageLinks.length) {
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible?.target?.dataset?.page) setActivePage(visible.target.dataset.page);
-    }, {
-      root: homeScroller,
-      threshold: [0.42, 0.62, 0.82]
-    });
-
-    leafSections.forEach((section) => observer.observe(section));
-
-    pageLinks.forEach((link) => {
-      link.addEventListener('click', (event) => {
-        const pageId = link.dataset.pageLink;
-        const target = pageId ? document.getElementById(pageId) : null;
-        if (!target) return;
-        event.preventDefault();
-        setActivePage(pageId);
-        target.scrollIntoView({ block: 'start', behavior: 'smooth' });
-        window.history.replaceState(null, '', `#${pageId}`);
-      });
-    });
-
-    window.addEventListener('load', () => {
-      const hash = window.location.hash.replace('#', '');
-      const target = hash && document.getElementById(hash);
-      if (target) {
-        requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
-      }
-    });
-  }
 
   const carousel = document.querySelector('[data-resident-carousel]');
   if (carousel) {
