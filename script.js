@@ -1,4 +1,4 @@
-const quizOptions = document.querySelectorAll("#quiz-options button");
+const quizOptions = document.querySelectorAll("[data-points]");
 const quizResult = document.querySelector("#quiz-result");
 const quizReset = document.querySelector("#quiz-reset");
 
@@ -17,29 +17,31 @@ const results = {
   }
 };
 
-quizOptions.forEach((button) => {
-  button.addEventListener("click", () => {
-    const points = Number(button.dataset.points);
-    const result = results[points];
+if (quizOptions.length && quizResult && quizReset) {
+  quizOptions.forEach((button) => {
+    button.addEventListener("click", () => {
+      const points = Number(button.dataset.points);
+      const result = results[points];
 
-    quizResult.hidden = false;
-    quizReset.hidden = false;
-    quizResult.innerHTML = `<strong>${result.title}</strong><br>${result.text}`;
+      quizResult.hidden = false;
+      quizReset.hidden = false;
+      quizResult.innerHTML = `<strong>${result.title}</strong><br>${result.text}`;
 
-    quizOptions.forEach((item) => {
-      item.disabled = true;
-      item.style.opacity = item === button ? "1" : "0.55";
+      quizOptions.forEach((item) => {
+        item.disabled = true;
+        item.style.opacity = item === button ? "1" : "0.55";
+      });
     });
   });
-});
 
-quizReset.addEventListener("click", () => {
-  quizResult.hidden = true;
-  quizReset.hidden = true;
-  quizResult.innerHTML = "";
+  quizReset.addEventListener("click", () => {
+    quizResult.hidden = true;
+    quizReset.hidden = true;
+    quizResult.innerHTML = "";
 
-  quizOptions.forEach((item) => {
-    item.disabled = false;
-    item.style.opacity = "1";
+    quizOptions.forEach((item) => {
+      item.disabled = false;
+      item.style.opacity = "1";
+    });
   });
-});
+}
