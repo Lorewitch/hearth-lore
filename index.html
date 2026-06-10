@@ -3,49 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Дом Лороведьмы Лунны Шейдшадэ: Библиотека Лороведьмы, Очаг, Реми, угольные котики и игровые интерактивы." />
+  <meta name="description" content="Дом Лороведьмы Лунны Шейдшадэ: Мягкий корешок, чертежи дома, обитатели Очага и архив Лороведьмы." />
   <title>Тайная библиотека Лунны</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="home-page">
 <div class="embers" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
-<header class="site-header" id="top">
-  <a class="brand" href="index.html#welcome" aria-label="К первому листу">
-    <span class="brand-mark">☾</span>
-    <span>
-      <strong>Тайная библиотека Лунны</strong>
-      <small>Дом Очага, Реми и угольных котиков</small>
-    </span>
-  </a>
-  <nav class="nav" aria-label="Внутренние комнаты">
-      <a href="test.html">Стать частью Очага</a>
-      <a href="crosswords.html">Игровая комната</a>
-      <a href="https://lorewitch.github.io/archive/">Архив</a>
-  </nav>
-</header>
 
-<nav class="page-rail" aria-label="Нумерация листов">
-  <a class="active" href="#welcome" data-leaf-link="welcome"><span class="rail-number">01</span><span class="rail-label">Мягкий корешок</span></a>
-  <a href="#floors" data-leaf-link="floors"><span class="rail-number">02</span><span class="rail-label">Чертежи дома</span></a>
-  <a href="#residents" data-leaf-link="residents"><span class="rail-number">03</span><span class="rail-label">Обитатели</span></a>
+<a class="home-brand" href="#welcome" aria-label="Вернуться к первому листу">
+  <span class="brand-mark">☾</span>
+  <span>
+    <strong>Тайная библиотека Лунны</strong>
+    <small>Мягкий корешок • Очаг • Реми</small>
+  </span>
+</a>
+
+<nav class="page-rail" aria-label="Листы главной страницы">
+  <a class="active" href="#welcome" data-page-link="welcome"><span>01</span><em>Мягкий корешок</em></a>
+  <a href="#floors" data-page-link="floors"><span>02</span><em>Чертежи дома</em></a>
+  <a href="#residents" data-page-link="residents"><span>03</span><em>Обитатели</em></a>
 </nav>
 
-<main class="leaf-scroll" data-leaf-scroll>
-  <section class="leaf hero leaf-welcome" id="welcome" data-leaf="welcome">
-    <div class="leaf-sheet hero-sheet">
-      <div class="hero-copy">
+<main class="leaf-main" id="home-scroll">
+  <section class="leaf-section leaf-welcome" id="welcome" data-page="welcome">
+    <div class="leaf-inner welcome-layout">
+      <div class="leaf-copy">
         <p class="eyebrow">вы вошли в дом над моргом</p>
         <h1>Добро пожаловать в «Мягкий корешок»</h1>
         <p class="lead">
-          Вы попали в публичную читальню дома Лунны Шейдшадэ — судебного медика
-          Фонтейна, Лороведьмы и хранительницы Библиотеки Лороведьмы. Для города это
-          уютная книжная лавка с чаем и детективами. Для суда — архив при морге.
-          Для забытых историй — место, где их не дадут стереть.
+          Книжная лавка, читальня и дверь туда, где истории не дают стереть.
+          Для города это уютное место с чаем и детективами. Для суда — архив при морге.
+          Для забытых историй — дом Лороведьмы Лунны Шейдшадэ.
         </p>
-        <p class="lore-note">
-          За обычными полками, закладками и сувенирными делами скрыта настоящая
-          Библиотека Лороведьмы: рабочее место Лунны, зона чаепитий, магические
-          книги, артефакты памяти и камин, который здесь называют Очагом.
+        <p class="lore-note slim-note">
+          За обычными полками скрыта настоящая Библиотека Лороведьмы: рабочее место Лунны,
+          зона чаепитий, магические книги, артефакты памяти и камин, который здесь называют Очагом.
         </p>
         <div class="actions">
           <a class="button primary" href="test.html">Стать частью Очага</a>
@@ -54,120 +46,110 @@
         </div>
       </div>
 
-      <aside class="library-window" aria-label="Окно Библиотеки Лороведьмы">
-        <div class="scene-illustration">
+      <aside class="hero-visual" aria-label="Фасад Мягкого корешка">
+        <figure class="soft-photo">
           <img src="assets/scene/soft-spine.webp" alt="Дом Лунны и медный колокольчик Мягкого корешка" loading="eager" />
-        </div>
-        <p class="window-caption">
-          Медный колокольчик звенит легко для обычного читателя, тепло — для
-          постоянного, а для пришедшего с дурным намерением — слишком поздно.
-        </p>
+          <figcaption>
+            Медный колокольчик звенит легко для обычного читателя, тепло — для постоянного,
+            а для пришедшего с дурным намерением — слишком поздно.
+          </figcaption>
+        </figure>
       </aside>
     </div>
   </section>
 
-  <section class="leaf leaf-floors" id="floors" data-leaf="floors">
-    <div class="leaf-sheet floor-sheet">
-      <div class="section-heading split-heading">
-        <div>
-          <p class="eyebrow">что скрывается за фасадом</p>
-          <h2>Дом Лороведьмы: чертежи этажей</h2>
-          <p>
-            Дом кажется меньше снаружи, чем внутри: публичная читальня прикрывает архив,
-            морг и настоящую Библиотеку Лороведьмы.
-          </p>
-        </div>
-        <p class="shelf-hint"><em>Нажмите на любой чертёж, чтобы открыть его крупнее. Закрытие больше не сдвигает страницу.</em></p>
+  <section class="leaf-section leaf-floors" id="floors" data-page="floors">
+    <div class="leaf-inner floors-layout">
+      <div class="leaf-copy compact-copy">
+        <p class="eyebrow">что скрывается за фасадом</p>
+        <h2>Дом Лороведьмы: чертежи этажей</h2>
+        <p>
+          Дом кажется меньше снаружи, чем внутри: публичная читальня прикрывает архив,
+          морг и настоящую Библиотеку Лороведьмы.
+        </p>
+        <p class="shelf-hint"><em>Нажмите на любой чертёж, чтобы открыть его крупнее. Закрытие больше не сбивает страницу.</em></p>
       </div>
 
-      <div class="blueprint-grid">
-        <article class="blueprint-card">
+      <div class="plans-showcase" aria-label="Чертежи дома Лунны">
+        <article class="plan-tile">
           <button class="blueprint-preview" type="button" data-plan="assets/plans/floor-1.webp" data-title="1 этаж — «Мягкий корешок»">
             <img src="assets/plans/floor-1.webp" alt="План первого этажа дома Лунны" loading="lazy" />
           </button>
-          <div class="blueprint-body">
+          <div>
             <span class="floor-kicker">1 этаж</span>
             <h3>«Мягкий корешок»</h3>
-            <p>Публичная книжная лавка, тайные полки, Библиотека Лороведьмы, архив улик и служебные двери, которые видят не все.</p>
-            <div class="floor-tags">
-              <span>Книжная лавка</span><span>Библиотека</span><span>Архив</span><span>Лифт</span>
-            </div>
+            <p>Публичная читальня, тайные полки, Библиотека Лороведьмы и архив.</p>
           </div>
         </article>
 
-        <article class="blueprint-card">
+        <article class="plan-tile">
           <button class="blueprint-preview" type="button" data-plan="assets/plans/floor-2.webp" data-title="2 этаж — Спальни">
             <img src="assets/plans/floor-2.webp" alt="План второго этажа дома Лунны" loading="lazy" />
           </button>
-          <div class="blueprint-body">
+          <div>
             <span class="floor-kicker">2 этаж</span>
             <h3>Спальни</h3>
-            <p>Тихий верх дома: комнаты Лунны и Ланы, ванная и мягкая пауза после шума читальни, архива и холодного этажа.</p>
-            <div class="floor-tags">
-              <span>Комната Лунны</span><span>Комната Ланы</span><span>Ванная</span>
-            </div>
+            <p>Тихий верх дома: комнаты Лунны и Ланы, ванная и пауза после шума.</p>
           </div>
         </article>
 
-        <article class="blueprint-card">
+        <article class="plan-tile">
           <button class="blueprint-preview" type="button" data-plan="assets/plans/floor-minus-1.webp" data-title="−1 этаж — Морг">
             <img src="assets/plans/floor-minus-1.webp" alt="План минус первого этажа дома Лунны" loading="lazy" />
           </button>
-          <div class="blueprint-body">
+          <div>
             <span class="floor-kicker">−1 этаж</span>
             <h3>Морг</h3>
-            <p>Холодное сердце дома: холодильные камеры, рабочие столы, служебный лифт и место, где правда говорит тише всего.</p>
-            <div class="floor-tags">
-              <span>Морг</span><span>Камеры</span><span>Рабочие столы</span><span>Лифт</span>
-            </div>
+            <p>Холодное сердце дома: рабочие столы, холодильные камеры и служебный лифт.</p>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="leaf leaf-residents" id="residents" data-leaf="residents">
-    <div class="leaf-sheet residents-sheet">
-      <div class="residents-overview">
-        <div class="section-heading residents-copy">
-          <p class="eyebrow">обитатели дома</p>
-          <h2>Те, кто держит тепло</h2>
-          <p>Страницы вики собраны как живые карточки дома: портрет, роль, короткая запись и дверь в полный лор.</p>
-          <p class="lore-note compact-note">Для города это книжная лавка. Для суда — архив при морге. Для забытых историй — дом.</p>
-        </div>
+  <section class="leaf-section leaf-residents" id="residents" data-page="residents">
+    <div class="leaf-inner residents-layout">
+      <div class="leaf-copy compact-copy">
+        <p class="eyebrow">обитатели дома</p>
+        <h2>Те, кто держит тепло</h2>
+        <p>
+          Страницы вики собраны как живые карточки дома: портрет, роль, короткая запись
+          и дверь в полный лор.
+        </p>
+        <p class="lore-note slim-note">Для города это книжная лавка. Для суда — архив при морге. Для забытых историй — дом.</p>
+      </div>
 
-        <div class="residents-grid" aria-label="Обитатели дома">
-          <a class="resident-card" href="pages/lunna.html">
-            <div class="portrait"><img src="assets/portraits/lunna.webp" alt="Портрет Лунны Шейдшадэ" loading="lazy" /></div>
-            <h3>Лунна</h3><span class="role">хозяйка дома</span>
-            <p>Лороведьма, судебный медик и хранительница Библиотеки.</p>
-          </a>
-          <a class="resident-card" href="pages/remi.html">
-            <div class="portrait"><img src="assets/portraits/remi.webp" alt="Портрет Реми" loading="lazy" /></div>
-            <h3>Реми</h3><span class="role">фамильяр</span>
-            <p>Некомата, Полночь, тень Инадзумы и сердце рядом с Лунной.</p>
-          </a>
-          <a class="resident-card" href="pages/alter.html">
-            <div class="portrait"><img src="assets/portraits/alter.webp" alt="Портрет Альтер Лунны" loading="lazy" /></div>
-            <h3>Альтер</h3><span class="role">страж Очага</span>
-            <p>Запечатанная божественность, протокол и голос камина.</p>
-          </a>
-          <a class="resident-card" href="pages/coal-cats.html">
-            <div class="portrait"><img src="assets/portraits/coal-cats.webp" alt="Угольные котики" loading="lazy" /></div>
-            <h3>Угольные котики</h3><span class="role">малые хранители</span>
-            <p>Существа из углей, золы, тепла и очень важных дел.</p>
-          </a>
-          <a class="resident-card" href="pages/lana.html">
-            <div class="portrait"><img src="assets/portraits/lana.webp" alt="Портрет Ланы" loading="lazy" /></div>
-            <h3>Лана</h3><span class="role">ассистентка</span>
-            <p>Мелюзина, помощница Лунны и специалистка по ядам.</p>
-          </a>
-          <a class="resident-card" href="pages/elian.html">
-            <div class="portrait"><img src="assets/portraits/elian.webp" alt="Портрет Элиан Морель" loading="lazy" /></div>
-            <h3>Элиан</h3><span class="role">фасад библиотеки</span>
-            <p>Профессионал стойки, чайных полок и нормальности.</p>
-          </a>
-        </div>
+      <div class="resident-gallery" aria-label="Обитатели дома">
+        <a class="resident-card" href="pages/lunna.html">
+          <div class="portrait"><img src="assets/portraits/lunna.webp" alt="Портрет Лунны Шейдшадэ" loading="lazy" /></div>
+          <h3>Лунна</h3>
+          <span class="role">Лороведьма</span>
+        </a>
+        <a class="resident-card" href="pages/remi.html">
+          <div class="portrait"><img src="assets/portraits/remi.webp" alt="Портрет Реми" loading="lazy" /></div>
+          <h3>Реми</h3>
+          <span class="role">фамильяр</span>
+        </a>
+        <a class="resident-card" href="pages/alter.html">
+          <div class="portrait"><img src="assets/portraits/alter.webp" alt="Портрет Альтер Лунны" loading="lazy" /></div>
+          <h3>Альтер</h3>
+          <span class="role">страж Очага</span>
+        </a>
+        <a class="resident-card" href="pages/coal-cats.html">
+          <div class="portrait"><img src="assets/portraits/coal-cats.webp" alt="Угольные котики" loading="lazy" /></div>
+          <h3>Угольные котики</h3>
+          <span class="role">малые хранители</span>
+        </a>
+        <a class="resident-card" href="pages/lana.html">
+          <div class="portrait"><img src="assets/portraits/lana.webp" alt="Портрет Ланы" loading="lazy" /></div>
+          <h3>Лана</h3>
+          <span class="role">ассистентка</span>
+        </a>
+        <a class="resident-card" href="pages/elian.html">
+          <div class="portrait"><img src="assets/portraits/elian.webp" alt="Портрет Элиан Морель" loading="lazy" /></div>
+          <h3>Элиан</h3>
+          <span class="role">фасад библиотеки</span>
+        </a>
       </div>
     </div>
   </section>

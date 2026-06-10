@@ -56,24 +56,16 @@
   const planModalImage = document.querySelector('#plan-modal-image');
   const planModalClose = document.querySelector('.plan-modal-close');
   const planButtons = document.querySelectorAll('[data-plan]');
-  let savedScrollY = 0;
+  let lastFocusedElement = null;
 
-  function lockPageScroll() {
-    const leafScroll = document.querySelector('[data-leaf-scroll]');
-    savedScrollY = leafScroll ? leafScroll.scrollTop : (window.scrollY || document.documentElement.scrollTop || 0);
+  function openPlanModal(button) {
+    if (!planModal || !planModalImage) return;
+    lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    planModalImage.src = button.dataset.plan;
+    planModalImage.alt = button.dataset.title || 'Чертёж этажа';
+    planModal.hidden = false;
     document.body.classList.add('plan-modal-open');
-  }
-
-  function unlockPageScroll() {
-    const leafScroll = document.querySelector('[data-leaf-scroll]');
-    document.body.classList.remove('plan-modal-open');
-    requestAnimationFrame(() => {
-      if (leafScroll) {
-        leafScroll.scrollTo({ top: savedScrollY, behavior: 'instant' });
-      } else {
-        window.scrollTo({ top: savedScrollY, behavior: 'instant' });
-      }
-    });
+    planModalClose?.focus({ preventScroll: true });
   }
 
   function closePlanModal() {
@@ -81,27 +73,20 @@
     planModal.hidden = true;
     planModalImage.removeAttribute('src');
     planModalImage.alt = '';
-    unlockPageScroll();
+    document.body.classList.remove('plan-modal-open');
+    lastFocusedElement?.focus({ preventScroll: true });
   }
 
   planButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      if (!planModal || !planModalImage) return;
-      planModalImage.src = button.dataset.plan;
-      planModalImage.alt = button.dataset.title || 'Чертёж этажа';
-      planModal.hidden = false;
-      lockPageScroll();
-    });
+    button.addEventListener('click', () => openPlanModal(button));
   });
 
   if (planModal) {
-    planModal.addEventListener('click', closePlanModal);
+    planModal.addEventListener('click', (event) => {
+      if (event.target === planModal) closePlanModal();
+    });
     planModal.addEventListener('wheel', (event) => event.preventDefault(), { passive: false });
     planModal.addEventListener('touchmove', (event) => event.preventDefault(), { passive: false });
-  }
-
-  if (planModalImage) {
-    planModalImage.addEventListener('click', closePlanModal);
   }
 
   if (planModalClose) {
@@ -112,59 +97,46 @@
     if (event.key === 'Escape') closePlanModal();
   });
 
+  const homeScroller = document.querySelector('.leaf-main');
+  const pageLinks = Array.from(document.querySelectorAll('[data-page-link]'));
+  const leafSections = Array.from(document.querySelectorAll('[data-page]'));
 
-  const leafScroller = document.querySelector('[data-leaf-scroll]');
-  const leafLinks = Array.from(document.querySelectorAll('[data-leaf-link]'));
-  const leafSections = leafScroller ? Array.from(leafScroller.querySelectorAll('[data-leaf]')) : [];
+  function setActivePage(pageId) {
+    pageLinks.forEach((link) => {
+      link.classList.toggle('active', link.dataset.pageLink === pageId);
+    });
+  }
 
-  if (leafScroller && leafSections.length && leafLinks.length) {
-    const activateLeaf = (id) => {
-      leafLinks.forEach((link) => {
-        link.classList.toggle('active', link.dataset.leafLink === id);
-      });
-    };
+  if (homeScroller && leafSections.length && pageLinks.length) {
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible?.target?.dataset?.page) setActivePage(visible.target.dataset.page);
+    }, {
+      root: homeScroller,
+      threshold: [0.42, 0.62, 0.82]
+    });
 
-    const currentLeaf = () => {
-      const midpoint = leafScroller.scrollTop + leafScroller.clientHeight / 2;
-      return leafSections.reduce((closest, section) => {
-        const center = section.offsetTop + section.offsetHeight / 2;
-        const distance = Math.abs(center - midpoint);
-        return distance < closest.distance ? { id: section.id, distance } : closest;
-      }, { id: leafSections[0].id, distance: Infinity }).id;
-    };
+    leafSections.forEach((section) => observer.observe(section));
 
-    let ticking = false;
-    leafScroller.addEventListener('scroll', () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const id = currentLeaf();
-        activateLeaf(id);
-        if (window.location.hash !== `#${id}`) {
-          history.replaceState(null, '', `#${id}`);
-        }
-        ticking = false;
-      });
-    }, { passive: true });
-
-    leafLinks.forEach((link) => {
+    pageLinks.forEach((link) => {
       link.addEventListener('click', (event) => {
-        const target = document.getElementById(link.dataset.leafLink);
+        const pageId = link.dataset.pageLink;
+        const target = pageId ? document.getElementById(pageId) : null;
         if (!target) return;
         event.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        history.replaceState(null, '', `#${target.id}`);
-        activateLeaf(target.id);
+        setActivePage(pageId);
+        target.scrollIntoView({ block: 'start', behavior: 'smooth' });
+        window.history.replaceState(null, '', `#${pageId}`);
       });
     });
 
-    const initialTarget = window.location.hash ? document.querySelector(window.location.hash) : null;
-    requestAnimationFrame(() => {
-      if (initialTarget && leafScroller.contains(initialTarget)) {
-        initialTarget.scrollIntoView({ behavior: 'instant', block: 'start' });
-        activateLeaf(initialTarget.id);
-      } else {
-        activateLeaf(currentLeaf());
+    window.addEventListener('load', () => {
+      const hash = window.location.hash.replace('#', '');
+      const target = hash && document.getElementById(hash);
+      if (target) {
+        requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
       }
     });
   }
