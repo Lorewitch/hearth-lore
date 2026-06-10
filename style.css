@@ -1650,3 +1650,118 @@ h1 {
     height: 92vh;
   }
 }
+
+
+/* === v9: ровные чертежи и рабочая карусель === */
+
+.blueprint-card,
+.blueprint-card.tilt-left,
+.blueprint-card.tilt-right,
+.blueprint-card.tilt-left-small,
+.blueprint-card.tilt-left:hover,
+.blueprint-card.tilt-right:hover,
+.blueprint-card.tilt-left-small:hover {
+  transform: none !important;
+}
+
+.blueprint-card {
+  overflow: hidden;
+}
+
+.blueprint-preview {
+  overflow: hidden;
+  padding: .65rem;
+  border: 1px solid rgba(242, 200, 120, .18);
+  border-radius: 1.2rem;
+}
+
+.blueprint-preview::before,
+.blueprint-preview::after {
+  display: none !important;
+  content: none !important;
+}
+
+.blueprint-preview img,
+.blueprint-card:nth-child(1) .blueprint-preview img,
+.blueprint-card:nth-child(2) .blueprint-preview img,
+.blueprint-card:nth-child(3) .blueprint-preview img {
+  width: 96%;
+  height: 96%;
+  object-fit: contain;
+  object-position: center;
+  transform: none !important;
+  filter: drop-shadow(0 14px 18px rgba(0, 0, 0, .30));
+}
+
+.blueprint-card:hover .blueprint-preview img,
+.blueprint-card:nth-child(1):hover .blueprint-preview img,
+.blueprint-card:nth-child(2):hover .blueprint-preview img,
+.blueprint-card:nth-child(3):hover .blueprint-preview img {
+  transform: scale(1.025) !important;
+  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, .40));
+}
+
+.resident-carousel {
+  position: relative;
+}
+
+.resident-viewport {
+  overflow: hidden !important;
+  padding: .25rem .1rem .7rem;
+}
+
+.resident-track {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: .9rem;
+  will-change: transform;
+  transition: transform .72s cubic-bezier(.22, .8, .28, 1);
+}
+
+.resident-track .resident-card {
+  flex: 0 0 calc((100% - 1.8rem) / 3) !important;
+  min-width: calc((100% - 1.8rem) / 3) !important;
+}
+
+.carousel-button {
+  display: none !important;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .55rem;
+  margin-top: .7rem;
+}
+
+.carousel-dot {
+  width: .7rem;
+  height: .7rem;
+  padding: 0;
+  border: 1px solid rgba(242, 200, 120, .42);
+  border-radius: 999px;
+  background: rgba(255, 244, 218, .12);
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease, width .2s ease;
+}
+
+.carousel-dot.active {
+  width: 1.55rem;
+  background: var(--gold);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 1120px) {
+  .resident-track .resident-card {
+    flex-basis: calc((100% - .9rem) / 2) !important;
+    min-width: calc((100% - .9rem) / 2) !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .resident-track .resident-card {
+    flex-basis: 100% !important;
+    min-width: 100% !important;
+  }
+}

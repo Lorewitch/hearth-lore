@@ -89,3 +89,84 @@ document.addEventListener("keydown", (event) => {
     closePlanModalV8();
   }
 });
+
+// === v9: рабочая карусель обитателей ===
+const residentCarouselV9 = document.querySelector("[data-resident-carousel]");
+
+if (residentCarouselV9) {
+  const track = residentCarouselV9.querySelector(".resident-track");
+  const dots = Array.from(residentCarouselV9.querySelectorAll(".carousel-dot"));
+  const cards = Array.from(residentCarouselV9.querySelectorAll(".resident-card"));
+
+  let currentSlide = 0;
+  let timer = null;
+
+  function getCardsPerSlide() {
+    if (window.matchMedia("(max-width: 620px)").matches) return 1;
+    if (window.matchMedia("(max-width: 1120px)").matches) return 2;
+    return 3;
+  }
+
+  function getSlideCount() {
+    return Math.max(1, Math.ceil(cards.length / getCardsPerSlide()));
+  }
+
+  function syncDots() {
+    const slideCount = getSlideCount();
+    dots.forEach((dot, index) => {
+      dot.hidden = index >= slideCount;
+      dot.classList.toggle("active", index === currentSlide);
+    });
+  }
+
+  function goToSlide(index) {
+    if (!track) return;
+
+    const slideCount = getSlideCount();
+    currentSlide = (index + slideCount) % slideCount;
+
+    const cardsPerSlide = getCardsPerSlide();
+    const card = cards[0];
+    if (!card) return;
+
+    const gap = parseFloat(getComputedStyle(track).gap || "0");
+    const step = (card.getBoundingClientRect().width + gap) * cardsPerSlide;
+
+    track.style.transform = `translateX(-${step * currentSlide}px)`;
+    syncDots();
+  }
+
+  function stopAutoCarousel() {
+    if (timer) {
+      window.clearInterval(timer);
+      timer = null;
+    }
+  }
+
+  function startAutoCarousel() {
+    stopAutoCarousel();
+    timer = window.setInterval(() => {
+      goToSlide(currentSlide + 1);
+    }, 4600);
+  }
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      goToSlide(index);
+      startAutoCarousel();
+    });
+  });
+
+  window.addEventListener("resize", () => {
+    goToSlide(0);
+  });
+
+  residentCarouselV9.addEventListener("mouseenter", stopAutoCarousel);
+  residentCarouselV9.addEventListener("mouseleave", startAutoCarousel);
+  residentCarouselV9.addEventListener("focusin", stopAutoCarousel);
+  residentCarouselV9.addEventListener("focusout", startAutoCarousel);
+
+  syncDots();
+  goToSlide(0);
+  startAutoCarousel();
+}
