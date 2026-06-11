@@ -1,4 +1,121 @@
 (() => {
+  const loader = document.querySelector('.library-loader');
+  if (loader) {
+    const started = performance.now();
+    let loaderDone = false;
+    const hideLoader = () => {
+      if (loaderDone) return;
+      loaderDone = true;
+      const elapsed = performance.now() - started;
+      const remaining = Math.max(0, 1900 - elapsed);
+      window.setTimeout(() => loader.classList.add('is-hidden'), remaining);
+      window.setTimeout(() => loader.remove(), remaining + 900);
+    };
+    if (document.readyState === 'complete') hideLoader();
+    else window.addEventListener('load', hideLoader, { once: true });
+    window.setTimeout(hideLoader, 2600);
+  }
+
+  const isHomePage = document.body.classList.contains('home-page');
+
+  if (isHomePage) {
+    const sheets = Array.from(document.querySelectorAll('[data-sheet]'));
+    const sheetLinks = Array.from(document.querySelectorAll('[data-sheet-link]'));
+    const hashToIndex = new Map([
+      ['#top', 0],
+      ['#contents', 0],
+      ['#house', 1],
+      ['#floors', 1],
+      ['#residents', 2]
+    ]);
+    let currentSheet = hashToIndex.get(window.location.hash) ?? 0;
+    let isLocked = false;
+
+    const setSheet = (index, options = {}) => {
+      if (!sheets.length) return;
+      const next = Math.max(0, Math.min(index, sheets.length - 1));
+      if (next === currentSheet && !options.force) return;
+      currentSheet = next;
+
+      sheets.forEach((sheet, sheetIndex) => {
+        sheet.classList.toggle('is-active', sheetIndex === currentSheet);
+        sheet.setAttribute('aria-hidden', String(sheetIndex !== currentSheet));
+      });
+
+      sheetLinks.forEach((link) => {
+        const linkIndex = Number(link.dataset.sheetLink);
+        link.classList.toggle('active', linkIndex === currentSheet);
+      });
+
+      const activeId = sheets[currentSheet]?.id;
+      if (activeId && !options.silent) {
+        history.replaceState(null, '', `#${activeId}`);
+      }
+    };
+
+    const requestSheet = (direction) => {
+      if (isLocked || !direction) return;
+      const next = currentSheet + direction;
+      if (next < 0 || next >= sheets.length) return;
+      isLocked = true;
+      setSheet(next);
+      window.setTimeout(() => { isLocked = false; }, 850);
+    };
+
+    sheetLinks.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        setSheet(Number(link.dataset.sheetLink));
+      });
+    });
+
+    window.addEventListener('wheel', (event) => {
+      if (document.body.classList.contains('plan-modal-open')) return;
+      event.preventDefault();
+      const direction = event.deltaY > 0 ? 1 : -1;
+      requestSheet(direction);
+    }, { passive: false });
+
+    window.addEventListener('keydown', (event) => {
+      if (document.body.classList.contains('plan-modal-open')) return;
+      const nextKeys = ['ArrowDown', 'PageDown', 'Space'];
+      const prevKeys = ['ArrowUp', 'PageUp'];
+      if (nextKeys.includes(event.code)) {
+        event.preventDefault();
+        requestSheet(1);
+      }
+      if (prevKeys.includes(event.code)) {
+        event.preventDefault();
+        requestSheet(-1);
+      }
+    });
+
+    window.addEventListener('hashchange', () => {
+      if (hashToIndex.has(window.location.hash)) {
+        setSheet(hashToIndex.get(window.location.hash), { silent: true });
+      }
+    });
+
+    setSheet(currentSheet, { force: true, silent: true });
+  } else {
+    const revealItems = document.querySelectorAll('.reveal');
+    if (revealItems.length) {
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        revealItems.forEach((item) => observer.observe(item));
+      } else {
+        revealItems.forEach((item) => item.classList.add('is-visible'));
+      }
+    }
+  }
+
   const quizOptions = document.querySelectorAll('[data-points]');
   const quizResult = document.querySelector('#quiz-result');
   const quizReset = document.querySelector('#quiz-reset');
@@ -52,54 +169,75 @@
     });
   }
 
+  const floorCarousel = document.querySelector('[data-floor-carousel]');
+  if (floorCarousel) {
+    const slides = Array.from(floorCarousel.querySelectorAll('[data-floor-slide]'));
+    const dots = Array.from(floorCarousel.querySelectorAll('[data-floor-dot]'));
+    let currentFloor = Math.max(0, slides.findIndex((slide) => slide.classList.contains('is-active')));
+    let floorTimer = null;
+
+    const showFloor = (index) => {
+      if (!slides.length) return;
+      currentFloor = (index + slides.length) % slides.length;
+      slides.forEach((slide, slideIndex) => {
+        slide.classList.toggle('is-active', slideIndex === currentFloor);
+      });
+      dots.forEach((dot, dotIndex) => {
+        dot.classList.toggle('is-active', dotIndex === currentFloor);
+        dot.setAttribute('aria-pressed', String(dotIndex === currentFloor));
+      });
+    };
+
+    const startFloorAuto = () => {
+      window.clearInterval(floorTimer);
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      floorTimer = window.setInterval(() => showFloor(currentFloor + 1), 5200);
+    };
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        showFloor(index);
+        startFloorAuto();
+      });
+    });
+
+    floorCarousel.addEventListener('mouseenter', () => window.clearInterval(floorTimer));
+    floorCarousel.addEventListener('mouseleave', startFloorAuto);
+    showFloor(currentFloor);
+    startFloorAuto();
+  }
+
   const planModal = document.querySelector('#plan-modal');
   const planModalImage = document.querySelector('#plan-modal-image');
   const planModalClose = document.querySelector('.plan-modal-close');
   const planButtons = document.querySelectorAll('[data-plan]');
-  let savedScrollY = 0;
-
-  function lockPageScroll() {
-    savedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
-    document.body.classList.add('plan-modal-open');
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${savedScrollY}px`;
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    document.body.style.width = '100%';
-  }
-
-  function unlockPageScroll() {
-    document.body.classList.remove('plan-modal-open');
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.left = '';
-    document.body.style.right = '';
-    document.body.style.width = '';
-    window.scrollTo(0, savedScrollY);
-  }
+  let lastFocusedPlanButton = null;
 
   function closePlanModal() {
     if (!planModal || !planModalImage || planModal.hidden) return;
     planModal.hidden = true;
     planModalImage.removeAttribute('src');
     planModalImage.alt = '';
-    unlockPageScroll();
+    document.body.classList.remove('plan-modal-open');
+    if (lastFocusedPlanButton) lastFocusedPlanButton.focus({ preventScroll: true });
   }
 
   planButtons.forEach((button) => {
     button.addEventListener('click', () => {
       if (!planModal || !planModalImage) return;
+      lastFocusedPlanButton = button;
       planModalImage.src = button.dataset.plan;
       planModalImage.alt = button.dataset.title || 'Чертёж этажа';
       planModal.hidden = false;
-      lockPageScroll();
+      document.body.classList.add('plan-modal-open');
+      if (planModalClose) planModalClose.focus({ preventScroll: true });
     });
   });
 
   if (planModal) {
-    planModal.addEventListener('click', closePlanModal);
-    planModal.addEventListener('wheel', (event) => event.preventDefault(), { passive: false });
-    planModal.addEventListener('touchmove', (event) => event.preventDefault(), { passive: false });
+    planModal.addEventListener('click', (event) => {
+      if (event.target === planModal) closePlanModal();
+    });
   }
 
   if (planModalImage) {
@@ -113,43 +251,4 @@
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closePlanModal();
   });
-
-  const carousel = document.querySelector('[data-resident-carousel]');
-  if (carousel) {
-    const track = carousel.querySelector('.resident-track');
-    const cards = Array.from(carousel.querySelectorAll('.resident-card'));
-    const dotsContainer = carousel.querySelector('.carousel-dots');
-    let currentPage = 0;
-
-    const cardsPerPage = () => {
-      if (window.matchMedia('(max-width: 620px)').matches) return 1;
-      if (window.matchMedia('(max-width: 1120px)').matches) return 2;
-      return 3;
-    };
-
-    function renderDots(pageCount) {
-      if (!dotsContainer) return;
-      dotsContainer.replaceChildren();
-      for (let index = 0; index < pageCount; index += 1) {
-        const dot = document.createElement('button');
-        dot.type = 'button';
-        dot.className = `carousel-dot${index === currentPage ? ' active' : ''}`;
-        dot.setAttribute('aria-label', `Обитатели ${index + 1}`);
-        dot.addEventListener('click', () => showPage(index));
-        dotsContainer.append(dot);
-      }
-    }
-
-    function showPage(page) {
-      if (!track || !cards.length) return;
-      const perPage = cardsPerPage();
-      const pageCount = Math.ceil(cards.length / perPage);
-      currentPage = Math.max(0, Math.min(page, pageCount - 1));
-      track.style.transform = `translateX(-${currentPage * 100}%)`;
-      renderDots(pageCount);
-    }
-
-    window.addEventListener('resize', () => showPage(currentPage));
-    showPage(0);
-  }
 })();

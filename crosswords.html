@@ -8,22 +8,19 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="embers" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
-<header class="site-header">
-  <a class="brand" href="index.html" aria-label="На главную">
-    <span class="brand-mark">☾</span>
-    <span>
-      <strong>Тайная библиотека Лунны</strong>
-      <small>Дом Очага, Реми и угольных котиков</small>
-    </span>
-  </a>
+<div class="library-loader" aria-hidden="true">
+  <div class="loader-seal">
+    <span class="loader-mark"></span>
+    <span>Библиотека находит нужную полку…</span>
+  </div>
+</div>
+<header class="site-header" id="top">
   <nav class="nav" aria-label="Основная навигация">
-      <a href="index.html">Главная</a>
-      <a href="index.html#floors">Чертежи</a>
-      <a href="index.html#residents">Обитатели</a>
-      <a href="test.html">Стать частью Очага</a>
-      <a class="active" href="crosswords.html">Игровая комната</a>
-      <a href="https://lorewitch.github.io/archive/">Архив</a>
+    <a href="index.html#contents">Оглавление</a>
+    <a href="index.html#house">Дом</a>
+    <a href="index.html#residents">Обитатели</a>
+    <a href="test.html">Очаг</a>
+    <a href="https://lorewitch.github.io/archive/">Архив</a>
   </nav>
 </header>
 <main>
@@ -60,5 +57,6 @@
   </section>
 </main>
 <footer class="site-footer"><p>© Тайная библиотека Лунны.</p><a href="index.html">На главную</a></footer>
+<script src="script.js"></script>
 </body>
 </html>
