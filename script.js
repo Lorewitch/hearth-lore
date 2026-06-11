@@ -16,6 +16,70 @@
     window.setTimeout(hideLoader, 2600);
   }
 
+
+  const enableCustomCursor = () => {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+
+    const stylesheet = document.querySelector('link[rel="stylesheet"]');
+    const stylesheetUrl = stylesheet ? stylesheet.href : new URL('style.css', document.baseURI).href;
+    const cursorUrl = new URL('assets/ui/quill-cursor.png', stylesheetUrl).href;
+
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    cursor.setAttribute('aria-hidden', 'true');
+
+    const image = new Image();
+    image.alt = '';
+    image.decoding = 'async';
+
+    const moveCursor = (event) => {
+      cursor.style.transform = `translate3d(${event.clientX - 5}px, ${event.clientY - 4}px, 0)`;
+      cursor.classList.add('is-visible');
+    };
+
+    const hideCursor = () => cursor.classList.remove('is-visible');
+
+    image.addEventListener('load', () => {
+      cursor.append(image);
+      document.body.append(cursor);
+      document.documentElement.classList.add('custom-cursor-ready');
+      window.addEventListener('pointermove', moveCursor, { passive: true });
+      window.addEventListener('mousemove', moveCursor, { passive: true });
+      document.addEventListener('mouseleave', hideCursor);
+      window.addEventListener('blur', hideCursor);
+    }, { once: true });
+
+    image.src = cursorUrl;
+  };
+
+  enableCustomCursor();
+
+
+  const emberLayer = document.querySelector('.embers');
+  if (emberLayer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const emberCount = 46;
+    const randomBetween = (min, max) => min + Math.random() * (max - min);
+    const fragment = document.createDocumentFragment();
+
+    for (let i = 0; i < emberCount; i += 1) {
+      const ember = document.createElement('span');
+      ember.className = 'ember-particle';
+      const size = randomBetween(3.2, i % 7 === 0 ? 10.5 : 7.2);
+      ember.style.setProperty('--ember-left', `${randomBetween(-3, 103).toFixed(2)}%`);
+      ember.style.setProperty('--ember-size', `${size.toFixed(2)}px`);
+      ember.style.setProperty('--ember-duration', `${randomBetween(9, 24).toFixed(2)}s`);
+      ember.style.setProperty('--ember-delay', `${randomBetween(-24, 0).toFixed(2)}s`);
+      ember.style.setProperty('--ember-opacity', `${randomBetween(0.28, 0.82).toFixed(2)}`);
+      ember.style.setProperty('--ember-blur', `${randomBetween(0, 1.15).toFixed(2)}px`);
+      ember.style.setProperty('--ember-drift-a', `${randomBetween(-38, 38).toFixed(1)}px`);
+      ember.style.setProperty('--ember-drift-b', `${randomBetween(-74, 74).toFixed(1)}px`);
+      ember.style.setProperty('--ember-drift-c', `${randomBetween(-116, 116).toFixed(1)}px`);
+      fragment.appendChild(ember);
+    }
+
+    emberLayer.appendChild(fragment);
+  }
+
   const isHomePage = document.body.classList.contains('home-page');
 
   if (isHomePage) {

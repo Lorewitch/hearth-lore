@@ -26,14 +26,70 @@
 
 * { box-sizing: border-box; }
 
+html,
+body,
+body *,
+body *::before,
+body *::after {
+  cursor: url("assets/ui/quill-cursor.png") 5 4, auto !important;
+}
+
+a,
+button,
+.floor-image,
+.resident-tile,
+[role="button"] {
+  cursor: url("assets/ui/quill-cursor.png") 5 4, pointer !important;
+}
+
+html.custom-cursor-ready,
+html.custom-cursor-ready::before,
+html.custom-cursor-ready::after,
+html.custom-cursor-ready body,
+html.custom-cursor-ready body::before,
+html.custom-cursor-ready body::after,
+html.custom-cursor-ready *,
+html.custom-cursor-ready *::before,
+html.custom-cursor-ready *::after {
+  cursor: none !important;
+}
+
+.custom-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10000;
+  width: 44px;
+  height: 47px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(-120px, -120px, 0);
+  transition: opacity 0.16s ease;
+  will-change: transform;
+}
+
+.custom-cursor.is-visible { opacity: 1; }
+
+.custom-cursor img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 7px rgba(0, 0, 0, 0.42));
+}
+
 html {
+  min-height: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: 92px;
+  background: var(--bg);
+  overscroll-behavior: none;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   color: var(--text);
   font-family: var(--body);
   font-size: 17px;
@@ -47,6 +103,9 @@ body {
 
 body.home-page {
   height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
 }
 
@@ -76,6 +135,66 @@ body::after {
 }
 
 body.plan-modal-open { overflow: hidden; }
+
+.embers {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  mix-blend-mode: screen;
+}
+
+.ember-particle {
+  position: absolute;
+  left: var(--ember-left);
+  bottom: -10vh;
+  width: var(--ember-size);
+  height: var(--ember-size);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, rgba(255, 232, 166, 0.95) 0 18%, rgba(232, 154, 70, 0.82) 36%, rgba(165, 76, 42, 0.22) 68%, transparent 72%);
+  opacity: 0;
+  filter: blur(var(--ember-blur));
+  box-shadow:
+    0 0 calc(var(--ember-size) * 2.4) rgba(219, 148, 69, 0.52),
+    0 0 calc(var(--ember-size) * 5) rgba(199, 92, 49, 0.20);
+  animation: ember-drift var(--ember-duration) cubic-bezier(.32,.02,.74,1) infinite;
+  animation-delay: var(--ember-delay);
+  will-change: transform, opacity;
+}
+
+.ember-particle:nth-child(3n) {
+  background:
+    radial-gradient(circle, rgba(255, 246, 207, 0.92) 0 16%, rgba(246, 190, 101, 0.74) 34%, rgba(199, 92, 49, 0.20) 66%, transparent 72%);
+}
+
+.ember-particle:nth-child(5n) {
+  filter: blur(calc(var(--ember-blur) + 0.45px));
+  box-shadow: 0 0 calc(var(--ember-size) * 3.6) rgba(255, 195, 103, 0.40);
+}
+
+@keyframes ember-drift {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.55) rotate(0deg);
+  }
+  9% { opacity: var(--ember-opacity); }
+  36% {
+    opacity: calc(var(--ember-opacity) * 0.88);
+    transform: translate3d(var(--ember-drift-a), -38vh, 0) scale(1) rotate(52deg);
+  }
+  72% {
+    opacity: calc(var(--ember-opacity) * 0.62);
+    transform: translate3d(var(--ember-drift-b), -82vh, 0) scale(0.72) rotate(133deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--ember-drift-c), -118vh, 0) scale(0.18) rotate(215deg);
+  }
+}
+
+main { z-index: 2; }
 
 img { display: block; max-width: 100%; }
 a { color: inherit; }
@@ -220,6 +339,7 @@ main { position: relative; }
 
 .home-page main {
   height: calc(100vh - var(--header-h));
+  height: calc(100dvh - var(--header-h));
   margin-top: var(--header-h);
   overflow: hidden;
 }
@@ -302,6 +422,7 @@ p { margin: 0 0 1rem; }
   left: 50%;
   top: 0;
   height: calc(100vh - var(--header-h));
+  height: calc(100dvh - var(--header-h));
   width: var(--page);
   margin: 0;
   opacity: 0;
@@ -342,22 +463,22 @@ p { margin: 0 0 1rem; }
 
 .biblio-hero {
   display: grid;
-  grid-template-columns: minmax(0, 0.96fr) minmax(300px, 440px);
-  gap: clamp(3rem, 7vw, 7.6rem);
+  grid-template-columns: minmax(470px, 1fr) minmax(410px, 0.82fr);
+  gap: clamp(2.2rem, 4.2vw, 4.6rem);
   align-items: center;
   padding: clamp(3rem, 7vh, 5.2rem) 0 clamp(2rem, 6vh, 4rem);
 }
 
-.hero-text { max-width: 820px; }
-.hero-text h1 { max-width: 650px; }
-.hero-text .lead { max-width: 790px; }
+.hero-text { max-width: 690px; }
+.hero-text h1 { max-width: 620px; }
+.hero-text .lead { max-width: 670px; }
 
 .hero-actions,
 .actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem 1rem;
-  margin-top: 1.75rem;
+  margin-top: 1.55rem;
 }
 
 .button,
@@ -377,7 +498,7 @@ button.button {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   text-decoration: none;
-  cursor: pointer;
+  cursor: url("assets/ui/quill-cursor.png") 5 4, pointer !important;
   transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, color 0.22s ease;
 }
 
@@ -397,7 +518,7 @@ button.button:hover {
 .button.secondary,
 .button.archive-link { background: rgba(255,255,255,0.025); }
 .button.disabled,
-.button:disabled { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
+.button:disabled { opacity: 0.55; cursor: url("assets/ui/quill-cursor.png") 5 4, not-allowed !important; pointer-events: none; }
 
 .quote-panel,
 .library-fragment {
@@ -418,6 +539,7 @@ button.button:hover {
   border-radius: 50%;
   background: var(--gold);
   box-shadow: 0 0 22px rgba(199,162,99,0.56);
+  z-index: 12;
 }
 
 .fragment-title {
@@ -438,6 +560,65 @@ button.button:hover {
 }
 
 .library-fragment .italic-note { margin-top: 1.35rem; font-size: 0.95rem; }
+
+.door-fragment {
+  padding-top: 0.6rem;
+  padding-bottom: 0.75rem;
+  border-left: 0;
+}
+
+.door-fragment::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.8rem;
+  bottom: 0.9rem;
+  width: 1px;
+  background: var(--line-gold);
+  z-index: 11;
+  pointer-events: none;
+}
+
+.door-vision {
+  position: relative;
+  z-index: 1;
+  margin: -0.75rem -1.65rem 0 -0.85rem;
+  height: clamp(330px, 48vh, 510px);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.door-vision::before,
+.door-vision::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.door-vision::before {
+  background:
+    radial-gradient(ellipse at 48% 47%, transparent 38%, rgba(12,8,8,0.34) 68%, rgba(12,8,8,0.92) 100%),
+    linear-gradient(90deg, rgba(12,8,8,0.72), transparent 18%, transparent 76%, rgba(12,8,8,0.78));
+}
+
+.door-vision::after {
+  background: radial-gradient(circle at 52% 42%, rgba(199,162,99,0.20), transparent 42%);
+  mix-blend-mode: screen;
+  opacity: 0.52;
+}
+
+.door-vision img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  opacity: 0.86;
+  filter: saturate(0.86) contrast(0.98) brightness(0.82);
+  mask-image: radial-gradient(ellipse at center, black 48%, rgba(0,0,0,0.86) 69%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 48%, rgba(0,0,0,0.86) 69%, transparent 100%);
+}
 
 .biblio-section {
   padding: clamp(2.2rem, 5vh, 4.4rem) 0;
@@ -515,7 +696,7 @@ button.button:hover {
   border: 1px solid rgba(243,234,216,0.16);
   background: rgba(255,245,222,0.03);
   overflow: hidden;
-  cursor: zoom-in;
+  cursor: url("assets/ui/quill-cursor.png") 5 4, zoom-in !important;
 }
 
 .floor-image::after {
@@ -615,7 +796,7 @@ button.button:hover {
   border: 1px solid rgba(199,162,99,0.58);
   border-radius: 50%;
   background: transparent;
-  cursor: pointer;
+  cursor: url("assets/ui/quill-cursor.png") 5 4, pointer !important;
   transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -854,7 +1035,7 @@ button.button:hover {
   background: rgba(12,8,8,0.65);
   font-size: 1.6rem;
   line-height: 1;
-  cursor: pointer;
+  cursor: url("assets/ui/quill-cursor.png") 5 4, pointer !important;
 }
 
 .site-footer {
