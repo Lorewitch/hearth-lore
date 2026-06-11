@@ -328,4 +328,29 @@
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closePlanModal();
   });
+
+  const dossierBlocks = document.querySelectorAll('[data-dossier-tabs]');
+  dossierBlocks.forEach((block) => {
+    const tabs = Array.from(block.querySelectorAll('[data-dossier-tab]'));
+    const panels = Array.from(block.querySelectorAll('[data-dossier-panel]'));
+    if (!tabs.length || !panels.length) return;
+
+    const activatePanel = (panelId) => {
+      tabs.forEach((tab) => {
+        const isActive = tab.dataset.dossierTab === panelId;
+        tab.classList.toggle('is-active', isActive);
+        tab.setAttribute('aria-selected', String(isActive));
+      });
+      panels.forEach((panel) => {
+        const isActive = panel.id === panelId;
+        panel.hidden = !isActive;
+        panel.classList.toggle('is-active', isActive);
+      });
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => activatePanel(tab.dataset.dossierTab));
+    });
+  });
+
 })();

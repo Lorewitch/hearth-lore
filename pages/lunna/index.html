@@ -44,91 +44,114 @@
 
         <section class="wiki-extra lunna-library" id="lunna-library">
           <p class="eyebrow">досье Лунны</p>
-          <p class="wiki-extra-intro">Все расширенные материалы остаются на этой странице: каждый раздел можно раскрыть, дополнить текстами, изображениями и лорными заметками, не уводя читателя в отдельные файлы.</p>
+          <p class="wiki-extra-intro">Все расширенные материалы остаются на этой странице. Сначала выбирается раздел, а раскрытая информация появляется ниже общего списка — так страницу можно постепенно наполнять текстами, портретами, карточками, артом и скриншотами без дробления на отдельные файлы.</p>
 
-          <div class="wiki-accordion" data-accordion>
-            <details class="wiki-drawer" open>
-              <summary>
-                <span class="drawer-index">01</span>
-                <span class="drawer-title">Витубинг</span>
-                <span class="drawer-note">образ, канал и публичная роль</span>
-              </summary>
-              <div class="drawer-body">
-                <p>Раздел для витуберского образа Лунны: визуальная подача, манера речи, связь с лорным образом, форматы роликов и то, как Лунна существует одновременно как персонаж, хозяйка Очага и голос, рассказывающий истории.</p>
-                <div class="drawer-columns">
-                  <div><strong>Что можно добавить</strong><span>модель, референсы, рубрики, оформление канала, ключевые темы.</span></div>
-                  <div><strong>Связь с лором</strong><span>как витубинг отражает Библиотеку, Очаг, работу Лороведьмы и её публичную маску.</span></div>
+          <div class="dossier-tabs" data-dossier-tabs>
+            <div class="dossier-tab-list" role="tablist" aria-label="Разделы досье Лунны">
+              <button class="dossier-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="lunna-panel-vtubing" id="lunna-tab-vtubing" data-dossier-tab="lunna-panel-vtubing">
+                <span>01</span><strong>Витубинг</strong><em>образ, канал и публичная роль</em>
+              </button>
+              <button class="dossier-tab" type="button" role="tab" aria-selected="false" aria-controls="lunna-panel-stories" id="lunna-tab-stories" data-dossier-tab="lunna-panel-stories">
+                <span>02</span><strong>Истории персонажа</strong><em>пять историй, семья и биография</em>
+              </button>
+              <button class="dossier-tab" type="button" role="tab" aria-selected="false" aria-controls="lunna-panel-vision" id="lunna-tab-vision" data-dossier-tab="lunna-panel-vision">
+                <span>03</span><strong>Глаз Бога</strong><em>элемент, получение и символика</em>
+              </button>
+              <button class="dossier-tab" type="button" role="tab" aria-selected="false" aria-controls="lunna-panel-talents" id="lunna-tab-talents" data-dossier-tab="lunna-panel-talents">
+                <span>04</span><strong>Таланты и созвездие</strong><em>боевой стиль и игровые детали</em>
+              </button>
+              <button class="dossier-tab" type="button" role="tab" aria-selected="false" aria-controls="lunna-panel-build" id="lunna-tab-build" data-dossier-tab="lunna-panel-build">
+                <span>05</span><strong>Сигна и артефакты</strong><em>оружие, сет и лорное значение</em>
+              </button>
+              <button class="dossier-tab" type="button" role="tab" aria-selected="false" aria-controls="lunna-panel-profile" id="lunna-tab-profile" data-dossier-tab="lunna-panel-profile">
+                <span>06</span><strong>Карта и блюдо</strong><em>маленькие детали профиля</em>
+              </button>
+            </div>
+
+            <div class="dossier-panels">
+              <section class="dossier-panel is-active" id="lunna-panel-vtubing" role="tabpanel" aria-labelledby="lunna-tab-vtubing" data-dossier-panel>
+                <div class="dossier-copy">
+                  <h2>Витубинг</h2>
+                  <p>Раздел для витуберского образа Лунны: визуальная подача, манера речи, связь с лорным образом, форматы роликов и то, как Лунна существует одновременно как персонаж, хозяйка Очага и голос, рассказывающий истории.</p>
+                  <div class="dossier-note-grid">
+                    <div><strong>Что можно добавить</strong><span>модель, референсы, рубрики, оформление канала, ключевые темы.</span></div>
+                    <div><strong>Связь с лором</strong><span>как витубинг отражает Библиотеку, Очаг, работу Лороведьмы и её публичную маску.</span></div>
+                  </div>
                 </div>
-              </div>
-            </details>
-
-            <details class="wiki-drawer">
-              <summary>
-                <span class="drawer-index">02</span>
-                <span class="drawer-title">Истории персонажа</span>
-                <span class="drawer-note">пять историй, семья и биография</span>
-              </summary>
-              <div class="drawer-body">
-                <p>Раздел под пять полноценных историй Лунны, семейную линию, важные переломные точки и события, которые сформировали её как судебного медика, Лороведьму и хозяйку дома.</p>
-                <ol class="story-list">
-                  <li><span>История I</span><em>место для названия и краткого синопсиса.</em></li>
-                  <li><span>История II</span><em>место для названия и краткого синопсиса.</em></li>
-                  <li><span>История III</span><em>место для названия и краткого синопсиса.</em></li>
-                  <li><span>История IV</span><em>место для названия и краткого синопсиса.</em></li>
-                  <li><span>История V</span><em>место для названия и краткого синопсиса.</em></li>
-                </ol>
-                <p class="drawer-footnote">Семейную информацию можно вынести в отдельный подпункт внутри этого же раскрывающегося раздела.</p>
-              </div>
-            </details>
-
-            <details class="wiki-drawer">
-              <summary>
-                <span class="drawer-index">03</span>
-                <span class="drawer-title">Глаз Бога</span>
-                <span class="drawer-note">элемент, получение и символика</span>
-              </summary>
-              <div class="drawer-body">
-                <p>Здесь можно описать элемент Лунны, обстоятельства получения Глаза Бога, внешний вид, символику и то, как сила связана с её характером, профессией и ролью хранительницы историй.</p>
-              </div>
-            </details>
-
-            <details class="wiki-drawer">
-              <summary>
-                <span class="drawer-index">04</span>
-                <span class="drawer-title">Таланты и созвездие</span>
-                <span class="drawer-note">боевой стиль и игровые детали</span>
-              </summary>
-              <div class="drawer-body">
-                <p>Место для обычной атаки, элементального навыка, взрыва стихии, пассивных талантов, созвездий и коротких лорных комментариев к каждому пункту.</p>
-                <div class="drawer-columns three">
-                  <div><strong>Таланты</strong><span>атака, навык, взрыв стихии.</span></div>
-                  <div><strong>Пассивки</strong><span>исследование, ремесло, особое правило.</span></div>
-                  <div><strong>Созвездие</strong><span>названия, уровни, символы.</span></div>
+                <div class="dossier-media-shelf" aria-label="Место для изображений витубинга">
+                  <span>портрет / модель</span>
+                  <span>оформление канала</span>
                 </div>
-              </div>
-            </details>
+              </section>
 
-            <details class="wiki-drawer">
-              <summary>
-                <span class="drawer-index">05</span>
-                <span class="drawer-title">Сигна и артефакты</span>
-                <span class="drawer-note">оружие, сет и лорное значение</span>
-              </summary>
-              <div class="drawer-body">
-                <p>Раздел под сигнатурное оружие Лунны, набор артефактов, характеристики, визуальный смысл и объяснение, почему именно эти предметы принадлежат её истории.</p>
-              </div>
-            </details>
+              <section class="dossier-panel" id="lunna-panel-stories" role="tabpanel" aria-labelledby="lunna-tab-stories" data-dossier-panel hidden>
+                <div class="dossier-copy">
+                  <h2>Истории персонажа</h2>
+                  <p>Раздел под пять полноценных историй Лунны, семейную линию, важные переломные точки и события, которые сформировали её как судебного медика, Лороведьму и хозяйку дома.</p>
+                  <ol class="story-list">
+                    <li><span>История I</span><em>место для названия и краткого синопсиса.</em></li>
+                    <li><span>История II</span><em>место для названия и краткого синопсиса.</em></li>
+                    <li><span>История III</span><em>место для названия и краткого синопсиса.</em></li>
+                    <li><span>История IV</span><em>место для названия и краткого синопсиса.</em></li>
+                    <li><span>История V</span><em>место для названия и краткого синопсиса.</em></li>
+                  </ol>
+                </div>
+                <div class="dossier-media-shelf tall" aria-label="Место для изображений историй Лунны">
+                  <span>семья</span>
+                  <span>ключевые сцены</span>
+                  <span>архивные иллюстрации</span>
+                </div>
+              </section>
 
-            <details class="wiki-drawer">
-              <summary>
-                <span class="drawer-index">06</span>
-                <span class="drawer-title">Именная карта и особое блюдо</span>
-                <span class="drawer-note">маленькие детали профиля</span>
-              </summary>
-              <div class="drawer-body">
-                <p>Место для именной карты, описания карточки дружбы, особого блюда, рецепта, вкуса, оформления и маленькой сцены, через которую раскрывается домашняя сторона Лунны.</p>
-              </div>
-            </details>
+              <section class="dossier-panel" id="lunna-panel-vision" role="tabpanel" aria-labelledby="lunna-tab-vision" data-dossier-panel hidden>
+                <div class="dossier-copy">
+                  <h2>Глаз Бога</h2>
+                  <p>Здесь можно описать элемент Лунны, обстоятельства получения Глаза Бога, внешний вид, символику и то, как сила связана с её характером, профессией и ролью хранительницы историй.</p>
+                </div>
+                <div class="dossier-media-shelf" aria-label="Место для изображений Глаза Бога">
+                  <span>иконка элемента</span>
+                  <span>визуал Глаза Бога</span>
+                </div>
+              </section>
+
+              <section class="dossier-panel" id="lunna-panel-talents" role="tabpanel" aria-labelledby="lunna-tab-talents" data-dossier-panel hidden>
+                <div class="dossier-copy">
+                  <h2>Таланты и созвездие</h2>
+                  <p>Место для обычной атаки, элементального навыка, взрыва стихии, пассивных талантов, созвездий и коротких лорных комментариев к каждому пункту.</p>
+                  <div class="dossier-note-grid three">
+                    <div><strong>Таланты</strong><span>атака, навык, взрыв стихии.</span></div>
+                    <div><strong>Пассивки</strong><span>исследование, ремесло, особое правило.</span></div>
+                    <div><strong>Созвездие</strong><span>названия, уровни, символы.</span></div>
+                  </div>
+                </div>
+                <div class="dossier-media-shelf tall" aria-label="Место для изображений талантов и созвездия">
+                  <span>таланты</span>
+                  <span>созвездие</span>
+                </div>
+              </section>
+
+              <section class="dossier-panel" id="lunna-panel-build" role="tabpanel" aria-labelledby="lunna-tab-build" data-dossier-panel hidden>
+                <div class="dossier-copy">
+                  <h2>Сигна и артефакты</h2>
+                  <p>Раздел под сигнатурное оружие Лунны, набор артефактов, характеристики, визуальный смысл и объяснение, почему именно эти предметы принадлежат её истории.</p>
+                </div>
+                <div class="dossier-media-shelf" aria-label="Место для изображений оружия и артефактов">
+                  <span>оружие</span>
+                  <span>артефакты</span>
+                </div>
+              </section>
+
+              <section class="dossier-panel" id="lunna-panel-profile" role="tabpanel" aria-labelledby="lunna-tab-profile" data-dossier-panel hidden>
+                <div class="dossier-copy">
+                  <h2>Именная карта и особое блюдо</h2>
+                  <p>Место для именной карты, описания карточки дружбы, особого блюда, рецепта, вкуса, оформления и маленькой сцены, через которую раскрывается домашняя сторона Лунны.</p>
+                </div>
+                <div class="dossier-media-shelf" aria-label="Место для именной карты и блюда">
+                  <span>именная карта</span>
+                  <span>особое блюдо</span>
+                </div>
+              </section>
+            </div>
           </div>
         </section>
         <div class="actions">
@@ -139,7 +162,6 @@
     </div>
   </section>
 </main>
-<footer class="site-footer"><p>© Тайная библиотека Лунны.</p><a href="../../">На главную</a></footer>
 <script src="../../script.js"></script>
 </body>
 </html>
