@@ -76,6 +76,13 @@ html.custom-cursor-ready *::after {
   object-fit: contain;
   display: block;
   filter: drop-shadow(0 2px 7px rgba(0, 0, 0, 0.42));
+  transform-origin: 16% 14%;
+  transition: transform 0.16s ease, filter 0.16s ease;
+}
+
+.custom-cursor.is-hover img {
+  transform: scale(1.22);
+  filter: drop-shadow(0 4px 11px rgba(0, 0, 0, 0.48));
 }
 
 html {
@@ -853,9 +860,11 @@ button.button:hover {
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  opacity: 0.82;
-  filter: saturate(0.86) brightness(0.9);
-  transform: scale(1.01);
+  opacity: 0.92;
+  filter: saturate(0.94) brightness(0.94);
+  transform: none;
+  image-rendering: auto;
+  backface-visibility: hidden;
   transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
 }
 
@@ -897,7 +906,7 @@ button.button:hover {
   text-transform: uppercase;
 }
 
-.resident-tile:hover img { opacity: 0.98; filter: saturate(1) brightness(1); transform: scale(1.045); }
+.resident-tile:hover img { opacity: 1; filter: saturate(1) brightness(1); transform: scale(1.018); }
 .resident-tile:hover { border-color: rgba(199,162,99,0.48); }
 
 /* Internal pages */
@@ -1069,12 +1078,12 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 .character-page .wiki-hero {
   width: var(--page);
   margin: 0 auto;
-  padding: clamp(4rem, 8vw, 7rem) 0;
+  padding: clamp(1.5rem, 3.2vw, 3rem) 0 clamp(3rem, 6vw, 5.5rem);
 }
 
 .character-page .back-link {
   display: inline-flex;
-  margin-bottom: 2.4rem;
+  margin-bottom: 1.15rem;
   color: rgba(243,234,216,0.6);
   text-decoration: none;
 }
@@ -1100,7 +1109,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 
 .character-page .wiki-card.pinned {
   position: sticky;
-  top: 92px;
+  top: 78px;
 }
 
 .character-page .wiki-portrait {
@@ -1136,6 +1145,67 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
   border-bottom: 1px solid var(--line);
 }
 
+/* Thin golden scrollbars for wiki pages */
+.character-page {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(199, 162, 99, 0.72) rgba(255, 245, 222, 0.04);
+}
+
+.character-page::-webkit-scrollbar,
+.character-page *::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.character-page::-webkit-scrollbar-track,
+.character-page *::-webkit-scrollbar-track {
+  background: rgba(255, 245, 222, 0.035);
+}
+
+.character-page::-webkit-scrollbar-thumb,
+.character-page *::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(199, 162, 99, 0.85), rgba(156, 111, 115, 0.56));
+  border-radius: 999px;
+}
+
+.character-page::-webkit-scrollbar-thumb:hover,
+.character-page *::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+.wiki-extra {
+  margin-top: 2rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+}
+
+.wiki-module-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 1rem;
+  margin-top: 1rem;
+}
+
+.wiki-module {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.95rem 0;
+  border-top: 1px solid var(--line-soft);
+}
+
+.wiki-module strong {
+  color: var(--text-strong);
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+.wiki-module span {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
 @media (max-width: 920px) {
   :root { --page: min(100% - 2rem, 760px); }
   body.home-page { height: auto; overflow: auto; }
@@ -1152,7 +1222,8 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
   .residents-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 220px; max-height: none; }
   .wiki-card.pinned { position: static; }
   .room-grid,
-  .quiz-grid { grid-template-columns: 1fr; }
+  .quiz-grid,
+  .wiki-module-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 620px) {
