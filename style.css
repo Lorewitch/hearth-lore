@@ -143,6 +143,43 @@ body::after {
 
 body.plan-modal-open { overflow: hidden; }
 
+/* Thin golden scrollbars for every scrollable page and panel */
+html,
+body,
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(199, 162, 99, 0.82) rgba(255, 245, 222, 0.035);
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track {
+  background: rgba(255, 245, 222, 0.025);
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(225, 190, 123, 0.95), rgba(156, 111, 115, 0.62));
+  border-radius: 999px;
+  border: 2px solid rgba(12, 8, 8, 0.72);
+  background-clip: padding-box;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(246, 220, 158, 1), rgba(199, 162, 99, 0.86));
+  background-clip: padding-box;
+}
+
 .embers {
   position: fixed;
   inset: 0;
@@ -1143,34 +1180,6 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
   padding: 1rem 0;
   border-top: 0;
   border-bottom: 1px solid var(--line);
-}
-
-/* Thin golden scrollbars for wiki pages */
-.character-page {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(199, 162, 99, 0.72) rgba(255, 245, 222, 0.04);
-}
-
-.character-page::-webkit-scrollbar,
-.character-page *::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-.character-page::-webkit-scrollbar-track,
-.character-page *::-webkit-scrollbar-track {
-  background: rgba(255, 245, 222, 0.035);
-}
-
-.character-page::-webkit-scrollbar-thumb,
-.character-page *::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(199, 162, 99, 0.85), rgba(156, 111, 115, 0.56));
-  border-radius: 999px;
-}
-
-.character-page::-webkit-scrollbar-thumb:hover,
-.character-page *::-webkit-scrollbar-thumb:hover {
-  background: var(--gold);
 }
 
 .wiki-extra {
