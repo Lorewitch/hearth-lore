@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="custom-page-scrollbar">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preload" href="../../assets/ui/quill-cursor.png" as="image" type="image/png" fetchpriority="high" />
+  <style id="instant-custom-cursor">
+    html, body, *, *::before, *::after { cursor: url("../../assets/ui/quill-cursor.png") 5 4, auto !important; }
+    a, button, summary, [role="button"], [data-plan], .floor-image, .resident-tile, .site-scrollbar, .site-scrollbar * { cursor: url("../../assets/ui/quill-cursor.png") 5 4, pointer !important; }
+  </style>
   <title>Альтер — Тайная библиотека Лунны</title>
-  <link rel="preload" href="../../assets/ui/quill-cursor.png" as="image" />
   <link rel="stylesheet" href="../../style.css" />
 </head>
 <body class="character-page">

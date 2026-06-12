@@ -3,9 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preload" href="assets/ui/quill-cursor.png" as="image" type="image/png" fetchpriority="high" />
+  <style id="instant-custom-cursor">
+    html, body, *, *::before, *::after { cursor: url("assets/ui/quill-cursor.png") 5 4, auto !important; }
+    a, button, summary, [role="button"], [data-plan], .floor-image, .resident-tile, .site-scrollbar, .site-scrollbar * { cursor: url("assets/ui/quill-cursor.png") 5 4, pointer !important; }
+  </style>
   <meta name="description" content="Дом Лороведьмы Лунны Шейдшадэ: Мягкий корешок, Библиотека Лороведьмы, Очаг, Реми, угольные котики и архив." />
   <title>Библиотека Лороведьмы</title>
-  <link rel="preload" href="assets/ui/quill-cursor.png" as="image" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="home-page">

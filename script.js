@@ -42,7 +42,7 @@
     image.addEventListener('load', () => {
       cursor.append(image);
       document.body.append(cursor);
-      const hoverSelector = 'a, button, summary, input, textarea, select, [role="button"], [data-plan], .resident-tile';
+      const hoverSelector = 'a, button, summary, input, textarea, select, [role="button"], [data-plan], .resident-tile, .site-scrollbar, .site-scrollbar *';
       const updateHoverState = (event) => {
         const target = event.target instanceof Element ? event.target : null;
         cursor.classList.toggle('is-hover', Boolean(target?.closest(hoverSelector)));
@@ -73,6 +73,103 @@
   };
 
   enableCustomCursor();
+
+
+  const enableSiteScrollbar = () => {
+    if (document.body.classList.contains('home-page')) return;
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+
+    const root = document.documentElement;
+    const rail = document.createElement('div');
+    rail.className = 'site-scrollbar';
+    rail.setAttribute('aria-hidden', 'true');
+
+    const thumb = document.createElement('span');
+    thumb.className = 'site-scrollbar__thumb';
+    rail.append(thumb);
+    document.body.append(rail);
+
+    let raf = 0;
+    let dragging = false;
+    let dragOffset = 0;
+
+    const maxScroll = () => Math.max(0, root.scrollHeight - window.innerHeight);
+
+    const update = () => {
+      const max = maxScroll();
+      if (max <= 8) {
+        root.classList.remove('custom-page-scrollbar');
+        return;
+      }
+
+      root.classList.add('custom-page-scrollbar');
+      const trackHeight = rail.clientHeight;
+      const ratio = Math.min(1, window.innerHeight / root.scrollHeight);
+      const thumbHeight = Math.max(42, Math.round(trackHeight * ratio));
+      const travel = Math.max(1, trackHeight - thumbHeight);
+      const top = Math.round((window.scrollY / max) * travel);
+
+      thumb.style.height = `${thumbHeight}px`;
+      thumb.style.transform = `translate(-50%, ${top}px)`;
+    };
+
+    const scheduleUpdate = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        update();
+      });
+    };
+
+    const scrollToPointer = (clientY) => {
+      const max = maxScroll();
+      const trackHeight = rail.clientHeight;
+      const thumbHeight = thumb.offsetHeight || 42;
+      const travel = Math.max(1, trackHeight - thumbHeight);
+      const rect = rail.getBoundingClientRect();
+      const y = Math.max(0, Math.min(clientY - rect.top - dragOffset, travel));
+      window.scrollTo({ top: (y / travel) * max, behavior: 'auto' });
+    };
+
+    rail.addEventListener('pointerdown', (event) => {
+      if (maxScroll() <= 8) return;
+      event.preventDefault();
+      const thumbRect = thumb.getBoundingClientRect();
+      dragOffset = event.target === thumb ? event.clientY - thumbRect.top : thumb.offsetHeight / 2;
+      dragging = true;
+      rail.classList.add('is-dragging');
+      rail.setPointerCapture?.(event.pointerId);
+      scrollToPointer(event.clientY);
+    });
+
+    rail.addEventListener('pointermove', (event) => {
+      if (!dragging) return;
+      event.preventDefault();
+      scrollToPointer(event.clientY);
+    });
+
+    const stopDragging = (event) => {
+      if (!dragging) return;
+      dragging = false;
+      rail.classList.remove('is-dragging');
+      rail.releasePointerCapture?.(event.pointerId);
+    };
+
+    rail.addEventListener('pointerup', stopDragging);
+    rail.addEventListener('pointercancel', stopDragging);
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate, { passive: true });
+    window.addEventListener('load', scheduleUpdate, { once: true });
+
+    if ('ResizeObserver' in window) {
+      const observer = new ResizeObserver(scheduleUpdate);
+      observer.observe(document.body);
+    }
+
+    scheduleUpdate();
+  };
+
+  enableSiteScrollbar();
 
 
   const emberLayer = document.querySelector('.embers');
