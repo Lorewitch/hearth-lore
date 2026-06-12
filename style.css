@@ -604,10 +604,10 @@ button.button:hover {
 
 .quote-panel p {
   margin: 0;
-  color: rgba(243,234,216,0.82);
-  font-size: clamp(1.02rem, 1.45vw, 1.22rem);
+  color: var(--text-strong);
+  font-size: clamp(1.05rem, 1.45vw, 1.25rem);
   font-style: italic;
-  line-height: 1.78;
+  line-height: 1.62;
 }
 
 .library-fragment .italic-note { margin-top: 1.35rem; font-size: 0.95rem; }
@@ -1340,11 +1340,14 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
   line-height: 1;
 }
 
-.dossier-copy p {
+.dossier-copy > p {
   max-width: 780px;
   margin: 0 0 1rem;
-  color: var(--muted);
-  font-size: clamp(1rem, 1.22vw, 1.12rem);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 400;
   line-height: 1.72;
 }
 
@@ -1721,8 +1724,11 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 .family-record-text > p:not(.eyebrow) {
   max-width: 780px;
   margin: 0 0 1rem;
-  color: var(--muted);
-  font-size: clamp(1rem, 1.22vw, 1.12rem);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 400;
   line-height: 1.72;
 }
 
@@ -1848,15 +1854,18 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 }
 
 .story-body {
-  max-width: 980px;
-  margin-left: 4.4rem;
+  max-width: 780px;
+  margin-left: 0;
   padding: 0 0 clamp(1.3rem, 2.8vw, 2.2rem);
 }
 
-.story-body p {
+.story-body > p {
   margin: 0 0 1rem;
-  color: var(--muted);
-  font-size: clamp(1rem, 1.22vw, 1.12rem);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 400;
   line-height: 1.72;
 }
 
