@@ -1426,3 +1426,155 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
     grid-template-columns: 1fr;
   }
 }
+
+/* Lunna profile layout refinement */
+.character-page .wiki-profile-main .wiki-title-top {
+  margin: 0 0 0.25rem;
+}
+
+.character-page .wiki-profile-main > .eyebrow {
+  margin-top: 0;
+  margin-bottom: 1.35rem;
+}
+
+.character-compass {
+  margin-top: clamp(1.4rem, 2.5vw, 2rem);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.character-compass .eyebrow {
+  margin-bottom: 0.95rem;
+}
+
+.trait-row {
+  --bar-size: 0%;
+  --bar-shift: 0%;
+  display: grid;
+  grid-template-columns: minmax(5.5rem, 0.75fr) minmax(180px, 1.4fr) minmax(5.5rem, 0.75fr);
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.55rem 0;
+  color: rgba(243, 234, 216, 0.68);
+  font-family: var(--ui);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.trait-row span:last-child {
+  text-align: right;
+}
+
+.trait-row i {
+  position: relative;
+  display: block;
+  height: 0.34rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, rgba(199, 162, 99, 0.16), rgba(243, 234, 216, 0.12), rgba(199, 162, 99, 0.16));
+  overflow: hidden;
+}
+
+.trait-row i::before {
+  content: "";
+  position: absolute;
+  top: -0.22rem;
+  bottom: -0.22rem;
+  left: 50%;
+  width: 1px;
+  background: rgba(243, 234, 216, 0.46);
+}
+
+.trait-row b {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: var(--bar-size);
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(199, 162, 99, 0.92), rgba(244, 208, 138, 0.72));
+  transform: translateX(var(--bar-shift));
+  transform-origin: left center;
+}
+
+.lunna-library {
+  width: 100%;
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+}
+
+.lunna-library .wiki-extra-intro {
+  max-width: 920px;
+}
+
+.lunna-library .dossier-tab-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border-left: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+}
+
+.lunna-library .dossier-tab {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  min-height: 7.5rem;
+  padding: 1rem 1.05rem;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(199, 162, 99, 0.055), transparent 70%);
+}
+
+.lunna-library .dossier-tab span {
+  padding-top: 0.18rem;
+}
+
+.lunna-library .dossier-tab strong {
+  display: block;
+}
+
+.lunna-library .dossier-tab em {
+  grid-column: 2 / 3;
+  margin-top: 0.45rem;
+  line-height: 1.45;
+}
+
+.lunna-library .dossier-tab.is-active {
+  background:
+    linear-gradient(180deg, rgba(199, 162, 99, 0.18), rgba(199, 162, 99, 0.035) 68%, transparent),
+    rgba(255, 245, 222, 0.025);
+}
+
+.lunna-library .dossier-panels {
+  margin-top: clamp(1.4rem, 3vw, 2.4rem);
+}
+
+.lunna-library .dossier-panel {
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.46fr);
+}
+
+@media (max-width: 920px) {
+  .character-page .wiki-profile-main .wiki-title-top {
+    margin-top: 0;
+  }
+
+  .trait-row {
+    grid-template-columns: minmax(4.6rem, 0.8fr) minmax(120px, 1.4fr) minmax(4.6rem, 0.8fr);
+    gap: 0.65rem;
+    font-size: 0.62rem;
+  }
+
+  .lunna-library .dossier-tab-list {
+    grid-template-columns: 1fr;
+  }
+
+  .lunna-library .dossier-tab {
+    min-height: 0;
+    grid-template-columns: 2.6rem minmax(0, 1fr);
+  }
+
+  .lunna-library .dossier-panel {
+    grid-template-columns: 1fr;
+  }
+}
