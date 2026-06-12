@@ -1696,8 +1696,8 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 
 .family-record {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.42fr);
-  gap: clamp(1.4rem, 3vw, 2.6rem);
+  grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.56fr);
+  gap: clamp(1.3rem, 3vw, 2.4rem);
   align-items: start;
   padding: clamp(1.1rem, 2.2vw, 1.7rem) 0 clamp(1.4rem, 2.8vw, 2rem);
   border-top: 1px solid var(--line);
@@ -1729,9 +1729,11 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 .story-family-image {
   position: relative;
   display: block;
-  width: 100%;
+  width: min(460px, 100%);
+  max-width: 100%;
   padding: 0;
   overflow: hidden;
+  justify-self: end;
   border: 1px solid rgba(199, 162, 99, 0.24);
   border-radius: 1.2rem;
   background:
@@ -1744,7 +1746,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 .story-family-image img {
   display: block;
   width: 100%;
-  height: clamp(260px, 28vw, 430px);
+  height: clamp(260px, 30vw, 390px);
   object-fit: contain;
   object-position: center;
   background: rgba(5, 3, 4, 0.34);
@@ -1753,25 +1755,22 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 }
 
 .story-family-image::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 58%, rgba(5, 3, 4, 0.76));
-  pointer-events: none;
+  content: none;
 }
 
 .story-family-image span {
-  position: absolute;
-  left: 1rem;
-  right: 1rem;
-  bottom: 0.85rem;
-  z-index: 1;
+  position: static;
+  display: block;
+  padding: 0.72rem 0.95rem 0.82rem;
+  border-top: 1px solid rgba(199, 162, 99, 0.18);
   color: rgba(255, 247, 232, 0.92);
   font-family: var(--ui);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  line-height: 1.45;
+  text-transform: none;
+  background: rgba(5, 3, 4, 0.32);
 }
 
 .story-family-image:hover img {
