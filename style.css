@@ -1430,13 +1430,19 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 /* Lunna profile layout refinement */
 .character-page .lunna-profile-column {
   min-width: 0;
+  position: relative;
 }
 
 .character-page .lunna-profile-column .wiki-title-top {
-  margin: 0 0 clamp(1rem, 1.6vw, 1.35rem);
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 0.42rem);
+  margin: 0;
+  pointer-events: none;
 }
 
 .character-page .lunna-profile-column .wiki-profile-main {
+  position: relative;
   padding-top: 1.25rem;
 }
 
@@ -1565,7 +1571,9 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 
 @media (max-width: 920px) {
   .character-page .lunna-profile-column .wiki-title-top {
-    margin-top: 0;
+    position: static;
+    margin: 0 0 1rem;
+    pointer-events: auto;
   }
 
   .trait-row {
