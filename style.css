@@ -28,9 +28,9 @@
 
 html,
 body,
-body *,
-body *::before,
-body *::after {
+*,
+*::before,
+*::after {
   cursor: url("assets/ui/quill-cursor.png") 5 4, auto !important;
 }
 
@@ -1901,5 +1901,57 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 
   .story-entry summary {
     grid-template-columns: 2.8rem minmax(0, 1fr);
+  }
+}
+
+/* Wiki typography normalization */
+.character-page article.wiki-card > p:not(.eyebrow),
+.character-page .wiki-profile-main > p:not(.eyebrow),
+.character-page .dossier-copy > p,
+.character-page .family-record-text > p:not(.eyebrow),
+.character-page .story-body > p,
+.character-page .wiki-extra-intro {
+  color: rgba(243, 234, 216, 0.88);
+  font-family: var(--body);
+  font-size: clamp(1.02rem, 1.35vw, 1.18rem);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.74;
+}
+
+.character-page .quote-panel p,
+.character-page .vtubing-copy .vtubing-quote p,
+.character-page .family-quote p,
+.character-page .story-quote p {
+  color: rgba(199, 162, 99, 0.88);
+  font-family: var(--body);
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.72;
+}
+
+.character-page .vtubing-image-card span,
+.character-page .story-family-image span {
+  color: rgba(255, 247, 232, 0.92);
+  font-family: var(--ui);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.character-page .trait-row {
+  font-size: 0.95rem;
+}
+
+.character-page .story-body {
+  margin-left: 4.4rem;
+}
+
+@media (max-width: 920px) {
+  .character-page .story-body {
+    margin-left: 0;
   }
 }

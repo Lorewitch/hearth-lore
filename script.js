@@ -42,18 +42,25 @@
     image.addEventListener('load', () => {
       cursor.append(image);
       document.body.append(cursor);
-      document.documentElement.classList.add('custom-cursor-ready');
       const hoverSelector = 'a, button, summary, input, textarea, select, [role="button"], [data-plan], .resident-tile';
       const updateHoverState = (event) => {
         const target = event.target instanceof Element ? event.target : null;
         cursor.classList.toggle('is-hover', Boolean(target?.closest(hoverSelector)));
       };
 
+      const activateCustomCursor = () => {
+        if (!document.documentElement.classList.contains('custom-cursor-ready')) {
+          document.documentElement.classList.add('custom-cursor-ready');
+        }
+      };
+
       window.addEventListener('pointermove', (event) => {
+        activateCustomCursor();
         moveCursor(event);
         updateHoverState(event);
       }, { passive: true });
       window.addEventListener('mousemove', (event) => {
+        activateCustomCursor();
         moveCursor(event);
         updateHoverState(event);
       }, { passive: true });
