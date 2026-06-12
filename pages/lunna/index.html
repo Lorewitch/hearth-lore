@@ -89,18 +89,24 @@
             </div>
 
             <div class="dossier-panels">
-          <section class="dossier-panel is-active" id="lunna-panel-vtubing" role="tabpanel" aria-labelledby="lunna-tab-vtubing" data-dossier-panel>
-                <div class="dossier-copy">
+          <section class="dossier-panel is-active vtubing-dossier" id="lunna-panel-vtubing" role="tabpanel" aria-labelledby="lunna-tab-vtubing" data-dossier-panel>
+                <div class="dossier-copy vtubing-copy">
                   <h2>Витубинг</h2>
-                  <p>Раздел для витуберского образа Лунны: визуальная подача, манера речи, связь с лорным образом, форматы роликов и то, как Лунна существует одновременно как персонаж, хозяйка Очага и голос, рассказывающий истории.</p>
-                  <div class="dossier-note-grid">
-                    <div><strong>Что можно добавить</strong><span>модель, референсы, рубрики, оформление канала, ключевые темы.</span></div>
-                    <div><strong>Связь с лором</strong><span>как витубинг отражает Библиотеку, Очаг, работу Лороведьмы и её публичную маску.</span></div>
-                  </div>
+                  <aside class="quote-panel vtubing-quote"><p>Когда-то Лунна была полностью рыжей — тёплой, живой, почти солнечной. Но пятьсот лет назад на её сердце легло морозное проклятие, и волосы побелели, словно весь их цвет забрал холод. Только одна прядь цвета заката осталась напоминанием о прежней Лунне.</p></aside>
+                  <p>Ты попал в мой тайник витуберских образов ♡</p>
+                  <p>В начале своей витуберской истории и по прибытии в Фонтейн, я была с белыми волосами и первой рыжей прядью, которая всё ещё держалась за тепло. Но с тех пор рядом со мной появились Лана, Полночь, Очаг, новые друзья и вы — те, кто смотрит мои видео, поддерживает меня и возвращается в мой маленький мир. С каждым тёплым словом проклятие слабеет, сердце Лунны оттаивает, а рыжий цвет постепенно возвращается в волосы.</p>
+                  <p>Я лороведьма: собираю истории миров Genshin Impact и переплетаю их в нежные сказания на нашем с Полночем YouTube-канале. Люблю искать то, что спрятано между строк, и, возможно, однажды начну стримить, чтобы делиться этим волшебством вживую.</p>
+                  <p>Добро пожаловать в мой маленький мир — место, где живёт тепло, фантазия и капелька магии ♡</p>
                 </div>
-                <div class="dossier-media-shelf" aria-label="Место для изображений витубинга">
-                  <span>портрет / модель</span>
-                  <span>оформление канала</span>
+                <div class="vtubing-gallery" aria-label="Витуберские образы Лунны">
+                  <button class="vtubing-image-card" type="button" data-plan="../../assets/vtubing/model_v1.webp" data-title="Витуберские образы Лунны — мягкий домашний образ">
+                    <img src="../../assets/vtubing/model_v1.webp" alt="Витуберские образы Лунны в голубом и белом костюмах" loading="lazy" />
+                    <span>мягкий домашний образ</span>
+                  </button>
+                  <button class="vtubing-image-card" type="button" data-plan="../../assets/vtubing/model_v2.webp" data-title="Витуберские образы Лунны — ведьминский и праздничный образы">
+                    <img src="../../assets/vtubing/model_v2.webp" alt="Витуберские образы Лунны: ведьминский, белый и праздничный варианты" loading="lazy" />
+                    <span>ведьминский, белый и праздничный образы</span>
+                  </button>
                 </div>
               </section>
 
@@ -176,6 +182,10 @@
         </section>
   </section>
 </main>
+<div class="plan-modal" id="plan-modal" hidden>
+  <button class="plan-modal-close" type="button" aria-label="Закрыть изображение">×</button>
+  <img id="plan-modal-image" alt="" />
+</div>
 <script src="../../script.js"></script>
 </body>
 </html>
