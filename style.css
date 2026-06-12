@@ -1686,25 +1686,25 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 
 /* Lunna character stories */
 .story-dossier {
-  grid-template-columns: 1fr;
   gap: clamp(1.5rem, 3vw, 2.4rem);
+  align-items: start;
+}
+
+.lunna-library .story-dossier {
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.46fr);
 }
 
 .story-dossier-copy {
-  max-width: 900px;
+  max-width: 920px;
 }
 
-.family-record {
-  display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.56fr);
-  gap: clamp(1.3rem, 3vw, 2.4rem);
-  align-items: start;
-  padding: clamp(1.1rem, 2.2vw, 1.7rem) 0 clamp(1.4rem, 2.8vw, 2rem);
+.family-record-text {
+  margin-top: clamp(1.35rem, 2.8vw, 2rem);
+  padding-top: clamp(1.05rem, 2.2vw, 1.45rem);
   border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
 }
 
-.family-record h3 {
+.family-record-text h3 {
   margin: 0.15rem 0 0.85rem;
   font-family: var(--serif);
   font-size: clamp(1.55rem, 2.35vw, 2.25rem);
@@ -1729,8 +1729,11 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 .story-family-image {
   position: relative;
   display: block;
-  width: min(460px, 100%);
+  grid-column: 2;
+  grid-row: 1;
+  width: min(420px, 100%);
   max-width: 100%;
+  margin-top: clamp(0.2rem, 1vw, 0.65rem);
   padding: 0;
   overflow: hidden;
   justify-self: end;
@@ -1779,6 +1782,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 }
 
 .story-archive {
+  grid-column: 1 / -1;
   display: grid;
   gap: 0;
   border-top: 1px solid var(--line);
@@ -1858,8 +1862,16 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 }
 
 @media (max-width: 920px) {
-  .family-record {
+  .lunna-library .story-dossier {
     grid-template-columns: 1fr;
+  }
+
+  .story-family-image {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+    width: min(420px, 100%);
+    margin-top: 0;
   }
 
   .story-body {
