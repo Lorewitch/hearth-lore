@@ -20,6 +20,18 @@
   const enableCustomCursor = () => {
     if (!window.matchMedia('(any-pointer: fine)').matches) return;
 
+    // Native/browser cursor is hidden immediately. The visible quill below is the only cursor.
+    document.documentElement.classList.add('custom-cursor-ready');
+
+    const hardCursorReset = document.createElement('style');
+    hardCursorReset.id = 'force-native-cursor-off';
+    hardCursorReset.textContent = `
+      html, body, *, *::before, *::after { cursor: none !important; }
+      html, body, * { scrollbar-width: none; }
+      html::-webkit-scrollbar, body::-webkit-scrollbar, *::-webkit-scrollbar { width: 0 !important; height: 0 !important; }
+    `;
+    document.head.append(hardCursorReset);
+
     const stylesheet = document.querySelector('link[rel="stylesheet"]');
     const stylesheetUrl = stylesheet ? stylesheet.href : new URL('style.css', document.baseURI).href;
     const cursorUrl = new URL('assets/ui/quill-cursor.png', stylesheetUrl).href;
@@ -27,6 +39,7 @@
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
     cursor.setAttribute('aria-hidden', 'true');
+    document.body.append(cursor);
 
     const image = new Image();
     image.alt = '';
@@ -39,39 +52,37 @@
 
     const hideCursor = () => cursor.classList.remove('is-visible');
 
+    const hoverSelector = 'a, button, summary, input, textarea, select, [role="button"], [data-plan], .floor-image, .resident-tile, .site-scrollbar, .site-scrollbar *';
+    const updateHoverState = (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      cursor.classList.toggle('is-hover', Boolean(target?.closest(hoverSelector)));
+    };
+
+    const handlePointer = (event) => {
+      moveCursor(event);
+      updateHoverState(event);
+    };
+
     image.addEventListener('load', () => {
       cursor.append(image);
-      document.body.append(cursor);
-      document.documentElement.classList.add('custom-cursor-ready');
-
-      const hoverSelector = 'a, button, summary, input, textarea, select, [role="button"], [data-plan], .resident-tile, .site-scrollbar, .site-scrollbar *';
-      const updateHoverState = (event) => {
-        const target = event.target instanceof Element ? event.target : null;
-        cursor.classList.toggle('is-hover', Boolean(target?.closest(hoverSelector)));
-      };
-
-      const handlePointer = (event) => {
-        moveCursor(event);
-        updateHoverState(event);
-      };
-
-      window.addEventListener('pointermove', handlePointer, { passive: true });
-      window.addEventListener('mousemove', handlePointer, { passive: true });
-      window.addEventListener('pointerover', handlePointer, { passive: true });
-      window.addEventListener('mouseover', handlePointer, { passive: true });
-      document.addEventListener('pointerleave', hideCursor);
-      document.addEventListener('mouseleave', hideCursor);
-      window.addEventListener('blur', hideCursor);
     }, { once: true });
 
     image.src = cursorUrl;
+
+    window.addEventListener('pointermove', handlePointer, { passive: true });
+    window.addEventListener('mousemove', handlePointer, { passive: true });
+    window.addEventListener('pointerover', handlePointer, { passive: true });
+    window.addEventListener('mouseover', handlePointer, { passive: true });
+    window.addEventListener('pointerdown', handlePointer, { passive: true });
+    document.addEventListener('pointerleave', hideCursor);
+    document.addEventListener('mouseleave', hideCursor);
+    window.addEventListener('blur', hideCursor);
   };
 
   enableCustomCursor();
 
 
   const enableSiteScrollbar = () => {
-    if (document.body.classList.contains('home-page')) return;
     if (!window.matchMedia('(any-pointer: fine)').matches) return;
 
     const root = document.documentElement;

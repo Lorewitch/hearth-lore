@@ -6,8 +6,26 @@
   <link rel="preload" href="../../assets/ui/quill-cursor.png" as="image" type="image/png" fetchpriority="high" />
   <style id="instant-custom-cursor">
     @media (any-pointer: fine) {
-    html, body, *, *::before, *::after { cursor: url("../../assets/ui/quill-cursor.png") 5 4, none !important; }
-    a, button, summary, [role="button"], [data-plan], .floor-image, .resident-tile, .site-scrollbar, .site-scrollbar * { cursor: url("../../assets/ui/quill-cursor.png") 5 4, none !important; }
+      html,
+      body,
+      *,
+      *::before,
+      *::after {
+        cursor: none !important;
+      }
+
+      html,
+      body,
+      * {
+        scrollbar-width: none;
+      }
+
+      html::-webkit-scrollbar,
+      body::-webkit-scrollbar,
+      *::-webkit-scrollbar {
+        width: 0 !important;
+        height: 0 !important;
+      }
     }
   </style>
   <title>Угольные котики — Тайная библиотека Лунны</title>

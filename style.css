@@ -26,12 +26,36 @@
 
 * { box-sizing: border-box; }
 
+@media (any-pointer: fine) {
+  html,
+  body,
+  *,
+  *::before,
+  *::after {
+    cursor: none !important;
+  }
+
+  html,
+  body,
+  * {
+    scrollbar-width: none;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar,
+  *::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+  }
+}
+
+
 html,
 body,
 *,
 *::before,
 *::after {
-  cursor: url("assets/ui/quill-cursor.png") 5 4, none !important;
+  cursor: none !important;
 }
 
 a,
@@ -43,7 +67,7 @@ summary,
 .site-scrollbar,
 .site-scrollbar *,
 [role="button"] {
-  cursor: url("assets/ui/quill-cursor.png") 5 4, none !important;
+  cursor: none !important;
 }
 
 html.custom-cursor-ready,
@@ -62,7 +86,7 @@ html.custom-cursor-ready *::after {
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 10000;
+  z-index: 2147483647;
   width: 44px;
   height: 47px;
   pointer-events: none;
@@ -120,8 +144,7 @@ html.custom-page-scrollbar .site-scrollbar {
   pointer-events: auto;
 }
 
-body.plan-modal-open .site-scrollbar,
-body.home-page .site-scrollbar {
+body.plan-modal-open .site-scrollbar {
   opacity: 0;
   pointer-events: none;
 }
@@ -269,7 +292,7 @@ body::-webkit-scrollbar-button,
 html::-webkit-scrollbar-corner,
 body::-webkit-scrollbar-corner,
 *::-webkit-scrollbar-corner {
-  cursor: url("assets/ui/quill-cursor.png") 5 4, none !important;
+  cursor: none !important;
 }
 
 .embers {
@@ -634,7 +657,7 @@ button.button {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   text-decoration: none;
-  cursor: url("assets/ui/quill-cursor.png") 5 4, none !important;
+  cursor: none !important;
   transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, color 0.22s ease;
 }
 
@@ -654,7 +677,7 @@ button.button:hover {
 .button.secondary,
 .button.archive-link { background: rgba(255,255,255,0.025); }
 .button.disabled,
-.button:disabled { opacity: 0.55; cursor: url("assets/ui/quill-cursor.png") 5 4, none !important; pointer-events: none; }
+.button:disabled { opacity: 0.55; cursor: none !important; pointer-events: none; }
 
 .quote-panel,
 .library-fragment {
@@ -839,7 +862,7 @@ button.button:hover {
   border: 1px solid rgba(243,234,216,0.16);
   background: rgba(255,245,222,0.03);
   overflow: hidden;
-  cursor: url("assets/ui/quill-cursor.png") 5 4, none !important;
+  cursor: none !important;
 }
 
 .floor-image::after {
@@ -939,7 +962,7 @@ button.button:hover {
   border: 1px solid rgba(199,162,99,0.58);
   border-radius: 50%;
   background: transparent;
-  cursor: url("assets/ui/quill-cursor.png") 5 4, none !important;
+  cursor: none !important;
   transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -1179,7 +1202,7 @@ button.button:hover {
   background: rgba(12,8,8,0.65);
   font-size: 1.6rem;
   line-height: 1;
-  cursor: url("assets/ui/quill-cursor.png") 5 4, none !important;
+  cursor: none !important;
 }
 
 
@@ -1370,7 +1393,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
   color: var(--text);
   background: transparent;
   text-align: left;
-  cursor: url("assets/ui/quill-cursor.png") 5 4, none !important;
+  cursor: none !important;
 }
 
 .dossier-tab span {
@@ -1738,7 +1761,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
     radial-gradient(circle at 50% 0%, rgba(199, 162, 99, 0.10), transparent 70%),
     rgba(255, 245, 222, 0.028);
   box-shadow: 0 18px 58px rgba(0, 0, 0, 0.26);
-  cursor: url("assets/ui/quill-cursor.png") 5 4, none !important;
+  cursor: none !important;
 }
 
 .vtubing-image-card img {
@@ -1850,7 +1873,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
     radial-gradient(circle at 50% 0%, rgba(199, 162, 99, 0.10), transparent 72%),
     rgba(255, 245, 222, 0.025);
   box-shadow: 0 18px 58px rgba(0, 0, 0, 0.26);
-  cursor: url("assets/ui/quill-cursor.png") 5 4, none !important;
+  cursor: none !important;
 }
 
 .story-family-image img {
@@ -1910,7 +1933,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
   align-items: baseline;
   padding: 1.15rem 0;
   list-style: none;
-  cursor: url("assets/ui/quill-cursor.png") 5 4, none !important;
+  cursor: none !important;
 }
 
 .story-entry summary::-webkit-details-marker {
