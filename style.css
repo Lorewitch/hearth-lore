@@ -2505,3 +2505,79 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
   35% { opacity: 1; }
   to { opacity: 0; }
 }
+
+/* Lunna dossier layout refinement: fuller text columns and horizontal talent headers */
+.lunna-library .dossier-copy,
+.lunna-library .story-dossier-copy,
+.lunna-library .vision-copy,
+.lunna-library .talents-copy {
+  max-width: none;
+}
+
+.lunna-library .dossier-copy > p,
+.lunna-library .family-record-text > p:not(.eyebrow),
+.lunna-library .vision-story,
+.lunna-library .story-body {
+  max-width: none;
+}
+
+.lunna-library .talent-card {
+  grid-template-columns: clamp(58px, 4.8vw, 76px) minmax(0, 1fr);
+  gap: clamp(0.82rem, 1.2vw, 1rem) clamp(0.9rem, 1.35vw, 1.15rem);
+}
+
+.lunna-library .talent-icon {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  width: clamp(58px, 4.8vw, 76px);
+}
+
+.lunna-library .talent-content {
+  display: contents;
+}
+
+.lunna-library .talent-card-head {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  align-content: center;
+  min-height: clamp(58px, 4.8vw, 76px);
+  margin-bottom: 0;
+}
+
+.lunna-library .talent-card h3 {
+  font-size: clamp(1.06rem, 1.22vw, 1.32rem);
+}
+
+.lunna-library .talent-description {
+  grid-column: 1 / -1;
+  grid-row: 2;
+}
+
+@media (max-width: 720px) {
+  .lunna-library .talent-card {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+
+  .lunna-library .talent-icon {
+    width: 72px;
+  }
+}
+
+@media (max-width: 540px) {
+  .lunna-library .talent-card {
+    grid-template-columns: 1fr;
+  }
+
+  .lunna-library .talent-content {
+    display: block;
+  }
+
+  .lunna-library .talent-icon,
+  .lunna-library .talent-card-head,
+  .lunna-library .talent-description {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
