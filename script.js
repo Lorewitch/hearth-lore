@@ -18,7 +18,7 @@
 
 
   const enableCustomCursor = () => {
-    if (!window.matchMedia('(pointer: fine)').matches) return;
+    if (!window.matchMedia('(any-pointer: fine)').matches) return;
 
     const stylesheet = document.querySelector('link[rel="stylesheet"]');
     const stylesheetUrl = stylesheet ? stylesheet.href : new URL('style.css', document.baseURI).href;
@@ -42,28 +42,23 @@
     image.addEventListener('load', () => {
       cursor.append(image);
       document.body.append(cursor);
+      document.documentElement.classList.add('custom-cursor-ready');
+
       const hoverSelector = 'a, button, summary, input, textarea, select, [role="button"], [data-plan], .resident-tile, .site-scrollbar, .site-scrollbar *';
       const updateHoverState = (event) => {
         const target = event.target instanceof Element ? event.target : null;
         cursor.classList.toggle('is-hover', Boolean(target?.closest(hoverSelector)));
       };
 
-      const activateCustomCursor = () => {
-        if (!document.documentElement.classList.contains('custom-cursor-ready')) {
-          document.documentElement.classList.add('custom-cursor-ready');
-        }
+      const handlePointer = (event) => {
+        moveCursor(event);
+        updateHoverState(event);
       };
 
-      window.addEventListener('pointermove', (event) => {
-        activateCustomCursor();
-        moveCursor(event);
-        updateHoverState(event);
-      }, { passive: true });
-      window.addEventListener('mousemove', (event) => {
-        activateCustomCursor();
-        moveCursor(event);
-        updateHoverState(event);
-      }, { passive: true });
+      window.addEventListener('pointermove', handlePointer, { passive: true });
+      window.addEventListener('mousemove', handlePointer, { passive: true });
+      window.addEventListener('pointerover', handlePointer, { passive: true });
+      window.addEventListener('mouseover', handlePointer, { passive: true });
       document.addEventListener('pointerleave', hideCursor);
       document.addEventListener('mouseleave', hideCursor);
       window.addEventListener('blur', hideCursor);
@@ -77,7 +72,7 @@
 
   const enableSiteScrollbar = () => {
     if (document.body.classList.contains('home-page')) return;
-    if (!window.matchMedia('(pointer: fine)').matches) return;
+    if (!window.matchMedia('(any-pointer: fine)').matches) return;
 
     const root = document.documentElement;
     const rail = document.createElement('div');
