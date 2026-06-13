@@ -1799,7 +1799,8 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 }
 
 .talents-copy {
-  max-width: 1080px;
+  width: 100%;
+  max-width: none;
 }
 
 .talent-quote {
@@ -1843,6 +1844,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 
 .talent-table {
   display: grid;
+  width: 100%;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(0.85rem, 1.5vw, 1.1rem);
   align-items: stretch;
