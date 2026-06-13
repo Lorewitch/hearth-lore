@@ -5,15 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="preload" href="../assets/ui/quill-cursor.png" as="image" type="image/png" fetchpriority="high" />
   <style id="instant-custom-cursor">
-    @media (any-pointer: fine) {
-      html,
-      body,
-      *,
-      *::before,
-      *::after {
-        cursor: none !important;
-      }
+    html,
+    body,
+    *,
+    *::before,
+    *::after {
+      cursor: none !important;
+    }
 
+    .native-cursor-shield {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483646;
+      background: transparent;
+      cursor: none !important;
+      pointer-events: auto;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+    }
+
+    html.native-cursor-shield-released .native-cursor-shield {
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    @media (any-pointer: fine) {
       html,
       body,
       * {
@@ -33,6 +50,8 @@
   <link rel="stylesheet" href="../style.css" />
 </head>
 <body>
+
+<div class="native-cursor-shield" aria-hidden="true"></div>
 <div class="library-loader" aria-hidden="true">
   <div class="loader-seal">
     <span class="loader-mark"></span>

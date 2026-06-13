@@ -82,6 +82,23 @@ html.custom-cursor-ready *::after {
   cursor: none !important;
 }
 
+.native-cursor-shield {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;
+  background: transparent;
+  cursor: none !important;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+html.native-cursor-shield-released .native-cursor-shield {
+  pointer-events: none;
+  opacity: 0;
+}
+
 .custom-cursor {
   position: fixed;
   left: 0;

@@ -29,8 +29,20 @@
       html, body, *, *::before, *::after { cursor: none !important; }
       html, body, * { scrollbar-width: none; }
       html::-webkit-scrollbar, body::-webkit-scrollbar, *::-webkit-scrollbar { width: 0 !important; height: 0 !important; }
+      .native-cursor-shield { cursor: none !important; }
     `;
     document.head.append(hardCursorReset);
+
+    const nativeCursorShield = document.querySelector('.native-cursor-shield');
+    let nativeCursorShieldReleased = false;
+    const releaseNativeCursorShield = () => {
+      if (nativeCursorShieldReleased) return;
+      nativeCursorShieldReleased = true;
+      document.documentElement.classList.add('native-cursor-shield-released');
+      if (nativeCursorShield) {
+        window.setTimeout(() => nativeCursorShield.remove(), 180);
+      }
+    };
 
     const stylesheet = document.querySelector('link[rel="stylesheet"]');
     const stylesheetUrl = stylesheet ? stylesheet.href : new URL('style.css', document.baseURI).href;
@@ -53,14 +65,15 @@
     const hideCursor = () => cursor.classList.remove('is-visible');
 
     const hoverSelector = 'a, button, summary, input, textarea, select, [role="button"], [data-plan], .floor-image, .resident-tile, .site-scrollbar, .site-scrollbar *';
-    const updateHoverState = (event) => {
-      const target = event.target instanceof Element ? event.target : null;
-      cursor.classList.toggle('is-hover', Boolean(target?.closest(hoverSelector)));
+    const updateHoverStateFromPoint = (clientX, clientY) => {
+      const target = document.elementFromPoint(clientX, clientY);
+      cursor.classList.toggle('is-hover', Boolean(target?.closest?.(hoverSelector)));
     };
 
     const handlePointer = (event) => {
       moveCursor(event);
-      updateHoverState(event);
+      releaseNativeCursorShield();
+      window.requestAnimationFrame(() => updateHoverStateFromPoint(event.clientX, event.clientY));
     };
 
     image.addEventListener('load', () => {
