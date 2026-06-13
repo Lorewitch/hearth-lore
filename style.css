@@ -1992,7 +1992,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
   margin: 0;
   color: var(--text-strong);
   font-family: var(--serif);
-  font-size: clamp(1.12rem, 1.45vw, 1.42rem);
+  font-size: clamp(1.24rem, 2vw, 1.72rem);
   font-weight: 500;
   line-height: 1.08;
 }
@@ -2605,7 +2605,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 }
 
 .lunna-library .talent-card h3 {
-  font-size: clamp(1.12rem, 1.45vw, 1.42rem);
+  font-size: clamp(1.24rem, 2vw, 1.72rem);
 }
 
 .lunna-library .talent-description {
@@ -2655,4 +2655,36 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
     grid-column: 2;
     grid-row: 1;
   }
+}
+
+
+/* Lunna dossier full-width text corrections */
+.lunna-library .wiki-extra-intro {
+  width: 100%;
+  max-width: none;
+}
+
+.lunna-library .dossier-copy,
+.lunna-library .story-dossier-copy,
+.lunna-library .vision-copy,
+.lunna-library .talents-copy {
+  width: 100%;
+  max-width: none;
+}
+
+.lunna-library .dossier-copy > p,
+.lunna-library .family-record-text > p:not(.eyebrow),
+.lunna-library .vision-story,
+.lunna-library .story-body {
+  width: 100%;
+  max-width: none;
+}
+
+.lunna-library .dossier-panel:not(.vtubing-dossier):not(.story-dossier):not(.vision-dossier):not(.talents-dossier) {
+  grid-template-columns: 1fr;
+}
+
+.lunna-library .dossier-panel:not(.vtubing-dossier):not(.story-dossier):not(.vision-dossier):not(.talents-dossier) .dossier-copy,
+.lunna-library .dossier-panel:not(.vtubing-dossier):not(.story-dossier):not(.vision-dossier):not(.talents-dossier) .dossier-media-shelf {
+  grid-column: 1 / -1;
 }
