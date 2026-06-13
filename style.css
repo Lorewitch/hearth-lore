@@ -1794,11 +1794,12 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 
 
 /* Lunna Talents dossier */
-.talents-dossier {
+.lunna-library .talents-dossier {
   grid-template-columns: 1fr;
 }
 
-.talents-copy {
+.lunna-library .talents-copy {
+  grid-column: 1 / -1;
   width: 100%;
   max-width: none;
 }
