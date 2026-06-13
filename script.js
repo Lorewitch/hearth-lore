@@ -17,39 +17,46 @@
   }
 
 
-  const TRANSPARENT_NATIVE_CURSOR = 'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABpfZFQAAAAABJRU5ErkJggg==") 0 0, none';
 
-  const forceNativeCursorTransparent = () => {
+  const NATIVE_QUILL_CURSOR = 'url("data:image/png;base64,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") 3 2, none';
+
+  const installCursorRules = () => {
     if (!window.matchMedia('(any-pointer: fine)').matches) return;
 
-    document.documentElement.style.setProperty('cursor', TRANSPARENT_NATIVE_CURSOR, 'important');
-    document.body?.style.setProperty('cursor', TRANSPARENT_NATIVE_CURSOR, 'important');
-
-    let style = document.getElementById('force-native-cursor-transparent');
+    let style = document.getElementById('force-native-cursor-quill');
     if (!style) {
       style = document.createElement('style');
-      style.id = 'force-native-cursor-transparent';
-      document.head.append(style);
+      style.id = 'force-native-cursor-quill';
+      document.head.prepend(style);
     }
 
     style.textContent = `
       @media (any-pointer: fine) {
-        html, body, *, *::before, *::after { cursor: ${TRANSPARENT_NATIVE_CURSOR} !important; }
+        html, body, *, *::before, *::after { cursor: ${NATIVE_QUILL_CURSOR} !important; }
+        html.dom-cursor-active,
+        html.dom-cursor-active body,
+        html.dom-cursor-active *,
+        html.dom-cursor-active *::before,
+        html.dom-cursor-active *::after { cursor: none !important; }
       }
     `;
   };
 
-  forceNativeCursorTransparent();
+  const activateDomCursor = () => {
+    if (!window.matchMedia('(any-pointer: fine)').matches) return;
+    document.documentElement.classList.add('dom-cursor-active');
+  };
+
+  installCursorRules();
 
   const enableCustomCursor = () => {
     if (!window.matchMedia('(any-pointer: fine)').matches) return;
 
-    forceNativeCursorTransparent();
+    installCursorRules();
 
     const stylesheet = document.querySelector('link[rel="stylesheet"]');
     const stylesheetUrl = stylesheet ? stylesheet.href : new URL('style.css', document.baseURI).href;
     const cursorUrl = new URL('assets/ui/quill-cursor.png', stylesheetUrl).href;
-    const pointerStorageKey = 'hearth-lore:last-pointer';
     const hoverSelector = 'a, button, summary, input, textarea, select, [role="button"], [data-plan], .resident-tile, .site-scrollbar, .site-scrollbar *';
 
     const cursor = document.createElement('div');
@@ -64,26 +71,7 @@
     document.body.append(cursor);
     document.documentElement.classList.add('custom-cursor-ready');
 
-    const readSavedPointer = () => {
-      try {
-        const raw = sessionStorage.getItem(pointerStorageKey);
-        if (!raw) return null;
-        const saved = JSON.parse(raw);
-        if (!Number.isFinite(saved?.x) || !Number.isFinite(saved?.y)) return null;
-        if (Date.now() - Number(saved.t || 0) > 6 * 60 * 60 * 1000) return null;
-        return saved;
-      } catch {
-        return null;
-      }
-    };
-
-    const savePointer = (x, y) => {
-      try {
-        sessionStorage.setItem(pointerStorageKey, JSON.stringify({ x, y, t: Date.now() }));
-      } catch {
-        // Storage may be unavailable in private/strict modes; the live cursor still works.
-      }
-    };
+    const savePointer = () => {};
 
     const targetAt = (x, y) => {
       const target = document.elementFromPoint(x, y);
@@ -104,31 +92,25 @@
     };
 
     const handlePointer = (event) => {
-      forceNativeCursorTransparent();
+      activateDomCursor();
+      installCursorRules();
       moveCursorTo(event.clientX, event.clientY, true);
     };
 
     const hideCursor = () => cursor.classList.remove('is-visible');
 
-    const restoreCursorBeforeFirstMove = () => {
-      const saved = readSavedPointer();
-      if (!saved) return;
-      moveCursorTo(saved.x, saved.y, false);
-    };
 
     image.addEventListener('load', () => {
       cursor.classList.add('has-image');
-      restoreCursorBeforeFirstMove();
     }, { once: true });
     image.src = cursorUrl;
 
-    window.requestAnimationFrame(restoreCursorBeforeFirstMove);
     window.addEventListener('pointermove', handlePointer, { passive: true });
     window.addEventListener('mousemove', handlePointer, { passive: true });
     window.addEventListener('pointerover', handlePointer, { passive: true });
     window.addEventListener('mouseover', handlePointer, { passive: true });
     window.addEventListener('pointerdown', handlePointer, { passive: true });
-    window.addEventListener('resize', forceNativeCursorTransparent, { passive: true });
+    window.addEventListener('resize', installCursorRules, { passive: true });
     document.addEventListener('pointerleave', hideCursor);
     document.addEventListener('mouseleave', hideCursor);
     window.addEventListener('blur', hideCursor);

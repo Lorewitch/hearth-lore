@@ -2,7 +2,7 @@
 
 :root {
   color-scheme: dark;
-  --native-transparent-cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABpfZFQAAAAABJRU5ErkJggg==") 0 0, none;
+  --native-quill-cursor: url("data:image/png;base64,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") 3 2, none;
   --bg: #0c0808;
   --bg-2: #130d0d;
   --text: #f3ead8;
@@ -32,7 +32,7 @@ body,
 *,
 *::before,
 *::after {
-  cursor: var(--native-transparent-cursor) !important;
+  cursor: var(--native-quill-cursor) !important;
 }
 
 a,
@@ -44,19 +44,19 @@ summary,
 .site-scrollbar,
 .site-scrollbar *,
 [role="button"] {
-  cursor: var(--native-transparent-cursor) !important;
+  cursor: var(--native-quill-cursor) !important;
 }
 
-html.custom-cursor-ready,
-html.custom-cursor-ready::before,
-html.custom-cursor-ready::after,
-html.custom-cursor-ready body,
-html.custom-cursor-ready body::before,
-html.custom-cursor-ready body::after,
-html.custom-cursor-ready *,
-html.custom-cursor-ready *::before,
-html.custom-cursor-ready *::after {
-  cursor: var(--native-transparent-cursor) !important;
+html.dom-cursor-active,
+html.dom-cursor-active::before,
+html.dom-cursor-active::after,
+html.dom-cursor-active body,
+html.dom-cursor-active body::before,
+html.dom-cursor-active body::after,
+html.dom-cursor-active *,
+html.dom-cursor-active *::before,
+html.dom-cursor-active *::after {
+  cursor: none !important;
 }
 
 .custom-cursor {
@@ -270,7 +270,7 @@ body::-webkit-scrollbar-button,
 html::-webkit-scrollbar-corner,
 body::-webkit-scrollbar-corner,
 *::-webkit-scrollbar-corner {
-  cursor: var(--native-transparent-cursor) !important;
+  cursor: var(--native-quill-cursor) !important;
 }
 
 .embers {
@@ -635,7 +635,7 @@ button.button {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   text-decoration: none;
-  cursor: var(--native-transparent-cursor) !important;
+  cursor: var(--native-quill-cursor) !important;
   transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, color 0.22s ease;
 }
 
@@ -655,7 +655,7 @@ button.button:hover {
 .button.secondary,
 .button.archive-link { background: rgba(255,255,255,0.025); }
 .button.disabled,
-.button:disabled { opacity: 0.55; cursor: var(--native-transparent-cursor) !important; pointer-events: none; }
+.button:disabled { opacity: 0.55; cursor: var(--native-quill-cursor) !important; pointer-events: none; }
 
 .quote-panel,
 .library-fragment {
@@ -840,7 +840,7 @@ button.button:hover {
   border: 1px solid rgba(243,234,216,0.16);
   background: rgba(255,245,222,0.03);
   overflow: hidden;
-  cursor: var(--native-transparent-cursor) !important;
+  cursor: var(--native-quill-cursor) !important;
 }
 
 .floor-image::after {
@@ -940,7 +940,7 @@ button.button:hover {
   border: 1px solid rgba(199,162,99,0.58);
   border-radius: 50%;
   background: transparent;
-  cursor: var(--native-transparent-cursor) !important;
+  cursor: var(--native-quill-cursor) !important;
   transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -1180,7 +1180,7 @@ button.button:hover {
   background: rgba(12,8,8,0.65);
   font-size: 1.6rem;
   line-height: 1;
-  cursor: var(--native-transparent-cursor) !important;
+  cursor: var(--native-quill-cursor) !important;
 }
 
 
@@ -1371,7 +1371,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
   color: var(--text);
   background: transparent;
   text-align: left;
-  cursor: var(--native-transparent-cursor) !important;
+  cursor: var(--native-quill-cursor) !important;
 }
 
 .dossier-tab span {
@@ -1739,7 +1739,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
     radial-gradient(circle at 50% 0%, rgba(199, 162, 99, 0.10), transparent 70%),
     rgba(255, 245, 222, 0.028);
   box-shadow: 0 18px 58px rgba(0, 0, 0, 0.26);
-  cursor: var(--native-transparent-cursor) !important;
+  cursor: var(--native-quill-cursor) !important;
 }
 
 .vtubing-image-card img {
@@ -1851,7 +1851,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
     radial-gradient(circle at 50% 0%, rgba(199, 162, 99, 0.10), transparent 72%),
     rgba(255, 245, 222, 0.025);
   box-shadow: 0 18px 58px rgba(0, 0, 0, 0.26);
-  cursor: var(--native-transparent-cursor) !important;
+  cursor: var(--native-quill-cursor) !important;
 }
 
 .story-family-image img {
@@ -1911,7 +1911,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
   align-items: baseline;
   padding: 1.15rem 0;
   list-style: none;
-  cursor: var(--native-transparent-cursor) !important;
+  cursor: var(--native-quill-cursor) !important;
 }
 
 .story-entry summary::-webkit-details-marker {
