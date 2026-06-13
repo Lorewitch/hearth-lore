@@ -272,19 +272,121 @@
                 </div>
               </section>
 
-          <section class="dossier-panel" id="lunna-panel-talents" role="tabpanel" aria-labelledby="lunna-tab-talents" data-dossier-panel hidden>
-                <div class="dossier-copy">
-                  <h2>Таланты и созвездие</h2>
-                  <p>Место для обычной атаки, элементального навыка, взрыва стихии, пассивных талантов, созвездий и коротких лорных комментариев к каждому пункту.</p>
-                  <div class="dossier-note-grid three">
-                    <div><strong>Таланты</strong><span>атака, навык, взрыв стихии.</span></div>
-                    <div><strong>Пассивки</strong><span>исследование, ремесло, особое правило.</span></div>
-                    <div><strong>Созвездие</strong><span>названия, уровни, символы.</span></div>
-                  </div>
-                </div>
-                <div class="dossier-media-shelf tall" aria-label="Место для изображений талантов и созвездия">
-                  <span>таланты</span>
-                  <span>созвездие</span>
+          <section class="dossier-panel talents-dossier" id="lunna-panel-talents" role="tabpanel" aria-labelledby="lunna-tab-talents" data-dossier-panel hidden>
+                <div class="dossier-copy talents-copy">
+                  <h2>Таланты</h2>
+                  <aside class="quote-panel talent-quote"><p>Лунна сражается мягко, но упрямо: её Гидро магия держит союзников на ногах, связывает противников «Плюшевой Нитью» и превращает заботу в способ победить.</p></aside>
+
+                  <section class="talent-group" aria-labelledby="lunna-combat-talents-title">
+                    <div class="talent-group-heading">
+                      <span id="lunna-combat-talents-title">Боевые таланты</span>
+                      <em>атака, элементальный навык и взрыв стихии</em>
+                    </div>
+                    <div class="talent-table" role="list" aria-label="Боевые таланты Лунны">
+                      <article class="talent-card talent-card--combat" role="listitem">
+                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_normal_attack.webp" alt="" loading="lazy" /></div>
+                        <div class="talent-content">
+                          <header class="talent-card-head">
+                            <p class="talent-kind">Боевой талант</p>
+                            <h3>Холодное лезвие</h3>
+                            <span class="talent-level">Ур. 10</span>
+                          </header>
+                          <div class="talent-description">
+                            <div class="talent-entry"><h4>Обычная атака</h4><p>До трёх быстрых ударов мечом.</p></div>
+                            <div class="talent-entry"><h4>Заряженная атака</h4><p>Удар с вращением, на который тратится определённое количество выносливости.</p></div>
+                            <div class="talent-entry"><h4>Атака в падении</h4><p>Стремительно падает на землю, атакуя всех врагов на пути. Приземлившись, наносит урон по площади.</p></div>
+                          </div>
+                        </div>
+                      </article>
+
+                      <article class="talent-card talent-card--combat" role="listitem">
+                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_elemental_skill.webp" alt="" loading="lazy" /></div>
+                        <div class="talent-content">
+                          <header class="talent-card-head">
+                            <p class="talent-kind">Боевой талант</p>
+                            <h3>Безымянный</h3>
+                            <span class="talent-level">Ур. 10</span>
+                          </header>
+                          <div class="talent-description">
+                            <p>Призывает плюшевого осьминожку, который следует за персонажем и может лечить активных союзников.</p>
+                            <div class="talent-entry"><h4>Плюшевый Гримпотевтис</h4><p>Плюётся пузырьками, которые при попадании по врагу наносят <span class="talent-hydro">Гидро урон</span> по площади и исцеляют активных персонажей поблизости. Объём лечения зависит от макс. ХП Лунны.</p></div>
+                            <div class="talent-entry"><h4>Плюшевая Нить</h4><p>Попадание пузырьков по врагам со статусом <span class="talent-keyword">«Плюшевая Нить»</span> исцеляет весь отряд.</p></div>
+                          </div>
+                        </div>
+                      </article>
+
+                      <article class="talent-card talent-card--combat" role="listitem">
+                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_elemental_burst.webp" alt="" loading="lazy" /></div>
+                        <div class="talent-content">
+                          <header class="talent-card-head">
+                            <p class="talent-kind">Боевой талант</p>
+                            <h3>Кракен Плюшевых Глубин</h3>
+                            <span class="talent-level">Ур. 10</span>
+                          </header>
+                          <div class="talent-description">
+                            <p>Могущественный Кракен так велик, что в наш мир едва ли может протиснуться одно его щупальце. Оно воровато обшаривает поверхность, чтобы попытаться утащить в свои владения новую жертву. Но увы, плюшевые щупальца слишком мягенькие.</p>
+                            <div class="talent-entry"><h4>Завихрение глубин</h4><p>Появление Кракена создаёт на поле боя водоворот, который засасывает противников к центру завихрения и накладывает на них статус <span class="talent-hydro">мокрый</span>.</p></div>
+                            <p>Щупальце периодически атакует врагов, накладывая на них статус <span class="talent-keyword">«Плюшевая Нить»</span>.</p>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                  </section>
+
+                  <section class="talent-group" aria-labelledby="lunna-passive-talents-title">
+                    <div class="talent-group-heading">
+                      <span id="lunna-passive-talents-title">Пассивные таланты</span>
+                      <em>командная синергия, энергия и холод</em>
+                    </div>
+                    <div class="talent-table" role="list" aria-label="Пассивные таланты Лунны">
+                      <article class="talent-card talent-card--passive" role="listitem">
+                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_passive_1.webp" alt="" loading="lazy" /></div>
+                        <div class="talent-content">
+                          <header class="talent-card-head">
+                            <p class="talent-kind">Пассивный талант</p>
+                            <h3>«Морская фигура замри»</h3>
+                            <span class="talent-level">Ур. 1</span>
+                          </header>
+                          <div class="talent-description">
+                            <p>Если отряд полностью состоит из <span class="talent-cryo">Крио</span> и <span class="talent-hydro">Гидро</span> персонажей, и в отряде есть хотя бы по одному персонажу <span class="talent-cryo">Крио</span> и <span class="talent-hydro">Гидро</span>, а на противника наложен статус <span class="talent-keyword">«Плюшевая Нить»</span>:</p>
+                            <ul>
+                              <li>Урон по замороженным противникам увеличивается на 15% от макс. ХП Лунны, максимум до 45%.</li>
+                              <li>Урон реакции «Разбит» увеличивается на 15% от макс. ХП Лунны, максимум до 45%.</li>
+                              <li>Длительность реакции «Заморозка» увеличена на 30%.</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </article>
+
+                      <article class="talent-card talent-card--passive" role="listitem">
+                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_passive_2.webp" alt="" loading="lazy" /></div>
+                        <div class="talent-content">
+                          <header class="talent-card-head">
+                            <p class="talent-kind">Пассивный талант</p>
+                            <h3>Кармашковый Кракен</h3>
+                            <span class="talent-level">Ур. 1</span>
+                          </header>
+                          <div class="talent-description">
+                            <p>Когда Лунна не на поле боя, а её энергия ниже 40 ед., она восстанавливает себе 2 ед. энергии в секунду.</p>
+                          </div>
+                        </div>
+                      </article>
+
+                      <article class="talent-card talent-card--passive" role="listitem">
+                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_passive_3.webp" alt="" loading="lazy" /></div>
+                        <div class="talent-content">
+                          <header class="talent-card-head">
+                            <p class="talent-kind">Пассивный талант</p>
+                            <h3>«Холод всегда мне был по душе…»</h3>
+                            <span class="talent-level">Ур. 1</span>
+                          </header>
+                          <div class="talent-description">
+                            <p>Накопление лютого мороза для всего отряда снижено на 25%. Если шкала лютого мороза заполнена на 50%, Лунна получает исцеление.</p>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                  </section>
                 </div>
               </section>
 
