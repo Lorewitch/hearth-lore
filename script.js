@@ -118,8 +118,9 @@
 
     window.addEventListener('keydown', (event) => {
       const key = event.key.toLowerCase();
+      const isHardReload = event.key === 'F5' && event.ctrlKey;
       const isReloadShortcut = event.key === 'F5' || ((event.ctrlKey || event.metaKey) && key === 'r');
-      if (!isReloadShortcut || event.shiftKey || event.altKey) return;
+      if (isHardReload || !isReloadShortcut || event.shiftKey || event.altKey) return;
       event.preventDefault();
       event.stopPropagation();
       softRefresh();

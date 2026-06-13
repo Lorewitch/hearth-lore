@@ -1619,6 +1619,56 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
   transform-origin: left center;
 }
 
+.trait-score-row {
+  --score: 0%;
+  display: grid;
+  grid-template-columns: minmax(9.5rem, 0.86fr) minmax(160px, 1.35fr) 3.6rem;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.52rem 0;
+  color: rgba(243, 234, 216, 0.78);
+  font-family: var(--ui);
+  font-size: clamp(0.78rem, 0.95vw, 0.95rem);
+  font-weight: 700;
+  letter-spacing: 0.045em;
+  line-height: 1.25;
+}
+
+.trait-score-row span {
+  color: rgba(243, 234, 216, 0.84);
+}
+
+.trait-score-row i {
+  position: relative;
+  display: block;
+  height: 0.42rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, rgba(199, 162, 99, 0.14), rgba(243, 234, 216, 0.10)),
+    rgba(255, 245, 222, 0.045);
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(199, 162, 99, 0.10);
+}
+
+.trait-score-row b {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--score);
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(199, 162, 99, 0.94), rgba(244, 208, 138, 0.72));
+  box-shadow: 0 0 16px rgba(199, 162, 99, 0.18);
+}
+
+.trait-score-row strong {
+  color: var(--gold);
+  font-family: var(--ui);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: right;
+  white-space: nowrap;
+}
+
 .lunna-library {
   width: 100%;
   margin-top: clamp(2.5rem, 6vw, 5rem);
@@ -2547,7 +2597,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 }
 
 .lunna-library .talent-card h3 {
-  font-size: clamp(1.06rem, 1.22vw, 1.32rem);
+  font-size: clamp(1.12rem, 1.45vw, 1.42rem);
 }
 
 .lunna-library .talent-description {
@@ -2579,5 +2629,22 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
   .lunna-library .talent-description {
     grid-column: auto;
     grid-row: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .trait-score-row {
+    grid-template-columns: 1fr 3.3rem;
+    gap: 0.42rem 0.65rem;
+  }
+
+  .trait-score-row i {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .trait-score-row strong {
+    grid-column: 2;
+    grid-row: 1;
   }
 }
