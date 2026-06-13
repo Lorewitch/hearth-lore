@@ -17,12 +17,40 @@
   }
 
 
+  const TRANSPARENT_NATIVE_CURSOR = 'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABpfZFQAAAAABJRU5ErkJggg==") 0 0, none';
+
+  const forceNativeCursorTransparent = () => {
+    if (!window.matchMedia('(any-pointer: fine)').matches) return;
+
+    document.documentElement.style.setProperty('cursor', TRANSPARENT_NATIVE_CURSOR, 'important');
+    document.body?.style.setProperty('cursor', TRANSPARENT_NATIVE_CURSOR, 'important');
+
+    let style = document.getElementById('force-native-cursor-transparent');
+    if (!style) {
+      style = document.createElement('style');
+      style.id = 'force-native-cursor-transparent';
+      document.head.append(style);
+    }
+
+    style.textContent = `
+      @media (any-pointer: fine) {
+        html, body, *, *::before, *::after { cursor: ${TRANSPARENT_NATIVE_CURSOR} !important; }
+      }
+    `;
+  };
+
+  forceNativeCursorTransparent();
+
   const enableCustomCursor = () => {
-    if (!window.matchMedia('(pointer: fine)').matches) return;
+    if (!window.matchMedia('(any-pointer: fine)').matches) return;
+
+    forceNativeCursorTransparent();
 
     const stylesheet = document.querySelector('link[rel="stylesheet"]');
     const stylesheetUrl = stylesheet ? stylesheet.href : new URL('style.css', document.baseURI).href;
     const cursorUrl = new URL('assets/ui/quill-cursor.png', stylesheetUrl).href;
+    const pointerStorageKey = 'hearth-lore:last-pointer';
+    const hoverSelector = 'a, button, summary, input, textarea, select, [role="button"], [data-plan], .resident-tile, .site-scrollbar, .site-scrollbar *';
 
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
@@ -31,45 +59,79 @@
     const image = new Image();
     image.alt = '';
     image.decoding = 'async';
+    image.draggable = false;
+    cursor.append(image);
+    document.body.append(cursor);
+    document.documentElement.classList.add('custom-cursor-ready');
 
-    const moveCursor = (event) => {
-      cursor.style.transform = `translate3d(${event.clientX - 5}px, ${event.clientY - 4}px, 0)`;
+    const readSavedPointer = () => {
+      try {
+        const raw = sessionStorage.getItem(pointerStorageKey);
+        if (!raw) return null;
+        const saved = JSON.parse(raw);
+        if (!Number.isFinite(saved?.x) || !Number.isFinite(saved?.y)) return null;
+        if (Date.now() - Number(saved.t || 0) > 6 * 60 * 60 * 1000) return null;
+        return saved;
+      } catch {
+        return null;
+      }
+    };
+
+    const savePointer = (x, y) => {
+      try {
+        sessionStorage.setItem(pointerStorageKey, JSON.stringify({ x, y, t: Date.now() }));
+      } catch {
+        // Storage may be unavailable in private/strict modes; the live cursor still works.
+      }
+    };
+
+    const targetAt = (x, y) => {
+      const target = document.elementFromPoint(x, y);
+      return target instanceof Element ? target : null;
+    };
+
+    const updateHoverState = (x, y) => {
+      cursor.classList.toggle('is-hover', Boolean(targetAt(x, y)?.closest(hoverSelector)));
+    };
+
+    const moveCursorTo = (clientX, clientY, remember = true) => {
+      const x = Math.max(0, Math.min(clientX, window.innerWidth - 1));
+      const y = Math.max(0, Math.min(clientY, window.innerHeight - 1));
+      cursor.style.transform = `translate3d(${x - 5}px, ${y - 4}px, 0)`;
       cursor.classList.add('is-visible');
+      updateHoverState(x, y);
+      if (remember) savePointer(x, y);
+    };
+
+    const handlePointer = (event) => {
+      forceNativeCursorTransparent();
+      moveCursorTo(event.clientX, event.clientY, true);
     };
 
     const hideCursor = () => cursor.classList.remove('is-visible');
 
+    const restoreCursorBeforeFirstMove = () => {
+      const saved = readSavedPointer();
+      if (!saved) return;
+      moveCursorTo(saved.x, saved.y, false);
+    };
+
     image.addEventListener('load', () => {
-      cursor.append(image);
-      document.body.append(cursor);
-      const hoverSelector = 'a, button, summary, input, textarea, select, [role="button"], [data-plan], .resident-tile, .site-scrollbar, .site-scrollbar *';
-      const updateHoverState = (event) => {
-        const target = event.target instanceof Element ? event.target : null;
-        cursor.classList.toggle('is-hover', Boolean(target?.closest(hoverSelector)));
-      };
-
-      const activateCustomCursor = () => {
-        if (!document.documentElement.classList.contains('custom-cursor-ready')) {
-          document.documentElement.classList.add('custom-cursor-ready');
-        }
-      };
-
-      window.addEventListener('pointermove', (event) => {
-        activateCustomCursor();
-        moveCursor(event);
-        updateHoverState(event);
-      }, { passive: true });
-      window.addEventListener('mousemove', (event) => {
-        activateCustomCursor();
-        moveCursor(event);
-        updateHoverState(event);
-      }, { passive: true });
-      document.addEventListener('pointerleave', hideCursor);
-      document.addEventListener('mouseleave', hideCursor);
-      window.addEventListener('blur', hideCursor);
+      cursor.classList.add('has-image');
+      restoreCursorBeforeFirstMove();
     }, { once: true });
-
     image.src = cursorUrl;
+
+    window.requestAnimationFrame(restoreCursorBeforeFirstMove);
+    window.addEventListener('pointermove', handlePointer, { passive: true });
+    window.addEventListener('mousemove', handlePointer, { passive: true });
+    window.addEventListener('pointerover', handlePointer, { passive: true });
+    window.addEventListener('mouseover', handlePointer, { passive: true });
+    window.addEventListener('pointerdown', handlePointer, { passive: true });
+    window.addEventListener('resize', forceNativeCursorTransparent, { passive: true });
+    document.addEventListener('pointerleave', hideCursor);
+    document.addEventListener('mouseleave', hideCursor);
+    window.addEventListener('blur', hideCursor);
   };
 
   enableCustomCursor();

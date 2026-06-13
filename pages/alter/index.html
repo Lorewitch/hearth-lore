@@ -5,8 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="preload" href="../../assets/ui/quill-cursor.png" as="image" type="image/png" fetchpriority="high" />
   <style id="instant-custom-cursor">
-    html, body, *, *::before, *::after { cursor: url("../../assets/ui/quill-cursor.png") 5 4, auto !important; }
-    a, button, summary, [role="button"], [data-plan], .floor-image, .resident-tile, .site-scrollbar, .site-scrollbar * { cursor: url("../../assets/ui/quill-cursor.png") 5 4, pointer !important; }
+    /* Важно: это НЕ картинка пера, а прозрачный нативный курсор.
+       Он встроен data URI, поэтому браузеру не нужно ждать файл и показывать системный fallback. */
+    @media (any-pointer: fine) {
+      html,
+      body,
+      *,
+      *::before,
+      *::after {
+        cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABpfZFQAAAAABJRU5ErkJggg==") 0 0, none !important;
+      }
+
+      html,
+      body,
+      * {
+        scrollbar-width: none;
+      }
+
+      html::-webkit-scrollbar,
+      body::-webkit-scrollbar,
+      *::-webkit-scrollbar {
+        width: 0 !important;
+        height: 0 !important;
+      }
+    }
   </style>
   <title>Альтер — Тайная библиотека Лунны</title>
   <link rel="stylesheet" href="../../style.css" />
