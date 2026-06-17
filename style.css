@@ -2683,3 +2683,72 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 .lunna-library .dossier-panel:not(.vtubing-dossier):not(.story-dossier):not(.vision-dossier):not(.talents-dossier) .dossier-media-shelf {
   grid-column: 1 / -1;
 }
+
+/* Lunna dossier universal float layout: text uses full width and wraps around side media */
+.lunna-library .dossier-panel {
+  display: flow-root;
+  grid-template-columns: none;
+}
+
+.lunna-library .dossier-panel[hidden] {
+  display: none;
+}
+
+.lunna-library .dossier-copy,
+.lunna-library .story-dossier-copy,
+.lunna-library .vision-copy,
+.lunna-library .talents-copy {
+  width: 100%;
+  max-width: none;
+}
+
+.lunna-library .dossier-copy > p,
+.lunna-library .family-record-text > p:not(.eyebrow),
+.lunna-library .vision-story,
+.lunna-library .story-body {
+  width: 100%;
+  max-width: none;
+}
+
+.lunna-library .vtubing-gallery,
+.lunna-library .story-family-gallery,
+.lunna-library .vision-gallery,
+.lunna-library .dossier-media-shelf {
+  float: right;
+  clear: right;
+  display: grid;
+  grid-column: auto;
+  grid-row: auto;
+  width: clamp(280px, 30vw, 420px);
+  max-width: 44%;
+  margin: 0 0 clamp(1rem, 2vw, 1.45rem) clamp(1.1rem, 2.6vw, 2rem);
+  justify-self: auto;
+  align-content: start;
+}
+
+.lunna-library .vision-gallery {
+  width: clamp(260px, 27vw, 380px);
+}
+
+.lunna-library .vtubing-image-card img,
+.lunna-library .story-family-image img,
+.lunna-library .vision-image-card img {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  object-position: center;
+}
+
+@media (max-width: 920px) {
+  .lunna-library .vtubing-gallery,
+  .lunna-library .story-family-gallery,
+  .lunna-library .vision-gallery,
+  .lunna-library .dossier-media-shelf {
+    float: none;
+    clear: none;
+    width: min(560px, 100%);
+    max-width: 100%;
+    margin: 0 0 1.25rem;
+  }
+}
