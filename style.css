@@ -2699,9 +2699,9 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 
 .lunna-library .dossier-float-media {
   float: right;
-  width: 420px;
-  max-width: min(420px, 38%);
-  min-width: 280px;
+  width: min(420px, 100%);
+  max-width: 100%;
+  min-width: 0;
   margin: 0 0 clamp(1.2rem, 2.4vw, 2rem) clamp(1.5rem, 3vw, 2.4rem);
   justify-self: auto;
 }
@@ -2745,7 +2745,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 @media (max-width: 920px) {
   .lunna-library .dossier-float-media {
     float: none;
-    width: min(560px, 100%);
+    width: min(420px, 100%);
     max-width: 100%;
     min-width: 0;
     margin: 0 0 1.35rem;
