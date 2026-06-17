@@ -2734,8 +2734,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 }
 
 .lunna-library .vtubing-image-card img,
-.lunna-library .vision-image-card img,
-.lunna-library .story-family-image img {
+.lunna-library .vision-image-card img {
   width: 100%;
   height: auto;
   max-height: none;
