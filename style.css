@@ -2209,6 +2209,10 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 }
 
 /* Lunna character stories */
+.lunna-library {
+  --lunna-story-media-width: 420px;
+}
+
 .story-dossier {
   gap: clamp(1.5rem, 3vw, 2.4rem);
   align-items: start;
@@ -2312,7 +2316,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
   grid-column: 2;
   grid-row: 1;
   gap: clamp(0.9rem, 1.8vw, 1.25rem);
-  width: min(420px, 100%);
+  width: min(var(--lunna-story-media-width), 100%);
   max-width: 100%;
   margin-top: clamp(0.2rem, 1vw, 0.65rem);
   justify-self: end;
@@ -2699,7 +2703,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 
 .lunna-library .dossier-float-media {
   float: right;
-  width: min(420px, 100%);
+  width: min(var(--lunna-story-media-width), 100%);
   max-width: 100%;
   min-width: 0;
   margin: 0 0 clamp(1.2rem, 2.4vw, 2rem) clamp(1.5rem, 3vw, 2.4rem);
@@ -2725,6 +2729,12 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
   max-width: none;
 }
 
+.lunna-library .vtubing-gallery.dossier-float-media,
+.lunna-library .vision-gallery.dossier-float-media {
+  width: min(var(--lunna-story-media-width), 100%);
+  max-width: 100%;
+}
+
 .lunna-library .vision-story {
   display: block;
 }
@@ -2745,7 +2755,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 @media (max-width: 920px) {
   .lunna-library .dossier-float-media {
     float: none;
-    width: min(420px, 100%);
+    width: min(var(--lunna-story-media-width), 100%);
     max-width: 100%;
     min-width: 0;
     margin: 0 0 1.35rem;
