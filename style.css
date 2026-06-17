@@ -2161,7 +2161,7 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 .vision-image-card img {
   display: block;
   width: 100%;
-  height: clamp(260px, 26vw, 390px);
+  height: auto;
   object-fit: contain;
   object-position: center;
   background: rgba(5, 3, 4, 0.34);
@@ -2205,11 +2205,6 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
   .vision-gallery {
     justify-self: start;
     width: min(560px, 100%);
-  }
-
-  .vision-image-card img {
-    height: auto;
-    max-height: none;
   }
 }
 
