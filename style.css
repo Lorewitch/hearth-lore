@@ -2684,35 +2684,41 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
   grid-column: 1 / -1;
 }
 
-/* Lunna dossier safe rollback: full-width copy, media in a separate right-aligned row.
-   Keeps the good Stories layout intact and avoids float/overlay effects. */
+/* Lunna dossier media rail correction: keep right-side images fixed-width,
+   keep text in the available dossier width, and never place media over text. */
 .lunna-library .vtubing-dossier,
 .lunna-library .vision-dossier {
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 420px);
+  align-items: start;
 }
 
 .lunna-library .vtubing-copy,
 .lunna-library .vision-copy {
-  grid-column: 1 / -1;
+  grid-column: 1;
   width: 100%;
   max-width: none;
 }
 
 .lunna-library .vtubing-gallery,
 .lunna-library .vision-gallery {
-  grid-column: 1 / -1;
+  grid-column: 2;
+  grid-row: 1;
   justify-self: end;
-  width: min(520px, 100%);
+  align-self: start;
+  width: min(420px, 100%);
   max-width: 100%;
-  margin-top: clamp(1rem, 2vw, 1.5rem);
+  margin-top: 0;
 }
 
-.lunna-library .vision-gallery {
-  width: min(440px, 100%);
+.lunna-library .vtubing-image-card,
+.lunna-library .vision-image-card {
+  width: 100%;
+  max-width: 100%;
 }
 
 .lunna-library .vtubing-image-card img,
 .lunna-library .vision-image-card img {
+  display: block;
   width: 100%;
   height: auto;
   max-height: none;
@@ -2721,9 +2727,22 @@ body:not(.home-page) .reveal.is-visible { opacity: 1; transform: translateY(0); 
 }
 
 @media (max-width: 920px) {
+  .lunna-library .vtubing-dossier,
+  .lunna-library .vision-dossier {
+    grid-template-columns: 1fr;
+  }
+
+  .lunna-library .vtubing-copy,
+  .lunna-library .vision-copy,
+  .lunna-library .vtubing-gallery,
+  .lunna-library .vision-gallery {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
   .lunna-library .vtubing-gallery,
   .lunna-library .vision-gallery {
     justify-self: start;
-    width: min(560px, 100%);
+    width: min(420px, 100%);
   }
 }
