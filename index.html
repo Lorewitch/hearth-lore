@@ -3,16 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="preload" href="assets/ui/quill-cursor.png" as="image" type="image/png" fetchpriority="high" />
-  <style id="instant-custom-cursor">
-    /* Critical first-paint rule: hide the browser cursor as early as CSS allows.
-       Note: a browser reload can still keep showing the old OS cursor until the first real pointer event. */
-    @media (any-pointer: fine) {
-      html, body, *, *::before, *::after { cursor: none !important; }
-    }
-  </style>
   <meta name="description" content="Дом Лороведьмы Лунны Шейдшадэ: Мягкий корешок, Библиотека Лороведьмы, Очаг, Реми, угольные котики и архив." />
   <title>Библиотека Лороведьмы</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="home-page">
@@ -50,7 +45,7 @@
 
     <aside class="library-fragment door-fragment reveal" aria-label="Дверь книжной лавки «Мягкий корешок»">
       <figure class="door-vision">
-        <img src="assets/scene/koreshok.webp" alt="Дверь книжной лавки «Мягкий корешок» среди книжных корешков" loading="eager" />
+        <img src="assets/scene/koreshok.webp" alt="Дверь книжной лавки «Мягкий корешок» среди книжных корешков" loading="eager" width="1448" height="1086" decoding="async" srcset="assets/thumbnails/scene/koreshok-360.webp 360w, assets/thumbnails/scene/koreshok-720.webp 720w, assets/scene/koreshok.webp 1448w" sizes="(max-width: 920px) calc(100vw - 2rem), 38vw" fetchpriority="high" />
       </figure>
     </aside>
   </section>
@@ -75,7 +70,7 @@
         <div class="floor-carousel-viewport">
           <article class="floor-slide is-active" data-floor-slide>
             <button class="floor-image" type="button" data-plan="assets/plans/floor-1.webp" data-title="1 этаж — «Мягкий корешок»">
-              <img src="assets/plans/floor-1.webp" loading="lazy" alt="План первого этажа дома Лунны" />
+              <img src="assets/plans/floor-1.webp" loading="lazy" alt="План первого этажа дома Лунны" width="1327" height="996" decoding="async" srcset="assets/thumbnails/plans/floor-1-360.webp 360w, assets/thumbnails/plans/floor-1-720.webp 720w, assets/plans/floor-1.webp 1327w" sizes="(max-width: 920px) calc(100vw - 2rem), 45vw" />
             </button>
             <div class="floor-card-copy">
               <span class="floor-kicker">1 этаж</span>
@@ -91,7 +86,7 @@
 
           <article class="floor-slide" data-floor-slide>
             <button class="floor-image" type="button" data-plan="assets/plans/floor-2.webp" data-title="2 этаж — Спальни">
-              <img src="assets/plans/floor-2.webp" loading="lazy" alt="План второго этажа дома Лунны" />
+              <img src="assets/plans/floor-2.webp" loading="lazy" alt="План второго этажа дома Лунны" width="1346" height="1010" decoding="async" srcset="assets/thumbnails/plans/floor-2-360.webp 360w, assets/thumbnails/plans/floor-2-720.webp 720w, assets/plans/floor-2.webp 1346w" sizes="(max-width: 920px) calc(100vw - 2rem), 45vw" />
             </button>
             <div class="floor-card-copy">
               <span class="floor-kicker">2 этаж</span>
@@ -107,7 +102,7 @@
 
           <article class="floor-slide" data-floor-slide>
             <button class="floor-image" type="button" data-plan="assets/plans/floor-minus-1.webp" data-title="−1 этаж — Морг">
-              <img src="assets/plans/floor-minus-1.webp" loading="lazy" alt="План минус первого этажа дома Лунны" />
+              <img src="assets/plans/floor-minus-1.webp" loading="lazy" alt="План минус первого этажа дома Лунны" width="1410" height="1058" decoding="async" srcset="assets/thumbnails/plans/floor-minus-1-360.webp 360w, assets/thumbnails/plans/floor-minus-1-720.webp 720w, assets/plans/floor-minus-1.webp 1410w" sizes="(max-width: 920px) calc(100vw - 2rem), 45vw" />
             </button>
             <div class="floor-card-copy">
               <span class="floor-kicker">−1 этаж</span>
@@ -143,27 +138,27 @@
 
     <div class="residents-gallery reveal" aria-label="Портреты обитателей дома">
       <a class="resident-tile resident-tile-large" href="pages/lunna/">
-        <img src="assets/portraits/lunna.webp" decoding="async" loading="eager" alt="Портрет Лунны Шейдшадэ" />
+        <img src="assets/portraits/lunna.webp" decoding="async" loading="lazy" alt="Портрет Лунны Шейдшадэ" width="1280" height="960" srcset="assets/thumbnails/portraits/lunna-480.webp 480w, assets/portraits/lunna.webp 1280w" sizes="(max-width: 620px) calc(100vw - 2rem), (max-width: 920px) 45vw, 28vw" />
         <span class="resident-caption"><strong>Лунна</strong><em>Лороведьма</em></span>
       </a>
       <a class="resident-tile" href="pages/remi/">
-        <img src="assets/portraits/remi.webp" decoding="async" loading="eager" alt="Портрет Реми" />
+        <img src="assets/portraits/remi.webp" decoding="async" loading="lazy" alt="Портрет Реми" width="1280" height="960" srcset="assets/thumbnails/portraits/remi-480.webp 480w, assets/portraits/remi.webp 1280w" sizes="(max-width: 620px) calc(100vw - 2rem), (max-width: 920px) 45vw, 28vw" />
         <span class="resident-caption"><strong>Реми</strong><em>фамильяр</em></span>
       </a>
       <a class="resident-tile" href="pages/alter/">
-        <img src="assets/portraits/alter.webp" decoding="async" loading="eager" alt="Портрет Альтер" />
+        <img src="assets/portraits/alter.webp" decoding="async" loading="lazy" alt="Портрет Альтер" width="1280" height="960" srcset="assets/thumbnails/portraits/alter-480.webp 480w, assets/portraits/alter.webp 1280w" sizes="(max-width: 620px) calc(100vw - 2rem), (max-width: 920px) 45vw, 28vw" />
         <span class="resident-caption"><strong>Альтер</strong><em>страж Очага</em></span>
       </a>
       <a class="resident-tile resident-tile-wide" href="pages/coal-cats/">
-        <img src="assets/portraits/coal-cats.webp" decoding="async" loading="eager" alt="Угольные котики" />
+        <img src="assets/portraits/coal-cats.webp" decoding="async" loading="lazy" alt="Угольные котики" width="1448" height="1086" srcset="assets/thumbnails/portraits/coal-cats-480.webp 480w, assets/portraits/coal-cats.webp 1448w" sizes="(max-width: 620px) calc(100vw - 2rem), (max-width: 920px) 45vw, 28vw" />
         <span class="resident-caption"><strong>Угольные котики</strong><em>малые хранители</em></span>
       </a>
       <a class="resident-tile" href="pages/lana/">
-        <img src="assets/portraits/lana.webp" decoding="async" loading="eager" alt="Портрет Ланы" />
+        <img src="assets/portraits/lana.webp" decoding="async" loading="lazy" alt="Портрет Ланы" width="1280" height="960" srcset="assets/thumbnails/portraits/lana-480.webp 480w, assets/portraits/lana.webp 1280w" sizes="(max-width: 620px) calc(100vw - 2rem), (max-width: 920px) 45vw, 28vw" />
         <span class="resident-caption"><strong>Лана</strong><em>ассистентка</em></span>
       </a>
       <a class="resident-tile" href="pages/elian/">
-        <img src="assets/portraits/elian.webp" decoding="async" loading="eager" alt="Портрет Элиан Морель" />
+        <img src="assets/portraits/elian.webp" decoding="async" loading="lazy" alt="Портрет Элиан Морель" width="1280" height="960" srcset="assets/thumbnails/portraits/elian-480.webp 480w, assets/portraits/elian.webp 1280w" sizes="(max-width: 620px) calc(100vw - 2rem), (max-width: 920px) 45vw, 28vw" />
         <span class="resident-caption"><strong>Элиан</strong><em>фасад библиотеки</em></span>
       </a>
     </div>
@@ -171,10 +166,12 @@
 
 </main>
 
-<div class="plan-modal" id="plan-modal" hidden>
-  <button class="plan-modal-close" type="button" aria-label="Закрыть чертёж">×</button>
-  <img id="plan-modal-image" alt="" />
-</div>
+<dialog class="plan-modal" id="plan-modal" aria-label="Просмотр изображения">
+  <button class="plan-modal-close" type="button" aria-label="Закрыть изображение">×</button>
+  <img id="plan-modal-image" alt="" decoding="async" />
+  <p class="plan-modal-status" role="status" hidden></p>
+  <a class="plan-modal-original" target="_blank" rel="noopener">Открыть оригинал ↗</a>
+</dialog>
 
 <script src="script.js"></script>
 </body>

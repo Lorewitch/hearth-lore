@@ -1,17 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru" class="custom-page-scrollbar">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="preload" href="../../assets/ui/quill-cursor.png" as="image" type="image/png" fetchpriority="high" />
-  <style id="instant-custom-cursor">
-    /* Critical first-paint rule: hide the browser cursor as early as CSS allows.
-       Note: a browser reload can still keep showing the old OS cursor until the first real pointer event. */
-    @media (any-pointer: fine) {
-      html, body, *, *::before, *::after { cursor: none !important; }
-    }
-  </style>
   <title>Лунна — Тайная библиотека Лунны</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" />
   <link rel="stylesheet" href="../../style.css" />
 </head>
 <body class="character-page">
@@ -35,7 +30,7 @@
     <a class="back-link" href="../../#residents">← К обитателям дома</a>
     <div class="wiki-grid">
       <aside class="wiki-card pinned">
-        <div class="wiki-portrait"><img src="../../assets/portraits/lunna.webp" alt="Портрет Лунны Шейдшадэ" loading="lazy" /></div>
+        <div class="wiki-portrait"><img src="../../assets/portraits/lunna.webp" alt="Портрет Лунны Шейдшадэ" loading="eager" width="1280" height="960" decoding="async" srcset="../../assets/thumbnails/portraits/lunna-480.webp 480w, ../../assets/portraits/lunna.webp 1280w" sizes="(max-width: 920px) calc(100vw - 2rem), 320px" /></div>
         <div class="fact-list"><div class="fact"><strong>Полное имя</strong><span>Луннара Шейдшадэ</span></div>
 <div class="fact"><strong>Возраст</strong><span>526 лет</span></div>
 <div class="fact"><strong>Раса</strong><span>человек</span></div>
@@ -100,11 +95,11 @@
           <section class="dossier-panel is-active vtubing-dossier" id="lunna-panel-vtubing" role="tabpanel" aria-labelledby="lunna-tab-vtubing" data-dossier-panel>
                 <div class="vtubing-gallery dossier-float-media" aria-label="Витуберские образы Лунны">
                   <button class="vtubing-image-card" type="button" data-plan="../../assets/vtubing/model_v1.webp" data-title="Витуберские образы Лунны — мягкий домашний образ">
-                    <img src="../../assets/vtubing/model_v1.webp" alt="Витуберские образы Лунны в голубом и белом костюмах" loading="lazy" />
+                    <img src="../../assets/vtubing/model_v1.webp" alt="Витуберские образы Лунны в голубом и белом костюмах" loading="lazy" width="2000" height="1254" decoding="async" srcset="../../assets/thumbnails/vtubing/model_v1-360.webp 360w, ../../assets/thumbnails/vtubing/model_v1-720.webp 720w, ../../assets/vtubing/model_v1.webp 2000w" sizes="(max-width: 420px) calc(100vw - 3rem), 360px" />
                     <span>мягкий домашний образ</span>
                   </button>
                   <button class="vtubing-image-card" type="button" data-plan="../../assets/vtubing/model_v2.webp" data-title="Витуберские образы Лунны — ведьминский и праздничный образы">
-                    <img src="../../assets/vtubing/model_v2.webp" alt="Витуберские образы Лунны: ведьминский, белый и праздничный варианты" loading="lazy" />
+                    <img src="../../assets/vtubing/model_v2.webp" alt="Витуберские образы Лунны: ведьминский, белый и праздничный варианты" loading="lazy" width="2000" height="1703" decoding="async" srcset="../../assets/thumbnails/vtubing/model_v2-360.webp 360w, ../../assets/thumbnails/vtubing/model_v2-720.webp 720w, ../../assets/vtubing/model_v2.webp 2000w" sizes="(max-width: 420px) calc(100vw - 3rem), 360px" />
                     <span>ведьминский, белый и праздничный образы</span>
                   </button>
                 </div>
@@ -138,11 +133,11 @@
 
                 <div class="story-family-gallery" aria-label="Семейные материалы рода Шейдшадэ">
                   <button class="story-family-image" type="button" data-plan="../../assets/stories/shadechade_family.webp" data-title="Семейный портрет Княгини Морганы и князя Вальдемара Шейдшадэ">
-                    <img src="../../assets/stories/shadechade_family.webp" alt="Портрет княгини Морганы и князя Вальдемара Шейдшадэ" loading="lazy" />
+                    <img src="../../assets/stories/shadechade_family.webp" alt="Портрет княгини Морганы и князя Вальдемара Шейдшадэ" loading="lazy" width="1687" height="2048" decoding="async" srcset="../../assets/thumbnails/stories/shadechade_family-360.webp 360w, ../../assets/thumbnails/stories/shadechade_family-720.webp 720w, ../../assets/stories/shadechade_family.webp 1687w" sizes="(max-width: 420px) calc(100vw - 3rem), 360px" />
                     <span>семейный портрет Княгини Морганы и князя Вальдемара Шейдшадэ</span>
                   </button>
                   <button class="story-family-image" type="button" data-plan="../../assets/stories/shadechade_lineage.webp" data-title="Родословная семьи Шейдшадэ">
-                    <img src="../../assets/stories/shadechade_lineage.webp" alt="Родословная семьи Шейдшадэ: княгиня Моргана, князь Вальдемар, княжна Луннара и княжич Саннар" loading="lazy" />
+                    <img src="../../assets/stories/shadechade_lineage.webp" alt="Родословная семьи Шейдшадэ: княгиня Моргана, князь Вальдемар, княжна Луннара и княжич Саннар" loading="lazy" width="1086" height="1368" decoding="async" srcset="../../assets/thumbnails/stories/shadechade_lineage-360.webp 360w, ../../assets/thumbnails/stories/shadechade_lineage-720.webp 720w, ../../assets/stories/shadechade_lineage.webp 1086w" sizes="(max-width: 420px) calc(100vw - 3rem), 360px" />
                     <span>родословная семьи Шейдшадэ</span>
                   </button>
                 </div>
@@ -236,7 +231,7 @@
           <section class="dossier-panel vision-dossier" id="lunna-panel-vision" role="tabpanel" aria-labelledby="lunna-tab-vision" data-dossier-panel hidden>
                 <div class="vision-gallery dossier-float-media" aria-label="Глаз Бога Лунны">
                   <button class="vision-image-card" type="button" data-plan="../../assets/visions/lunna_vision.webp" data-title="Гидро Глаз Бога Лунны — расположен сзади на бантике">
-                    <img src="../../assets/visions/lunna_vision.webp" alt="Гидро Глаз Бога Лунны: расположен сзади на бантике" loading="lazy" />
+                    <img src="../../assets/visions/lunna_vision.webp" alt="Гидро Глаз Бога Лунны: расположен сзади на бантике" loading="lazy" width="2048" height="1463" decoding="async" srcset="../../assets/thumbnails/visions/lunna_vision-360.webp 360w, ../../assets/thumbnails/visions/lunna_vision-720.webp 720w, ../../assets/visions/lunna_vision.webp 2048w" sizes="(max-width: 420px) calc(100vw - 3rem), 360px" />
                     <span>Гидро Глаз Бога — расположен сзади на бантике</span>
                   </button>
                 </div>
@@ -270,7 +265,7 @@
                     </div>
                     <div class="talent-table" role="list" aria-label="Боевые таланты Лунны">
                       <article class="talent-card talent-card--combat" role="listitem">
-                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_normal_attack.webp" alt="" loading="lazy" /></div>
+                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_normal_attack.webp" alt="" loading="lazy" width="297" height="297" decoding="async" srcset="../../assets/thumbnails/talents/lunna_normal_attack-128.webp 128w, ../../assets/talents/lunna_normal_attack.webp 297w" sizes="76px" /></div>
                         <div class="talent-content">
                           <header class="talent-card-head">
                             <p class="talent-kind">Боевой талант</p>
@@ -286,7 +281,7 @@
                       </article>
 
                       <article class="talent-card talent-card--combat" role="listitem">
-                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_elemental_skill.webp" alt="" loading="lazy" /></div>
+                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_elemental_skill.webp" alt="" loading="lazy" width="350" height="351" decoding="async" srcset="../../assets/thumbnails/talents/lunna_elemental_skill-128.webp 128w, ../../assets/talents/lunna_elemental_skill.webp 350w" sizes="76px" /></div>
                         <div class="talent-content">
                           <header class="talent-card-head">
                             <p class="talent-kind">Боевой талант</p>
@@ -302,7 +297,7 @@
                       </article>
 
                       <article class="talent-card talent-card--combat" role="listitem">
-                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_elemental_burst.webp" alt="" loading="lazy" /></div>
+                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_elemental_burst.webp" alt="" loading="lazy" width="307" height="307" decoding="async" srcset="../../assets/thumbnails/talents/lunna_elemental_burst-128.webp 128w, ../../assets/talents/lunna_elemental_burst.webp 307w" sizes="76px" /></div>
                         <div class="talent-content">
                           <header class="talent-card-head">
                             <p class="talent-kind">Боевой талант</p>
@@ -326,7 +321,7 @@
                     </div>
                     <div class="talent-table" role="list" aria-label="Пассивные таланты Лунны">
                       <article class="talent-card talent-card--passive" role="listitem">
-                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_passive_1.webp" alt="" loading="lazy" /></div>
+                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_passive_1.webp" alt="" loading="lazy" width="279" height="278" decoding="async" srcset="../../assets/thumbnails/talents/lunna_passive_1-128.webp 128w, ../../assets/talents/lunna_passive_1.webp 279w" sizes="76px" /></div>
                         <div class="talent-content">
                           <header class="talent-card-head">
                             <p class="talent-kind">Пассивный талант</p>
@@ -345,7 +340,7 @@
                       </article>
 
                       <article class="talent-card talent-card--passive" role="listitem">
-                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_passive_2.webp" alt="" loading="lazy" /></div>
+                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_passive_2.webp" alt="" loading="lazy" width="303" height="303" decoding="async" srcset="../../assets/thumbnails/talents/lunna_passive_2-128.webp 128w, ../../assets/talents/lunna_passive_2.webp 303w" sizes="76px" /></div>
                         <div class="talent-content">
                           <header class="talent-card-head">
                             <p class="talent-kind">Пассивный талант</p>
@@ -359,7 +354,7 @@
                       </article>
 
                       <article class="talent-card talent-card--passive" role="listitem">
-                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_passive_3.webp" alt="" loading="lazy" /></div>
+                        <div class="talent-icon" aria-hidden="true"><img src="../../assets/talents/lunna_passive_3.webp" alt="" loading="lazy" width="307" height="307" decoding="async" srcset="../../assets/thumbnails/talents/lunna_passive_3-128.webp 128w, ../../assets/talents/lunna_passive_3.webp 307w" sizes="76px" /></div>
                         <div class="talent-content">
                           <header class="talent-card-head">
                             <p class="talent-kind">Пассивный талант</p>
@@ -402,10 +397,12 @@
         </section>
   </section>
 </main>
-<div class="plan-modal" id="plan-modal" hidden>
+<dialog class="plan-modal" id="plan-modal" aria-label="Просмотр изображения">
   <button class="plan-modal-close" type="button" aria-label="Закрыть изображение">×</button>
-  <img id="plan-modal-image" alt="" />
-</div>
+  <img id="plan-modal-image" alt="" decoding="async" />
+  <p class="plan-modal-status" role="status" hidden></p>
+  <a class="plan-modal-original" target="_blank" rel="noopener">Открыть оригинал ↗</a>
+</dialog>
 <script src="../../script.js"></script>
 </body>
 </html>

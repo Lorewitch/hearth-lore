@@ -1,237 +1,31 @@
 (() => {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const sheetLayout = window.matchMedia('(min-width: 921px)');
   const loader = document.querySelector('.library-loader');
   if (loader) {
-    const started = performance.now();
-    let loaderDone = false;
+    // Do not hold a ready page behind an artificial loading delay.
     const hideLoader = () => {
-      if (loaderDone) return;
-      loaderDone = true;
-      const elapsed = performance.now() - started;
-      const remaining = Math.max(0, 1900 - elapsed);
-      window.setTimeout(() => loader.classList.add('is-hidden'), remaining);
-      window.setTimeout(() => loader.remove(), remaining + 900);
+      loader.classList.add('is-hidden');
+      window.setTimeout(() => loader.remove(), 250);
     };
-    if (document.readyState === 'complete') hideLoader();
-    else window.addEventListener('load', hideLoader, { once: true });
-    window.setTimeout(hideLoader, 2600);
+    if (document.readyState === 'loading' && !reducedMotion.matches) {
+      loader.classList.add('is-loading');
+      document.addEventListener('DOMContentLoaded', hideLoader, { once: true });
+      window.setTimeout(hideLoader, 1500);
+    } else loader.remove();
   }
 
-
-  const enableCustomCursor = () => {
-    if (!window.matchMedia('(any-pointer: fine)').matches) return;
-
-    const stylesheet = document.querySelector('link[rel="stylesheet"]');
-    const stylesheetUrl = stylesheet ? stylesheet.href : new URL('style.css', document.baseURI).href;
-    const cursorUrl = new URL('assets/ui/quill-cursor.png', stylesheetUrl).href;
-    const hoverSelector = 'a, button, summary, input, textarea, select, [role="button"], [data-plan], .floor-image, .resident-tile, .site-scrollbar, .site-scrollbar *';
-    const storageKey = 'hearth:last-pointer-position';
-
-    const installCursorNoneRule = () => {
-      let style = document.getElementById('force-native-cursor-none');
-      if (!style) {
-        style = document.createElement('style');
-        style.id = 'force-native-cursor-none';
-        document.head.prepend(style);
-      }
-      style.textContent = '@media (any-pointer: fine) { html, body, *, *::before, *::after { cursor: none !important; } }';
-    };
-
-    installCursorNoneRule();
-    document.documentElement.classList.add('custom-cursor-ready');
-
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    cursor.setAttribute('aria-hidden', 'true');
-
-    const image = new Image();
-    image.alt = '';
-    image.decoding = 'async';
-    image.draggable = false;
-    cursor.append(image);
-    document.body.append(cursor);
-
-    const targetAt = (x, y) => {
-      const target = document.elementFromPoint(x, y);
-      return target instanceof Element ? target : null;
-    };
-
-    const updateHoverState = (x, y) => {
-      cursor.classList.toggle('is-hover', Boolean(targetAt(x, y)?.closest(hoverSelector)));
-    };
-
-    const savePointer = (x, y) => {
-      try {
-        sessionStorage.setItem(storageKey, JSON.stringify({ x, y, href: location.href, t: Date.now() }));
-      } catch (_) {}
-    };
-
-    const readSavedPointer = () => {
-      try {
-        const saved = JSON.parse(sessionStorage.getItem(storageKey) || 'null');
-        if (!saved || saved.href !== location.href || Date.now() - saved.t > 10 * 60 * 1000) return null;
-        if (!Number.isFinite(saved.x) || !Number.isFinite(saved.y)) return null;
-        return {
-          x: Math.max(0, Math.min(saved.x, window.innerWidth - 1)),
-          y: Math.max(0, Math.min(saved.y, window.innerHeight - 1)),
-        };
-      } catch (_) {
-        return null;
-      }
-    };
-
-    const moveCursorTo = (clientX, clientY, remember = true) => {
-      const x = Math.max(0, Math.min(clientX, window.innerWidth - 1));
-      const y = Math.max(0, Math.min(clientY, window.innerHeight - 1));
-      cursor.style.transform = `translate3d(${x - 5}px, ${y - 4}px, 0)`;
-      cursor.classList.add('is-visible');
-      updateHoverState(x, y);
-      if (remember) savePointer(x, y);
-    };
-
-    const handlePointer = (event) => moveCursorTo(event.clientX, event.clientY, true);
-    const hideCursor = () => cursor.classList.remove('is-visible');
-
-    image.addEventListener('load', () => {
-      cursor.classList.add('has-image');
-      const saved = readSavedPointer();
-      if (saved) moveCursorTo(saved.x, saved.y, false);
-    }, { once: true });
-    image.src = cursorUrl;
-
-    window.addEventListener('pointermove', handlePointer, { passive: true });
-    window.addEventListener('mousemove', handlePointer, { passive: true });
-    window.addEventListener('pointerover', handlePointer, { passive: true });
-    window.addEventListener('mouseover', handlePointer, { passive: true });
-    window.addEventListener('pointerdown', handlePointer, { passive: true });
-    window.addEventListener('resize', installCursorNoneRule, { passive: true });
-    document.addEventListener('pointerleave', hideCursor);
-    document.addEventListener('mouseleave', hideCursor);
-    window.addEventListener('blur', hideCursor);
+  const syncEffects = () => {
+    document.body.classList.toggle('effects-paused', document.hidden ||
+      document.body.classList.contains('plan-modal-open') || reducedMotion.matches);
   };
-
-  const enableSoftRefreshShortcut = () => {
-    const softRefresh = () => {
-      document.documentElement.classList.add('soft-refreshing');
-      window.setTimeout(() => document.documentElement.classList.remove('soft-refreshing'), 650);
-      window.dispatchEvent(new CustomEvent('hearth:soft-refresh'));
-    };
-
-    window.addEventListener('keydown', (event) => {
-      const key = event.key.toLowerCase();
-      const isHardReload = event.key === 'F5' && event.ctrlKey;
-      const isReloadShortcut = event.key === 'F5' || ((event.ctrlKey || event.metaKey) && key === 'r');
-      if (isHardReload || !isReloadShortcut || event.shiftKey || event.altKey) return;
-      event.preventDefault();
-      event.stopPropagation();
-      softRefresh();
-    }, { capture: true });
-  };
-
-  enableSoftRefreshShortcut();
-
-  enableCustomCursor();
-
-
-  const enableSiteScrollbar = () => {
-    if (document.body.classList.contains('home-page')) return;
-    if (!window.matchMedia('(pointer: fine)').matches) return;
-
-    const root = document.documentElement;
-    const rail = document.createElement('div');
-    rail.className = 'site-scrollbar';
-    rail.setAttribute('aria-hidden', 'true');
-
-    const thumb = document.createElement('span');
-    thumb.className = 'site-scrollbar__thumb';
-    rail.append(thumb);
-    document.body.append(rail);
-
-    let raf = 0;
-    let dragging = false;
-    let dragOffset = 0;
-
-    const maxScroll = () => Math.max(0, root.scrollHeight - window.innerHeight);
-
-    const update = () => {
-      const max = maxScroll();
-      if (max <= 8) {
-        root.classList.remove('custom-page-scrollbar');
-        return;
-      }
-
-      root.classList.add('custom-page-scrollbar');
-      const trackHeight = rail.clientHeight;
-      const ratio = Math.min(1, window.innerHeight / root.scrollHeight);
-      const thumbHeight = Math.max(42, Math.round(trackHeight * ratio));
-      const travel = Math.max(1, trackHeight - thumbHeight);
-      const top = Math.round((window.scrollY / max) * travel);
-
-      thumb.style.height = `${thumbHeight}px`;
-      thumb.style.transform = `translate(-50%, ${top}px)`;
-    };
-
-    const scheduleUpdate = () => {
-      if (raf) return;
-      raf = window.requestAnimationFrame(() => {
-        raf = 0;
-        update();
-      });
-    };
-
-    const scrollToPointer = (clientY) => {
-      const max = maxScroll();
-      const trackHeight = rail.clientHeight;
-      const thumbHeight = thumb.offsetHeight || 42;
-      const travel = Math.max(1, trackHeight - thumbHeight);
-      const rect = rail.getBoundingClientRect();
-      const y = Math.max(0, Math.min(clientY - rect.top - dragOffset, travel));
-      window.scrollTo({ top: (y / travel) * max, behavior: 'auto' });
-    };
-
-    rail.addEventListener('pointerdown', (event) => {
-      if (maxScroll() <= 8) return;
-      event.preventDefault();
-      const thumbRect = thumb.getBoundingClientRect();
-      dragOffset = event.target === thumb ? event.clientY - thumbRect.top : thumb.offsetHeight / 2;
-      dragging = true;
-      rail.classList.add('is-dragging');
-      rail.setPointerCapture?.(event.pointerId);
-      scrollToPointer(event.clientY);
-    });
-
-    rail.addEventListener('pointermove', (event) => {
-      if (!dragging) return;
-      event.preventDefault();
-      scrollToPointer(event.clientY);
-    });
-
-    const stopDragging = (event) => {
-      if (!dragging) return;
-      dragging = false;
-      rail.classList.remove('is-dragging');
-      rail.releasePointerCapture?.(event.pointerId);
-    };
-
-    rail.addEventListener('pointerup', stopDragging);
-    rail.addEventListener('pointercancel', stopDragging);
-    window.addEventListener('scroll', scheduleUpdate, { passive: true });
-    window.addEventListener('resize', scheduleUpdate, { passive: true });
-    window.addEventListener('load', scheduleUpdate, { once: true });
-
-    if ('ResizeObserver' in window) {
-      const observer = new ResizeObserver(scheduleUpdate);
-      observer.observe(document.body);
-    }
-
-    scheduleUpdate();
-  };
-
-  enableSiteScrollbar();
-
+  document.addEventListener('visibilitychange', syncEffects);
+  reducedMotion.addEventListener('change', syncEffects);
+  syncEffects();
 
   const emberLayer = document.querySelector('.embers');
-  if (emberLayer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const emberCount = 46;
+  if (emberLayer && !reducedMotion.matches) {
+    const emberCount = sheetLayout.matches ? 28 : 16;
     const randomBetween = (min, max) => min + Math.random() * (max - min);
     const fragment = document.createDocumentFragment();
 
@@ -244,7 +38,6 @@
       ember.style.setProperty('--ember-duration', `${randomBetween(9, 24).toFixed(2)}s`);
       ember.style.setProperty('--ember-delay', `${randomBetween(-24, 0).toFixed(2)}s`);
       ember.style.setProperty('--ember-opacity', `${randomBetween(0.28, 0.82).toFixed(2)}`);
-      ember.style.setProperty('--ember-blur', `${randomBetween(0, 1.15).toFixed(2)}px`);
       ember.style.setProperty('--ember-drift-a', `${randomBetween(-38, 38).toFixed(1)}px`);
       ember.style.setProperty('--ember-drift-b', `${randomBetween(-74, 74).toFixed(1)}px`);
       ember.style.setProperty('--ember-drift-c', `${randomBetween(-116, 116).toFixed(1)}px`);
@@ -260,98 +53,87 @@
     const sheets = Array.from(document.querySelectorAll('[data-sheet]'));
     const sheetLinks = Array.from(document.querySelectorAll('[data-sheet-link]'));
     const hashToIndex = new Map([
-      ['#top', 0],
-      ['#contents', 0],
-      ['#house', 1],
-      ['#floors', 1],
-      ['#residents', 2]
+      ['#top', 0], ['#contents', 0], ['#house', 1], ['#floors', 1], ['#residents', 2]
     ]);
     let currentSheet = hashToIndex.get(window.location.hash) ?? 0;
-    let isLocked = false;
+    let lockedUntil = 0;
 
-    const setSheet = (index, options = {}) => {
+    const setSheet = (index, updateHash = true) => {
       if (!sheets.length) return;
-      const next = Math.max(0, Math.min(index, sheets.length - 1));
-      if (next === currentSheet && !options.force) return;
-      currentSheet = next;
-
+      currentSheet = Math.max(0, Math.min(index, sheets.length - 1));
       sheets.forEach((sheet, sheetIndex) => {
-        sheet.classList.toggle('is-active', sheetIndex === currentSheet);
-        sheet.setAttribute('aria-hidden', String(sheetIndex !== currentSheet));
+        const active = sheetIndex === currentSheet;
+        sheet.classList.toggle('is-active', active);
+        sheet.setAttribute('aria-hidden', String(sheetLayout.matches && !active));
+        sheet.inert = sheetLayout.matches && !active;
       });
-
       sheetLinks.forEach((link) => {
-        const linkIndex = Number(link.dataset.sheetLink);
-        link.classList.toggle('active', linkIndex === currentSheet);
+        const active = Number(link.dataset.sheetLink) === currentSheet;
+        link.classList.toggle('active', active);
+        if (active) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
       });
-
-      const activeId = sheets[currentSheet]?.id;
-      if (activeId && !options.silent) {
-        history.replaceState(null, '', `#${activeId}`);
-      }
+      if (updateHash) history.replaceState(null, '', `#${sheets[currentSheet].id}`);
+      document.dispatchEvent(new Event('hearth:sheet-change'));
     };
 
     const requestSheet = (direction) => {
-      if (isLocked || !direction) return;
+      if (performance.now() < lockedUntil) return;
       const next = currentSheet + direction;
       if (next < 0 || next >= sheets.length) return;
-      isLocked = true;
+      lockedUntil = performance.now() + (reducedMotion.matches ? 200 : 850);
       setSheet(next);
-      window.setTimeout(() => { isLocked = false; }, 850);
     };
 
     sheetLinks.forEach((link) => {
       link.addEventListener('click', (event) => {
+        // On narrow screens links are ordinary anchors and all sections scroll.
+        if (!sheetLayout.matches) return;
         event.preventDefault();
         setSheet(Number(link.dataset.sheetLink));
       });
     });
 
     window.addEventListener('wheel', (event) => {
-      if (document.body.classList.contains('plan-modal-open')) return;
+      if (!sheetLayout.matches || event.ctrlKey || event.metaKey ||
+          document.body.classList.contains('plan-modal-open') ||
+          Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
       event.preventDefault();
-      const direction = event.deltaY > 0 ? 1 : -1;
-      requestSheet(direction);
+      requestSheet(Math.sign(event.deltaY));
     }, { passive: false });
 
     window.addEventListener('keydown', (event) => {
-      if (document.body.classList.contains('plan-modal-open')) return;
+      if (!sheetLayout.matches || event.defaultPrevented || event.ctrlKey || event.metaKey ||
+          event.altKey || document.body.classList.contains('plan-modal-open') ||
+          event.target.closest('a, button, input, textarea, select, summary, [contenteditable]')) return;
       const nextKeys = ['ArrowDown', 'PageDown', 'Space'];
       const prevKeys = ['ArrowUp', 'PageUp'];
-      if (nextKeys.includes(event.code)) {
+      if (nextKeys.includes(event.code) || prevKeys.includes(event.code)) {
         event.preventDefault();
-        requestSheet(1);
-      }
-      if (prevKeys.includes(event.code)) {
-        event.preventDefault();
-        requestSheet(-1);
+        requestSheet(prevKeys.includes(event.code) || (event.code === 'Space' && event.shiftKey) ? -1 : 1);
       }
     });
 
     window.addEventListener('hashchange', () => {
-      if (hashToIndex.has(window.location.hash)) {
-        setSheet(hashToIndex.get(window.location.hash), { silent: true });
-      }
+      if (hashToIndex.has(window.location.hash)) setSheet(hashToIndex.get(window.location.hash), false);
     });
-
-    setSheet(currentSheet, { force: true, silent: true });
+    sheetLayout.addEventListener('change', () => {
+      setSheet(currentSheet, false);
+      if (sheetLayout.matches) window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+    setSheet(currentSheet, false);
   } else {
     const revealItems = document.querySelectorAll('.reveal');
-    if (revealItems.length) {
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.12 });
-        revealItems.forEach((item) => observer.observe(item));
-      } else {
-        revealItems.forEach((item) => item.classList.add('is-visible'));
-      }
-    }
+    if (revealItems.length && 'IntersectionObserver' in window && !reducedMotion.matches) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach((item) => observer.observe(item));
+    } else revealItems.forEach((item) => item.classList.add('is-visible'));
   }
 
   const quizOptions = document.querySelectorAll('[data-points]');
@@ -411,84 +193,118 @@
   if (floorCarousel) {
     const slides = Array.from(floorCarousel.querySelectorAll('[data-floor-slide]'));
     const dots = Array.from(floorCarousel.querySelectorAll('[data-floor-dot]'));
+    const sheet = floorCarousel.closest('[data-sheet]');
     let currentFloor = Math.max(0, slides.findIndex((slide) => slide.classList.contains('is-active')));
-    let floorTimer = null;
+    let floorTimer;
+    let inView = false;
+    let hovered = false;
 
     const showFloor = (index) => {
       if (!slides.length) return;
       currentFloor = (index + slides.length) % slides.length;
       slides.forEach((slide, slideIndex) => {
-        slide.classList.toggle('is-active', slideIndex === currentFloor);
+        const active = slideIndex === currentFloor;
+        slide.classList.toggle('is-active', active);
+        slide.setAttribute('aria-hidden', String(!active));
+        slide.inert = !active;
       });
       dots.forEach((dot, dotIndex) => {
-        dot.classList.toggle('is-active', dotIndex === currentFloor);
-        dot.setAttribute('aria-pressed', String(dotIndex === currentFloor));
+        const active = dotIndex === currentFloor;
+        dot.classList.toggle('is-active', active);
+        dot.setAttribute('aria-pressed', String(active));
       });
     };
 
-    const startFloorAuto = () => {
-      window.clearInterval(floorTimer);
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      floorTimer = window.setInterval(() => showFloor(currentFloor + 1), 5200);
+    const scheduleFloor = () => {
+      window.clearTimeout(floorTimer);
+      if (!inView || document.hidden || reducedMotion.matches || hovered ||
+          floorCarousel.contains(document.activeElement) ||
+          document.body.classList.contains('plan-modal-open') ||
+          (sheetLayout.matches && sheet && !sheet.classList.contains('is-active'))) return;
+      floorTimer = window.setTimeout(() => {
+        showFloor(currentFloor + 1);
+        scheduleFloor();
+      }, 5200);
     };
 
     dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        showFloor(index);
-        startFloorAuto();
-      });
+      dot.addEventListener('click', () => { showFloor(index); scheduleFloor(); });
     });
-
-    floorCarousel.addEventListener('mouseenter', () => window.clearInterval(floorTimer));
-    floorCarousel.addEventListener('mouseleave', startFloorAuto);
+    floorCarousel.addEventListener('pointerenter', (event) => {
+      if (event.pointerType === 'touch') return;
+      hovered = true;
+      scheduleFloor();
+    });
+    floorCarousel.addEventListener('pointerleave', () => { hovered = false; scheduleFloor(); });
+    floorCarousel.addEventListener('focusin', scheduleFloor);
+    floorCarousel.addEventListener('focusout', () => window.requestAnimationFrame(scheduleFloor));
+    document.addEventListener('visibilitychange', scheduleFloor);
+    document.addEventListener('hearth:sheet-change', scheduleFloor);
+    document.addEventListener('hearth:viewer-change', scheduleFloor);
+    reducedMotion.addEventListener('change', scheduleFloor);
+    sheetLayout.addEventListener('change', scheduleFloor);
     showFloor(currentFloor);
-    startFloorAuto();
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {
+        inView = entry.isIntersecting;
+        scheduleFloor();
+      }).observe(floorCarousel);
+    } else { inView = true; scheduleFloor(); }
   }
 
   const planModal = document.querySelector('#plan-modal');
   const planModalImage = document.querySelector('#plan-modal-image');
-  const planModalClose = document.querySelector('.plan-modal-close');
-  const planButtons = document.querySelectorAll('[data-plan]');
-  let lastFocusedPlanButton = null;
+  if (planModal && planModalImage) {
+    const closeButton = planModal.querySelector('.plan-modal-close');
+    const originalLink = planModal.querySelector('.plan-modal-original');
+    const status = planModal.querySelector('.plan-modal-status');
+    let trigger = null;
 
-  function closePlanModal() {
-    if (!planModal || !planModalImage || planModal.hidden) return;
-    planModal.hidden = true;
-    planModalImage.removeAttribute('src');
-    planModalImage.alt = '';
-    document.body.classList.remove('plan-modal-open');
-    if (lastFocusedPlanButton) lastFocusedPlanButton.focus({ preventScroll: true });
-  }
-
-  planButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      if (!planModal || !planModalImage) return;
-      lastFocusedPlanButton = button;
-      planModalImage.src = button.dataset.plan;
-      planModalImage.alt = button.dataset.title || 'Чертёж этажа';
-      planModal.hidden = false;
-      document.body.classList.add('plan-modal-open');
-      if (planModalClose) planModalClose.focus({ preventScroll: true });
+    const viewerChanged = () => {
+      syncEffects();
+      document.dispatchEvent(new Event('hearth:viewer-change'));
+    };
+    document.querySelectorAll('[data-plan]').forEach((button) => {
+      button.addEventListener('click', () => {
+        trigger = button;
+        const title = button.dataset.title || 'Изображение';
+        status.textContent = 'Загружаем изображение…';
+        status.hidden = false;
+        planModalImage.hidden = true;
+        planModalImage.alt = title;
+        planModal.setAttribute('aria-label', title);
+        originalLink.href = button.dataset.plan;
+        planModalImage.src = button.dataset.plan;
+        planModal.showModal();
+        document.body.classList.add('plan-modal-open');
+        closeButton.focus({ preventScroll: true });
+        viewerChanged();
+      });
     });
-  });
-
-  if (planModal) {
+    planModalImage.addEventListener('load', () => {
+      planModalImage.hidden = false;
+      status.hidden = true;
+    });
+    planModalImage.addEventListener('error', () => {
+      status.textContent = 'Не удалось загрузить изображение. Попробуйте открыть оригинал.';
+      status.hidden = false;
+    });
+    closeButton.addEventListener('click', () => planModal.close());
+    planModalImage.addEventListener('click', () => planModal.close());
     planModal.addEventListener('click', (event) => {
-      if (event.target === planModal) closePlanModal();
+      if (event.target === planModal) planModal.close();
+    });
+    // Escape uses the dialog's built-in cancel/close behavior and focus trap.
+    planModal.addEventListener('close', () => {
+      document.body.classList.remove('plan-modal-open');
+      planModalImage.removeAttribute('src');
+      planModalImage.alt = '';
+      originalLink.removeAttribute('href');
+      status.hidden = true;
+      if (trigger?.isConnected) trigger.focus({ preventScroll: true });
+      viewerChanged();
     });
   }
-
-  if (planModalImage) {
-    planModalImage.addEventListener('click', closePlanModal);
-  }
-
-  if (planModalClose) {
-    planModalClose.addEventListener('click', closePlanModal);
-  }
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closePlanModal();
-  });
 
   const dossierBlocks = document.querySelectorAll('[data-dossier-tabs]');
   dossierBlocks.forEach((block) => {
@@ -501,6 +317,7 @@
         const isActive = tab.dataset.dossierTab === panelId;
         tab.classList.toggle('is-active', isActive);
         tab.setAttribute('aria-selected', String(isActive));
+        tab.tabIndex = isActive ? 0 : -1;
       });
       panels.forEach((panel) => {
         const isActive = panel.id === panelId;
@@ -509,9 +326,20 @@
       });
     };
 
-    tabs.forEach((tab) => {
+    tabs.forEach((tab, index) => {
       tab.addEventListener('click', () => activatePanel(tab.dataset.dossierTab));
+      tab.addEventListener('keydown', (event) => {
+        const direction = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
+        let next;
+        if (direction) next = (index + direction + tabs.length) % tabs.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        activatePanel(tabs[next].dataset.dossierTab);
+        tabs[next].focus({ preventScroll: true });
+      });
     });
+    activatePanel((tabs.find((tab) => tab.classList.contains('is-active')) || tabs[0]).dataset.dossierTab);
   });
-
 })();

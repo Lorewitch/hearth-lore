@@ -1,17 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru" class="custom-page-scrollbar">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="preload" href="../../assets/ui/quill-cursor.png" as="image" type="image/png" fetchpriority="high" />
-  <style id="instant-custom-cursor">
-    /* Critical first-paint rule: hide the browser cursor as early as CSS allows.
-       Note: a browser reload can still keep showing the old OS cursor until the first real pointer event. */
-    @media (any-pointer: fine) {
-      html, body, *, *::before, *::after { cursor: none !important; }
-    }
-  </style>
   <title>Элиан Морель — Тайная библиотека Лунны</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" />
   <link rel="stylesheet" href="../../style.css" />
 </head>
 <body class="character-page">
@@ -35,7 +30,7 @@
     <a class="back-link" href="../../#residents">← К обитателям дома</a>
     <div class="wiki-grid">
       <aside class="wiki-card pinned">
-        <div class="wiki-portrait"><img src="../../assets/portraits/elian.webp" alt="Портрет Элиан Морель" loading="lazy" /></div>
+        <div class="wiki-portrait"><img src="../../assets/portraits/elian.webp" alt="Портрет Элиан Морель" loading="eager" width="1280" height="960" decoding="async" srcset="../../assets/thumbnails/portraits/elian-480.webp 480w, ../../assets/portraits/elian.webp 1280w" sizes="(max-width: 920px) calc(100vw - 2rem), 320px" /></div>
         <h1 class="page-title">Элиан Морель</h1>
         <span class="role">библиотекарша “Мягкого корешка”</span>
         <div class="fact-list"><div class="fact"><strong>Полное имя</strong><span>Элиан Морель</span></div>
