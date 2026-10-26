@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" />
-  <link rel="stylesheet" href="../../style.css" />
+  <link rel="stylesheet" href="../../style.css?v=20261026-2" />
 </head>
 <body class="character-page">
 <div class="library-loader" aria-hidden="true">
@@ -30,7 +30,7 @@
     <a class="back-link" href="../../#residents">← К обитателям дома</a>
     <div class="wiki-grid">
       <aside class="wiki-card pinned">
-        <div class="wiki-portrait"><img src="../../assets/portraits/elian.webp" alt="Портрет Элиан Морель" loading="eager" width="1280" height="960" decoding="async" srcset="../../assets/thumbnails/portraits/elian-480.webp 480w, ../../assets/portraits/elian.webp 1280w" sizes="(max-width: 920px) calc(100vw - 2rem), 320px" /></div>
+        <div class="wiki-portrait"><a class="image-zoom" href="../../assets/portraits/elian.webp" data-plan="../../assets/portraits/elian.webp" data-title="Портрет Элиан Морель" aria-label="Открыть изображение: Портрет Элиан Морель"><img src="../../assets/portraits/elian.webp" alt="Портрет Элиан Морель" loading="eager" width="1280" height="960" decoding="async" srcset="../../assets/thumbnails/portraits/elian-480.webp 480w, ../../assets/portraits/elian.webp 1280w" sizes="(max-width: 920px) calc(100vw - 2rem), 320px" /></a></div>
         <h1 class="page-title">Элиан Морель</h1>
         <span class="role">библиотекарша “Мягкого корешка”</span>
         <div class="fact-list"><div class="fact"><strong>Полное имя</strong><span>Элиан Морель</span></div>
@@ -52,6 +52,12 @@
     </div>
   </section>
 </main>
-<script src="../../script.js"></script>
+<dialog class="plan-modal" id="plan-modal" aria-label="Просмотр изображения">
+  <button class="plan-modal-close" type="button" aria-label="Закрыть изображение">×</button>
+  <img id="plan-modal-image" alt="" decoding="async" />
+  <p class="plan-modal-status" role="status" hidden></p>
+  <a class="plan-modal-original" target="_blank" rel="noopener">Открыть оригинал ↗</a>
+</dialog>
+<script src="../../script.js?v=20261026-2"></script>
 </body>
 </html>

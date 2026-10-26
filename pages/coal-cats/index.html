@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" />
-  <link rel="stylesheet" href="../../style.css" />
+  <link rel="stylesheet" href="../../style.css?v=20261026-2" />
 </head>
 <body class="character-page">
 <div class="library-loader" aria-hidden="true">
@@ -30,7 +30,7 @@
     <a class="back-link" href="../../#residents">← К обитателям дома</a>
     <div class="wiki-grid">
       <aside class="wiki-card pinned">
-        <div class="wiki-portrait"><img src="../../assets/portraits/coal-cats.webp" alt="Угольные котики" loading="eager" width="1448" height="1086" decoding="async" srcset="../../assets/thumbnails/portraits/coal-cats-480.webp 480w, ../../assets/portraits/coal-cats.webp 1448w" sizes="(max-width: 920px) calc(100vw - 2rem), 320px" /></div>
+        <div class="wiki-portrait"><a class="image-zoom" href="../../assets/portraits/coal-cats.webp" data-plan="../../assets/portraits/coal-cats.webp" data-title="Угольные котики" aria-label="Открыть изображение: Угольные котики"><img src="../../assets/portraits/coal-cats.webp" alt="Угольные котики" loading="eager" width="1448" height="1086" decoding="async" srcset="../../assets/thumbnails/portraits/coal-cats-480.webp 480w, ../../assets/portraits/coal-cats.webp 1448w" sizes="(max-width: 920px) calc(100vw - 2rem), 320px" /></a></div>
         <h1 class="page-title">Угольные котики</h1>
         <span class="role">элементальные обитатели Очага</span>
         <div class="fact-list"><div class="fact"><strong>Полное имя</strong><span>Угольные котики</span></div>
@@ -40,7 +40,7 @@
 <div class="fact"><strong>Элемент</strong><span>Пиро, Гидро, Анемо, Дендро, Электро, Крио, Гео и Бездна</span></div></div></aside>
       <article class="wiki-card">
         <p class="eyebrow">страница обитателя</p>
-        <div class="wiki-photo"><img src="../../assets/portraits/coal-cats.webp" alt="Группа угольных котиков" loading="eager" width="1448" height="1086" decoding="async" srcset="../../assets/thumbnails/portraits/coal-cats-480.webp 480w, ../../assets/portraits/coal-cats.webp 1448w" sizes="(max-width: 920px) calc(100vw - 2rem), 320px" /></div>
+        <div class="wiki-photo"><a class="image-zoom" href="../../assets/portraits/coal-cats.webp" data-plan="../../assets/portraits/coal-cats.webp" data-title="Группа угольных котиков" aria-label="Открыть изображение: Группа угольных котиков"><img src="../../assets/portraits/coal-cats.webp" alt="Группа угольных котиков" loading="eager" width="1448" height="1086" decoding="async" srcset="../../assets/thumbnails/portraits/coal-cats-480.webp 480w, ../../assets/portraits/coal-cats.webp 1448w" sizes="(max-width: 920px) calc(100vw - 2rem), 320px" /></a></div>
         <p>Угольные котики появились физически из золы, углей и прогоревшей древесины, когда камин слишком долго оставался наполненным элементальной древесиной.</p>
 <p>Каждый котик уникален: у него свой характер, предпочтения и цвет пламени. Они маленькие, разумные и подозрительно компетентные в вопросах правок.</p>
 <p>Подписка на Очаг символически считается маленьким перерождением зрителя в угольного котика с выбранным элементом.</p>
@@ -53,6 +53,12 @@
     </div>
   </section>
 </main>
-<script src="../../script.js"></script>
+<dialog class="plan-modal" id="plan-modal" aria-label="Просмотр изображения">
+  <button class="plan-modal-close" type="button" aria-label="Закрыть изображение">×</button>
+  <img id="plan-modal-image" alt="" decoding="async" />
+  <p class="plan-modal-status" role="status" hidden></p>
+  <a class="plan-modal-original" target="_blank" rel="noopener">Открыть оригинал ↗</a>
+</dialog>
+<script src="../../script.js?v=20261026-2"></script>
 </body>
 </html>

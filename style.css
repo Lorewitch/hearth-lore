@@ -25,14 +25,29 @@
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 
-/* The browser draws the quill independently of page rendering. */
+/* Native cursors remain visible on every descendant and in the image viewer. */
 a, button, summary, [role="button"], [data-plan] { cursor: pointer; }
 
 @media (pointer: fine) {
-  html { cursor: url('assets/ui/quill-default.png') 4 3, auto; }
-  a, button, summary, [role="button"], [data-plan], .plan-modal img {
-    cursor: url('assets/ui/quill-hover.png') 5 4, pointer;
+  html, body { cursor: url('assets/ui/quill-default.png') 4 3, auto !important; }
+  body *, body *::before, body *::after { cursor: inherit !important; }
+  body a, body button, body summary, body [role="button"], body [data-plan] {
+    cursor: url('assets/ui/quill-hover.png') 5 4, pointer !important;
   }
+  body .plan-modal img {
+    cursor: url('assets/ui/quill-hover.png') 5 4, zoom-out !important;
+  }
+  body textarea, body input[type="text"], body [contenteditable="true"] {
+    cursor: text !important;
+  }
+}
+
+.image-zoom {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
 }
 
 html {

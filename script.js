@@ -265,7 +265,9 @@
       document.dispatchEvent(new Event('hearth:viewer-change'));
     };
     document.querySelectorAll('[data-plan]').forEach((button) => {
-      button.addEventListener('click', () => {
+      button.addEventListener('click', (event) => {
+        if (button.matches('a') && (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)) return;
+        event.preventDefault();
         trigger = button;
         const title = button.dataset.title || 'Изображение';
         status.textContent = 'Загружаем изображение…';
